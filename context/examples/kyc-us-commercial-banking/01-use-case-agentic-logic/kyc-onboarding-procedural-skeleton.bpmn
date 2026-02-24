@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_KycProceduralSkeleton" targetNamespace="http://demo-builder.example/kyc/bpmn">
+  <bpmn:process id="Process_KycOnboardingProcedural" name="KYC Onboarding Procedural Skeleton" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_Automation" name="Automation Lane">
+        <bpmn:flowNodeRef>StartEvent_CaseSubmitted</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ExtractFields</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ValidateCompleteness</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_ScreeningHit</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_FinalizeApproved</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RequestMoreInfo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Approved</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_PendingInfo</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Analyst" name="Analyst Lane">
+        <bpmn:flowNodeRef>Task_ReviewerAdjudication</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_DecisionApproved</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+
+    <bpmn:startEvent id="StartEvent_CaseSubmitted" name="Case Submitted">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_ExtractFields" name="Extract KYC Fields">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_ValidateCompleteness" name="Validate Completeness">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:exclusiveGateway id="Gateway_ScreeningHit" name="Screening Hit?">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:userTask id="Task_ReviewerAdjudication" name="Reviewer Adjudication">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:exclusiveGateway id="Gateway_DecisionApproved" name="Decision Approved?">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:serviceTask id="Task_FinalizeApproved" name="Finalize Approved Case">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_RequestMoreInfo" name="Request Additional Information">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="EndEvent_Approved" name="Approved">
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:endEvent id="EndEvent_PendingInfo" name="PendingInfo">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_CaseSubmitted" targetRef="Task_ExtractFields" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_ExtractFields" targetRef="Task_ValidateCompleteness" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_ValidateCompleteness" targetRef="Gateway_ScreeningHit" />
+    <bpmn:sequenceFlow id="Flow_4" name="Yes" sourceRef="Gateway_ScreeningHit" targetRef="Task_ReviewerAdjudication" />
+    <bpmn:sequenceFlow id="Flow_5" name="No" sourceRef="Gateway_ScreeningHit" targetRef="Task_FinalizeApproved" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_ReviewerAdjudication" targetRef="Gateway_DecisionApproved" />
+    <bpmn:sequenceFlow id="Flow_7" name="Yes" sourceRef="Gateway_DecisionApproved" targetRef="Task_FinalizeApproved" />
+    <bpmn:sequenceFlow id="Flow_8" name="No" sourceRef="Gateway_DecisionApproved" targetRef="Task_RequestMoreInfo" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_FinalizeApproved" targetRef="EndEvent_Approved" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="Task_RequestMoreInfo" targetRef="EndEvent_PendingInfo" />
+  </bpmn:process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_KycProceduralSkeleton">
+    <bpmndi:BPMNPlane id="BPMNPlane_KycProceduralSkeleton" bpmnElement="Process_KycOnboardingProcedural">
+      <bpmndi:BPMNShape id="Lane_Automation_di" bpmnElement="Lane_Automation" isHorizontal="true">
+        <dc:Bounds x="100" y="60" width="1160" height="170" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Analyst_di" bpmnElement="Lane_Analyst" isHorizontal="true">
+        <dc:Bounds x="100" y="230" width="1160" height="170" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="StartEvent_CaseSubmitted_di" bpmnElement="StartEvent_CaseSubmitted">
+        <dc:Bounds x="120" y="127" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ExtractFields_di" bpmnElement="Task_ExtractFields">
+        <dc:Bounds x="200" y="105" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ValidateCompleteness_di" bpmnElement="Task_ValidateCompleteness">
+        <dc:Bounds x="380" y="105" width="140" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_ScreeningHit_di" bpmnElement="Gateway_ScreeningHit" isMarkerVisible="true">
+        <dc:Bounds x="560" y="120" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReviewerAdjudication_di" bpmnElement="Task_ReviewerAdjudication">
+        <dc:Bounds x="680" y="270" width="170" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_DecisionApproved_di" bpmnElement="Gateway_DecisionApproved" isMarkerVisible="true">
+        <dc:Bounds x="900" y="285" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_FinalizeApproved_di" bpmnElement="Task_FinalizeApproved">
+        <dc:Bounds x="980" y="90" width="170" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RequestMoreInfo_di" bpmnElement="Task_RequestMoreInfo">
+        <dc:Bounds x="980" y="150" width="170" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Approved_di" bpmnElement="EndEvent_Approved">
+        <dc:Bounds x="1200" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_PendingInfo_di" bpmnElement="EndEvent_PendingInfo">
+        <dc:Bounds x="1200" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="156" y="145" />
+        <di:waypoint x="200" y="145" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="340" y="145" />
+        <di:waypoint x="380" y="145" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="520" y="145" />
+        <di:waypoint x="560" y="145" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="610" y="145" />
+        <di:waypoint x="645" y="145" />
+        <di:waypoint x="645" y="310" />
+        <di:waypoint x="680" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="610" y="145" />
+        <di:waypoint x="795" y="145" />
+        <di:waypoint x="795" y="130" />
+        <di:waypoint x="980" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="850" y="310" />
+        <di:waypoint x="900" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="950" y="310" />
+        <di:waypoint x="965" y="310" />
+        <di:waypoint x="965" y="130" />
+        <di:waypoint x="980" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="950" y="310" />
+        <di:waypoint x="965" y="310" />
+        <di:waypoint x="965" y="190" />
+        <di:waypoint x="980" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="1150" y="130" />
+        <di:waypoint x="1200" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="1150" y="190" />
+        <di:waypoint x="1200" y="190" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

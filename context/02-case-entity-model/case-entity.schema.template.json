@@ -1,0 +1,184 @@
+{
+  "name": "<EntityName>",
+  "displayName": "<Entity_Display_Name>",
+  "entityTypeId": 0,
+  "entityType": "Entity",
+  "description": "A single <business object> record used by Maestro orchestration and demo UX.",
+  "folderId": "00000000-0000-0000-0000-000000000000",
+  "fields": [
+    {
+      "name": "<businessid>",
+      "isPrimaryKey": false,
+      "isForeignKey": false,
+      "isExternalField": false,
+      "isHiddenField": false,
+      "fieldCategoryId": 0,
+      "isUnique": true,
+      "referenceType": "ManyToOne",
+      "sqlType": {
+        "name": "NVARCHAR",
+        "lengthLimit": 64
+      },
+      "isRequired": true,
+      "isEncrypted": false,
+      "displayName": "<business_id>",
+      "description": "Unique business identifier for the case record.",
+      "isSystemField": false,
+      "isAttachment": false,
+      "isRbacEnabled": false,
+      "isModelReserved": false
+    },
+    {
+      "name": "<stagefield>",
+      "isPrimaryKey": false,
+      "isForeignKey": false,
+      "isExternalField": false,
+      "isHiddenField": false,
+      "fieldCategoryId": 0,
+      "isUnique": false,
+      "referenceType": "ManyToOne",
+      "sqlType": {
+        "name": "NVARCHAR",
+        "lengthLimit": 32
+      },
+      "isRequired": true,
+      "isEncrypted": false,
+      "displayName": "<stage>",
+      "description": "Current workflow stage/state.",
+      "isSystemField": false,
+      "isAttachment": false,
+      "isRbacEnabled": false,
+      "isModelReserved": false
+    },
+    {
+      "name": "<receivedtimestamp>",
+      "isPrimaryKey": false,
+      "isForeignKey": false,
+      "isExternalField": false,
+      "isHiddenField": false,
+      "fieldCategoryId": 0,
+      "isUnique": false,
+      "referenceType": "ManyToOne",
+      "sqlType": {
+        "name": "DATETIMEOFFSET",
+        "lengthLimit": 1000
+      },
+      "isRequired": false,
+      "isEncrypted": false,
+      "displayName": "<date_received>",
+      "description": "Timestamp when the record entered the workflow.",
+      "isSystemField": false,
+      "isAttachment": false,
+      "isRbacEnabled": false,
+      "isModelReserved": false
+    },
+    {
+      "name": "<jsonpayloadfield>",
+      "isPrimaryKey": false,
+      "isForeignKey": false,
+      "isExternalField": false,
+      "isHiddenField": false,
+      "fieldCategoryId": 0,
+      "isUnique": false,
+      "referenceType": "ManyToOne",
+      "sqlType": {
+        "name": "MULTILINE",
+        "lengthLimit": 10000
+      },
+      "isRequired": false,
+      "isEncrypted": false,
+      "displayName": "<json_payload>",
+      "description": "Serialized JSON payload for nested details.",
+      "isSystemField": false,
+      "isAttachment": false,
+      "isRbacEnabled": false,
+      "isModelReserved": false
+    },
+    {
+      "name": "<numericmetric>",
+      "isPrimaryKey": false,
+      "isForeignKey": false,
+      "isExternalField": false,
+      "isHiddenField": false,
+      "fieldCategoryId": 0,
+      "isUnique": false,
+      "referenceType": "ManyToOne",
+      "sqlType": {
+        "name": "DECIMAL",
+        "lengthLimit": 1000,
+        "maxValue": 1000000,
+        "minValue": 0,
+        "decimalPrecision": 2
+      },
+      "isRequired": false,
+      "isEncrypted": false,
+      "displayName": "<numeric_metric>",
+      "description": "Numeric metric used by routing, eligibility, or scoring logic.",
+      "isSystemField": false,
+      "isAttachment": false,
+      "isRbacEnabled": false,
+      "isModelReserved": false
+    },
+    {
+      "name": "<relatedentityfield>",
+      "isPrimaryKey": false,
+      "isForeignKey": true,
+      "isExternalField": false,
+      "isHiddenField": false,
+      "fieldCategoryId": 0,
+      "isUnique": false,
+      "referenceEntity": {
+        "name": "<RelatedEntityName>",
+        "displayName": "<Related_Entity_Display_Name>",
+        "entityTypeId": 0,
+        "entityType": "Entity",
+        "folderId": "00000000-0000-0000-0000-000000000000",
+        "isRbacEnabled": false,
+        "invalidIdentifiers": [],
+        "isModelReserved": false
+      },
+      "referenceField": {
+        "definition": {
+          "id": "<ReferenceFieldId>",
+          "name": "<relatedentitybusinessid>",
+          "isPrimaryKey": false,
+          "isForeignKey": false,
+          "isExternalField": false,
+          "isHiddenField": false,
+          "fieldCategoryId": 0,
+          "isUnique": false,
+          "referenceType": "ManyToOne",
+          "sqlType": {
+            "name": "NVARCHAR",
+            "lengthLimit": 200
+          },
+          "isRequired": false,
+          "isEncrypted": false,
+          "displayName": "<related_entity_business_id>",
+          "isSystemField": false,
+          "isAttachment": false,
+          "isRbacEnabled": false,
+          "isModelReserved": false
+        }
+      },
+      "referenceType": "ManyToOne",
+      "sqlType": {
+        "name": "UNIQUEIDENTIFIER",
+        "lengthLimit": 300
+      },
+      "isRequired": false,
+      "isEncrypted": false,
+      "displayName": "<related_entity>",
+      "description": "Foreign-key link to a parent/grouping entity.",
+      "isSystemField": false,
+      "fieldDisplayType": "Relationship",
+      "isAttachment": false,
+      "isRbacEnabled": false,
+      "isModelReserved": false
+    }
+  ],
+  "recordCount": 0,
+  "isRbacEnabled": false,
+  "invalidIdentifiers": [],
+  "isModelReserved": false
+}

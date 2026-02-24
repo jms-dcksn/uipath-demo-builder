@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:uipath="http://uipath.org/schema/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="sample-diagram" targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="UiPath Studio Web (https://uipath.com)" exporterVersion="45d22852">
+  <bpmn:process id="Process_1" name="Process 1739242853484" isExecutable="false">
+    <bpmn:extensionElements>
+      <uipath:variables version="v1">
+        <uipath:input id="vbvfr4sRU" name="subjectFilter" type="string" elementId="Event_start" default="ACH" />
+        <uipath:inputOutput id="voObtWs8i" name="AdditionalInstructions" type="string" elementId="Activity_anabjd" canonicalId="additionalInstructions" />
+        <uipath:inputOutput id="vWlka8Maa" name="Action" type="string" elementId="Activity_anabjd" canonicalId="action" />
+        <uipath:inputOutput id="vEw8LfgJt" name="License_BusinessName" type="string" elementId="Activity_GDPGVY" canonicalId="licenseBusinessName" />
+        <uipath:inputOutput id="vgfmLH5a0" name="License_BusinessAddress" type="string" elementId="Activity_GDPGVY" canonicalId="licenseBusinessAddress" />
+        <uipath:inputOutput id="vcGocxjfy" name="License_IssueDate" type="string" elementId="Activity_GDPGVY" canonicalId="licenseIssueDate" />
+        <uipath:inputOutput id="v5VzuO19T" name="LicenseType" type="string" elementId="Activity_GDPGVY" canonicalId="licenseType" />
+        <uipath:inputOutput id="v7UTKBo0B" name="CertBusinessName" type="string" elementId="Activity_GDPGVY" canonicalId="certBusinessName" />
+        <uipath:inputOutput id="vfX07yJ3J" name="Error" type="jsonSchema" elementId="Activity_GDPGVY" canonicalId="error"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vywdLzAME" name="Error" type="jsonSchema" elementId="Activity_1j8W74" canonicalId="error2"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vMvXHtAJu" name="caseType" type="string" elementId="Activity_1j8W74" canonicalId="caseType" />
+        <uipath:inputOutput id="vmX7GWn2d" name="caseEntities" type="object" elementId="Activity_1j8W74" canonicalId="caseEntities" />
+        <uipath:inputOutput id="v0gB3Gvwj" name="sfAccountId" type="string" elementId="Activity_1j8W74" canonicalId="sfAccountId" />
+        <uipath:inputOutput id="vjK5o2nAb" name="emailSubject" type="string" elementId="Activity_1j8W74" canonicalId="emailSubject" />
+        <uipath:inputOutput id="v0KivxvIm" name="emailBody" type="string" elementId="Activity_1j8W74" canonicalId="emailBody" />
+        <uipath:inputOutput id="vrvehOck3" name="Error" type="jsonSchema" elementId="Activity_f3P7Bb" canonicalId="error3"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="v8YGwvm5g" name="main_topic" type="string" elementId="Activity_f3P7Bb" canonicalId="mainTopic" />
+        <uipath:inputOutput id="vCKdhfkD6" name="category" type="string" elementId="Activity_f3P7Bb" canonicalId="category" />
+        <uipath:inputOutput id="vcGsFiECa" name="key_points" type="array" subType="string" elementId="Activity_f3P7Bb" canonicalId="keyPoints" />
+        <uipath:inputOutput id="v8Oyi9xeT" name="suggested_resolution" type="string" elementId="Activity_f3P7Bb" canonicalId="suggestedResolution" />
+        <uipath:inputOutput id="vw8ZnNu4V" name="additional_notes" type="string" elementId="Activity_f3P7Bb" canonicalId="additionalNotes" />
+        <uipath:inputOutput id="vynyWkEVs" name="process_manually" type="boolean" elementId="Activity_f3P7Bb" canonicalId="processManually" />
+        <uipath:inputOutput id="veeTpx5fM" name="ts" type="string" elementId="Event_kQU7Zg" canonicalId="ts" />
+        <uipath:inputOutput id="vnlwgIcxW" name="response" type="jsonSchema" elementId="Event_kQU7Zg" canonicalId="response"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"message":{"title":"Message","$ref":"#/definitions/message"},"blocks[*]":{"title":"Blocks","type":"array","items":{"$ref":"#/definitions/blocks[*]"}},"channel":{"title":"User","type":"string","description":"User"},"root":{"title":"Root","$ref":"#/definitions/root"},"app_id":{"title":"App ID","type":"string"},"thread_ts":{"title":"Message timestamp","type":"string","description":"The ID (timestamp) of the message sent"},"icons":{"title":"Icons","$ref":"#/definitions/icons"},"response_metadata":{"title":"Response metadata","$ref":"#/definitions/response_metadata"},"metadata":{"title":"Metadata","$ref":"#/definitions/metadata"},"ts":{"title":"Message timestamp","type":"string","description":"The ID (timestamp) of the message sent"},"subtype":{"title":"Subtype","type":"string"},"ok":{"title":"Ok","type":"boolean"},"username":{"title":"Bot name","type":"string","description":"Bot name"}},"definitions":{"message":{"type":"object","properties":{"blocks[*]":{"title":"Blocks","type":"array","items":{"$ref":"#/definitions/messageBlocks[*]"}},"bot_profile":{"title":"Bot profile","$ref":"#/definitions/messageBot_profile"},"root":{"title":"Root","$ref":"#/definitions/messageRoot"},"text":{"title":"Message text","type":"string"},"attachments[*]":{"title":"Attachments","type":"array","items":{"$ref":"#/definitions/messageAttachments[*]"}},"thread_ts":{"title":"Message thread ts","type":"string"},"icons":{"title":"Icons","$ref":"#/definitions/messageIcons"},"username":{"title":"Message username","type":"string"},"metadata":{"title":"Metadata","$ref":"#/definitions/messageMetadata"},"team":{"title":"Team","type":"string"},"type":{"title":"Message type","type":"string"},"subtype":{"title":"Message subtype","type":"string"},"bot_id":{"title":"Bot ID","type":"string"},"app_id":{"title":"Message app ID","type":"string"},"user":{"title":"User","type":"string"},"ts":{"title":"Message ts","type":"string"}}},"messageBlocks[*]":{"type":"object","properties":{"text":{"title":"Text","$ref":"#/definitions/messageBlocks[*]Text"},"type":{"title":"Message blocks type","type":"string"},"block_id":{"title":"Message blocks block ID","type":"string"}}},"messageBlocks[*]Text":{"type":"object","properties":{"type":{"title":"Message blocks text type","type":"string"},"text":{"title":"Message blocks text","type":"string"},"emoji":{"title":"Message blocks text emoji","type":"boolean"}}},"blocks[*]":{"type":"object","properties":{"text":{"title":"Text","$ref":"#/definitions/blocks[*]Text"},"block_id":{"title":"Blocks block ID","type":"string"},"type":{"title":"Blocks type","type":"string"}}},"blocks[*]Text":{"type":"object","properties":{"text":{"title":"Blocks text text","type":"string"},"type":{"title":"Type","type":"string"},"emoji":{"title":"Blocks text emoji","type":"boolean"}}},"messageBot_profile":{"type":"object","properties":{"team_id":{"title":"Team ID","type":"string"},"icons":{"title":"Icons","$ref":"#/definitions/messageBot_profileIcons"},"name":{"title":"Message bot profile name","type":"string"},"updated":{"title":"Updated","type":"integer"},"app_id":{"title":"Application ID","type":"string"},"deleted":{"title":"Deleted","type":"boolean"},"id":{"title":"Message bot profile ID","type":"string"}}},"messageRoot":{"type":"object","properties":{"reply_users[*]":{"title":"Message root reply users","type":"array","items":{"type":"string"}},"blocks[*]":{"title":"Blocks","type":"array","items":{"$ref":"#/definitions/messageRootBlocks[*]"}},"subtype":{"title":"Message root subtype","type":"string"},"reply_users_count":{"title":"Message root reply users count","type":"integer"},"username":{"title":"Message root username","type":"string"},"bot_id":{"title":"Message root bot ID","type":"string"},"app_id":{"title":"Message root app ID","type":"string"},"latest_reply":{"title":"Message root latest reply","type":"string"},"type":{"title":"Message root type","type":"string"},"ts":{"title":"Message root ts","type":"string"},"subscribed":{"title":"Message root subscribed","type":"boolean"},"text":{"title":"Message root text","type":"string"},"reply_count":{"title":"Message root reply count","type":"integer"},"is_locked":{"title":"Message root is locked","type":"boolean"},"icons":{"title":"Icons","$ref":"#/definitions/messageRootIcons"},"thread_ts":{"title":"Message root thread ts","type":"string"},"metadata":{"title":"Metadata","$ref":"#/definitions/messageRootMetadata"}}},"messageAttachments[*]":{"type":"object","properties":{"actions[*]":{"title":"Actions","type":"array","items":{"$ref":"#/definitions/messageAttachments[*]Actions[*]"}},"id":{"title":"Id","type":"integer"},"color":{"title":"Message attachments color","type":"string"},"text":{"title":"Message attachments text","type":"string"},"fallback":{"title":"Fall back","type":"string"},"callback_id":{"title":"Call back ID","type":"string"}}},"messageAttachments[*]Actions[*]":{"type":"object","properties":{"name":{"title":"Name","type":"string"},"confirm":{"title":"Confirm","$ref":"#/definitions/messageAttachments[*]Actions[*]Confirm"},"style":{"title":"Style","type":"string"},"id":{"title":"Message attachments actions ID","type":"string"},"value":{"title":"Value","type":"string"},"type":{"title":"Message attachments actions type","type":"string"},"text":{"title":"Message attachments actions text","type":"string"}}},"messageRootBlocks[*]":{"type":"object","properties":{"block_id":{"title":"Message root blocks block ID","type":"string"},"elements[*]":{"title":"Elements","type":"array","items":{"$ref":"#/definitions/messageRootBlocks[*]Elements[*]"}},"type":{"title":"Message root blocks type","type":"string"}}},"root":{"type":"object","properties":{"text":{"title":"Root text","type":"string"},"is_locked":{"title":"Root is locked","type":"boolean"},"app_id":{"title":"Root app ID","type":"string"},"username":{"title":"Root username","type":"string"},"subtype":{"title":"Root subtype","type":"string"},"reply_users_count":{"title":"Root reply users count","type":"integer"},"latest_reply":{"title":"Root latest reply","type":"string"},"ts":{"title":"Root ts","type":"string"},"bot_id":{"title":"Root bot ID","type":"string"},"type":{"title":"Root type","type":"string"},"subscribed":{"title":"Root subscribed","type":"boolean"},"blocks[*]":{"title":"Blocks","type":"array","items":{"$ref":"#/definitions/rootBlocks[*]"}},"reply_users[*]":{"title":"Root reply users","type":"array","items":{"type":"string"}},"thread_ts":{"title":"Root thread ts","type":"string"},"reply_count":{"title":"Root reply count","type":"integer"},"icons":{"title":"Icons","$ref":"#/definitions/rootIcons"},"metadata":{"title":"Metadata","$ref":"#/definitions/rootMetadata"}}},"messageAttachments[*]Actions[*]Confirm":{"type":"object","properties":{"title":{"title":"Title","type":"string"},"ok_text":{"title":"Ok text","type":"string"},"dismiss_text":{"title":"Dismiss text","type":"string"},"text":{"title":"Message attachments actions confirm text","type":"string"}}},"messageRootBlocks[*]Elements[*]":{"type":"object","properties":{"type":{"title":"Message root blocks elements type","type":"string"},"elements[*]":{"title":"Elements","type":"array","items":{"$ref":"#/definitions/messageRootBlocks[*]Elements[*]Elements[*]"}}}},"messageIcons":{"type":"object","properties":{"emoji":{"title":"Message icons emoji","type":"string"}}},"messageMetadata":{"type":"object","properties":{"event_payload":{"title":"Event payload","$ref":"#/definitions/messageMetadataEvent_payload"},"event_type":{"title":"Message metadata event type","type":"string"}}},"messageMetadataEvent_payload":{"type":"object","properties":{"title":{"title":"Message metadata event payload title","type":"string"},"id":{"title":"Message metadata event payload ID","type":"string"}}},"icons":{"type":"object","properties":{"emoji":{"title":"Icons emoji","type":"string"}}},"messageBot_profileIcons":{"type":"object","properties":{"image_48":{"title":"Image 4 8","type":"string"},"image_36":{"title":"Image 3 6","type":"string"},"image_72":{"title":"Image 7 2","type":"string"}}},"response_metadata":{"type":"object","properties":{"warnings[*]":{"title":"Response metadata warnings","type":"array","items":{"type":"string"}}}},"metadata":{"type":"object","properties":{"event_type":{"title":"Metadata event type","type":"string"},"event_payload":{"title":"Event payload","$ref":"#/definitions/metadataEvent_payload"}}},"rootBlocks[*]":{"type":"object","properties":{"block_id":{"title":"Root blocks block ID","type":"string"},"elements[*]":{"title":"Elements","type":"array","items":{"$ref":"#/definitions/rootBlocks[*]Elements[*]"}},"type":{"title":"Root blocks type","type":"string"}}},"rootBlocks[*]Elements[*]":{"type":"object","properties":{"type":{"title":"Root blocks elements type","type":"string"},"elements[*]":{"title":"Elements","type":"array","items":{"$ref":"#/definitions/rootBlocks[*]Elements[*]Elements[*]"}}}},"metadataEvent_payload":{"type":"object","properties":{"title":{"title":"Metadata event payload title","type":"string"},"id":{"title":"Metadata event payload ID","type":"string"}}},"messageRootIcons":{"type":"object","properties":{"emoji":{"title":"Message root icons emoji","type":"string"}}},"rootIcons":{"type":"object","properties":{"emoji":{"title":"Root icons emoji","type":"string"}}},"rootMetadata":{"type":"object","properties":{"event_type":{"title":"Root metadata event type","type":"string"}}},"messageRootBlocks[*]Elements[*]Elements[*]":{"type":"object","properties":{"text":{"title":"Message root blocks elements text","type":"string"},"type":{"title":"Message root blocks elements elements type","type":"string"}}},"rootBlocks[*]Elements[*]Elements[*]":{"type":"object","properties":{"type":{"title":"Root blocks elements elements type","type":"string"},"text":{"title":"Root blocks elements text","type":"string"}}},"messageRootMetadata":{"type":"object","properties":{"event_type":{"title":"Message root metadata event type","type":"string"}}}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vrAAlvvky" name="subjectFilter" type="string" elementId="Event_start" canonicalId="subjectFilter" />
+        <uipath:inputOutput id="v10qeEOTq" name="Error" type="jsonSchema" elementId="Activity_PiSeDK" canonicalId="error4"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vwEYkLqMW" name="resolution_plan" type="jsonSchema" subType="string" elementId="Activity_PiSeDK" canonicalId="resolutionPlan"><![CDATA[{"type":"array","description":"An ordered list of steps to resolve the case","items":{"type":"string"},"$schema":"http://json-schema.org/draft-07/schema#"}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vwKcgsY1y" name="relevant_sops" type="jsonSchema" subType="string" elementId="Activity_PiSeDK" canonicalId="relevantSops"><![CDATA[{"type":"array","description":"List of relevant SOPs consulted","items":{"type":"string"},"$schema":"http://json-schema.org/draft-07/schema#"}]]></uipath:inputOutput>
+        <uipath:inputOutput id="v84XYSS3L" name="return_code" type="string" elementId="Activity_PiSeDK" canonicalId="returnCode" />
+        <uipath:inputOutput id="vD08aDvS4" name="communication_instructions" type="string" elementId="Activity_PiSeDK" canonicalId="communicationInstructions" />
+        <uipath:inputOutput id="v6tMjeklQ" name="customer_resolution_recommendations" type="jsonSchema" subType="string" elementId="Activity_PiSeDK" canonicalId="customerResolutionRecommendations"><![CDATA[{"type":"array","description":"This is output from your research  agent tool. Simply note down and output the same.","items":{"type":"string"},"$schema":"http://json-schema.org/draft-07/schema#"}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vOgMKe7iQ" name="internal_recommendations" type="jsonSchema" subType="string" elementId="Activity_PiSeDK" canonicalId="internalRecommendations"><![CDATA[{"type":"array","description":"These are internal recommendations to help avoid these cases in the future and is output from your research  agent tool. Simply note down and output the same.","items":{"type":"string"},"$schema":"http://json-schema.org/draft-07/schema#"}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vtGostxzY" name="Id" type="string" elementId="Activity_5jxJQu" canonicalId="id2" />
+        <uipath:inputOutput id="vu9jKcaKc" name="response" type="jsonSchema" elementId="Activity_5jxJQu" canonicalId="response3"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"Origin":{"title":"Case origin","type":"string","description":"Case Origin"},"PotentialLiability__c":{"title":"Potential liability","type":"string","description":"Potential Liability"},"LastModifiedDate":{"title":"Last modified date","type":"string","description":"Last Modified Date"},"AccountId":{"title":"Account ID","type":"string","description":"Account ID"},"Wound_Sizes__c":{"title":"Wound sizes","type":"string","description":"Wound Sizes"},"Practice_Name__c":{"title":"Practice name","type":"string","description":"Practice Name"},"Patient_Name__c":{"title":"Patient name","type":"string","description":"Patient Name"},"CreatedById":{"title":"Created by ID","type":"string","description":"Created By ID"},"Provider_NPI__c":{"title":"Provider npi","type":"string","description":"Provider NPI"},"SuppliedName":{"title":"Name","type":"string","description":"Name"},"SuppliedPhone":{"title":"Phone","type":"string","description":"Phone"},"Product__c":{"title":"Product","type":"string","description":"Product"},"MasterRecordId":{"title":"Master record ID","type":"string","description":"Master Record ID"},"ContactMobile":{"title":"Contact mobile","type":"string","description":"Contact Mobile"},"Provider_Name__c":{"title":"Provider name","type":"string","description":"Provider Name"},"Status":{"title":"Status","type":"string","description":"Status"},"IsDeleted":{"title":"Deleted","type":"boolean","description":"Deleted"},"Graft_Application__c":{"title":"Graft application","type":"string","description":"Graft Application"},"Priority":{"title":"Priority","type":"string","description":"Priority"},"LastViewedDate":{"title":"Last viewed date","type":"string","description":"Last Viewed Date"},"Secondary_Member_ID__c":{"title":"Secondary member ID","type":"string","description":"Secondary Member ID"},"IsEscalated":{"title":"Escalated","type":"boolean","description":"Escalated"},"CreatedDate":{"title":"Created date","type":"string","description":"Created Date"},"Patient_DOB__c":{"title":"Patient dob","type":"string","description":"Patient DOB"},"Secondary_Insurance__c":{"title":"Secondary insurance","type":"string","description":"Secondary Insurance"},"Id":{"title":"Case ID","type":"string","description":"Case ID"},"AssetId":{"title":"Asset ID","type":"string","description":"Asset ID"},"Practice_Contact__c":{"title":"Practice contact","type":"string","description":"Practice Contact"},"Description":{"title":"Description","type":"string","description":"Description"},"SuppliedCompany":{"title":"Company","type":"string","description":"Company"},"ServiceNow_ID__c":{"title":"Service now ID","type":"string","description":"ServiceNow ID"},"SourceId":{"title":"Case source ID","type":"string","description":"Case Source ID"},"Primary_Member_ID__c":{"title":"Primary member ID","type":"string","description":"Primary Member ID"},"LastReferencedDate":{"title":"Last referenced date","type":"string","description":"Last Referenced Date"},"ContactId":{"title":"Contact ID","type":"string","description":"Contact ID"},"IsClosed":{"title":"Closed","type":"boolean","description":"Closed"},"Reason":{"title":"Case reason","type":"string","description":"Case Reason"},"ContactPhone":{"title":"Contact phone","type":"string","description":"Contact Phone"},"SuppliedEmail":{"title":"Email address","type":"string","description":"Email Address"},"Practice_Phone__c":{"title":"Practice phone","type":"string","description":"Practice Phone"},"Primary_Insurance__c":{"title":"Primary insurance","type":"string","description":"Primary Insurance"},"Diagnosis_Codes__c":{"title":"Diagnosis codes","type":"string","description":"Diagnosis Codes"},"OwnerId":{"title":"Owner ID","type":"string","description":"Owner ID"},"CaseNumber":{"title":"Case number","type":"string","description":"Case Number"},"ContactFax":{"title":"Contact fax","type":"string","description":"Contact Fax"},"Practice_Email__c":{"title":"Practice email","type":"string","description":"Practice Email"},"ParentId":{"title":"Parent case ID","type":"string","description":"Parent Case ID"},"Comments":{"title":"Internal comments","type":"string","description":"Internal Comments"},"Subject":{"title":"Subject","type":"string","description":"Subject"},"Owner_Full_Name__c":{"title":"Owner full name","type":"string","description":"Owner Full Name"},"SystemModstamp":{"title":"System modstamp","type":"string","description":"System Modstamp"},"Type":{"title":"Case type","type":"string","description":"Case Type"},"SLAViolation__c":{"title":"Sla violation","type":"string","description":"SLA Violation"},"EngineeringReqNumber__c":{"title":"Engineering req number","type":"string","description":"Engineering Req Number"},"ContactEmail":{"title":"Contact email","type":"string","description":"Contact Email"},"ClosedDate":{"title":"Closed date","type":"string","description":"Closed Date"},"LastModifiedById":{"title":"Last modified by ID","type":"string","description":"Last Modified By ID"}},"definitions":{}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vsAOSWJ9L" name="Id" type="string" elementId="Activity_lCYbMp" canonicalId="id3" />
+        <uipath:inputOutput id="vJj4UWACR" name="response" type="jsonSchema" elementId="Activity_lCYbMp" canonicalId="response4"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"Origin":{"title":"Case origin","type":"string","description":"Case Origin"},"PotentialLiability__c":{"title":"Potential liability","type":"string","description":"Potential Liability"},"LastModifiedDate":{"title":"Last modified date","type":"string","description":"Last Modified Date"},"AccountId":{"title":"Account ID","type":"string","description":"Account ID"},"Wound_Sizes__c":{"title":"Wound sizes","type":"string","description":"Wound Sizes"},"Practice_Name__c":{"title":"Practice name","type":"string","description":"Practice Name"},"Patient_Name__c":{"title":"Patient name","type":"string","description":"Patient Name"},"CreatedById":{"title":"Created by ID","type":"string","description":"Created By ID"},"Provider_NPI__c":{"title":"Provider npi","type":"string","description":"Provider NPI"},"SuppliedName":{"title":"Name","type":"string","description":"Name"},"SuppliedPhone":{"title":"Phone","type":"string","description":"Phone"},"Product__c":{"title":"Product","type":"string","description":"Product"},"MasterRecordId":{"title":"Master record ID","type":"string","description":"Master Record ID"},"ContactMobile":{"title":"Contact mobile","type":"string","description":"Contact Mobile"},"Provider_Name__c":{"title":"Provider name","type":"string","description":"Provider Name"},"Status":{"title":"Status","type":"string","description":"Status"},"IsDeleted":{"title":"Deleted","type":"boolean","description":"Deleted"},"Graft_Application__c":{"title":"Graft application","type":"string","description":"Graft Application"},"Priority":{"title":"Priority","type":"string","description":"Priority"},"LastViewedDate":{"title":"Last viewed date","type":"string","description":"Last Viewed Date"},"Secondary_Member_ID__c":{"title":"Secondary member ID","type":"string","description":"Secondary Member ID"},"IsEscalated":{"title":"Escalated","type":"boolean","description":"Escalated"},"CreatedDate":{"title":"Created date","type":"string","description":"Created Date"},"Patient_DOB__c":{"title":"Patient dob","type":"string","description":"Patient DOB"},"Secondary_Insurance__c":{"title":"Secondary insurance","type":"string","description":"Secondary Insurance"},"Id":{"title":"Case ID","type":"string","description":"Case ID"},"AssetId":{"title":"Asset ID","type":"string","description":"Asset ID"},"Practice_Contact__c":{"title":"Practice contact","type":"string","description":"Practice Contact"},"Description":{"title":"Description","type":"string","description":"Description"},"SuppliedCompany":{"title":"Company","type":"string","description":"Company"},"ServiceNow_ID__c":{"title":"Service now ID","type":"string","description":"ServiceNow ID"},"SourceId":{"title":"Case source ID","type":"string","description":"Case Source ID"},"Primary_Member_ID__c":{"title":"Primary member ID","type":"string","description":"Primary Member ID"},"LastReferencedDate":{"title":"Last referenced date","type":"string","description":"Last Referenced Date"},"ContactId":{"title":"Contact ID","type":"string","description":"Contact ID"},"IsClosed":{"title":"Closed","type":"boolean","description":"Closed"},"Reason":{"title":"Case reason","type":"string","description":"Case Reason"},"ContactPhone":{"title":"Contact phone","type":"string","description":"Contact Phone"},"SuppliedEmail":{"title":"Email address","type":"string","description":"Email Address"},"Practice_Phone__c":{"title":"Practice phone","type":"string","description":"Practice Phone"},"Primary_Insurance__c":{"title":"Primary insurance","type":"string","description":"Primary Insurance"},"Diagnosis_Codes__c":{"title":"Diagnosis codes","type":"string","description":"Diagnosis Codes"},"OwnerId":{"title":"Owner ID","type":"string","description":"Owner ID"},"CaseNumber":{"title":"Case number","type":"string","description":"Case Number"},"ContactFax":{"title":"Contact fax","type":"string","description":"Contact Fax"},"Practice_Email__c":{"title":"Practice email","type":"string","description":"Practice Email"},"ParentId":{"title":"Parent case ID","type":"string","description":"Parent Case ID"},"Comments":{"title":"Internal comments","type":"string","description":"Internal Comments"},"Subject":{"title":"Subject","type":"string","description":"Subject"},"Owner_Full_Name__c":{"title":"Owner full name","type":"string","description":"Owner Full Name"},"SystemModstamp":{"title":"System modstamp","type":"string","description":"System Modstamp"},"Type":{"title":"Case type","type":"string","description":"Case Type"},"SLAViolation__c":{"title":"Sla violation","type":"string","description":"SLA Violation"},"EngineeringReqNumber__c":{"title":"Engineering req number","type":"string","description":"Engineering Req Number"},"ContactEmail":{"title":"Contact email","type":"string","description":"Contact Email"},"ClosedDate":{"title":"Closed date","type":"string","description":"Closed Date"},"LastModifiedById":{"title":"Last modified by ID","type":"string","description":"Last Modified By ID"}},"definitions":{}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vYPq76s5k" name="Error" type="jsonSchema" elementId="Activity_B85mzt" canonicalId="error5"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vbJDiMMfl" name="topic" type="string" elementId="Activity_B85mzt" canonicalId="topic" />
+        <uipath:inputOutput id="vuIcg3RDA" name="recipient" type="string" elementId="Activity_B85mzt" canonicalId="recipient" />
+        <uipath:inputOutput id="vT9IlFq3z" name="signoffName" type="string" elementId="Activity_B85mzt" canonicalId="signoffName" />
+        <uipath:inputOutput id="vv0gBJX5X" name="email" type="string" elementId="Activity_B85mzt" canonicalId="email" />
+        <uipath:inputOutput id="vJPxP6BwW" name="grader_score" type="number" elementId="Activity_B85mzt" canonicalId="graderScore" />
+        <uipath:inputOutput id="vtEC2Wdny" name="Response" type="string" elementId="Activity_hkN6Xo" canonicalId="response6" />
+        <uipath:inputOutput id="v6vnM8glm" name="Email" type="string" elementId="Activity_hkN6Xo" canonicalId="email2" />
+        <uipath:inputOutput id="v45zujAsm" name="Action" type="string" elementId="Activity_hkN6Xo" canonicalId="action2" />
+        <uipath:inputOutput id="vAnhrV4vD" name="Error" type="jsonSchema" elementId="Activity_hkN6Xo" canonicalId="error6"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="vETVanziU" name="scriptResponse" type="jsonSchema" elementId="Activity_v6DvKj" canonicalId="scriptResponse"><![CDATA[{"type":"object","properties":{"resolutionPlan":"","internalRecommendations":"","customerResolutionRecommendations":""},"$schema":"http://json-schema.org/draft-07/schema#"}]]></uipath:inputOutput>
+        <uipath:inputOutput id="v4HZeh74o" name="Error" type="jsonSchema" elementId="Activity_v6DvKj" canonicalId="error7"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="contentpartstext" name="content.parts[*].text" type="string" elementId="Activity_vfdEFe" />
+        <uipath:inputOutput id="response7" name="response" type="jsonSchema" elementId="Activity_vfdEFe"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"usage_metadata":{"title":"Usage metadata","$ref":"#/definitions/usage_metadata"},"content":{"title":"Content","$ref":"#/definitions/content"},"author":{"title":"Author","type":"string","description":"The name of the person who created the content."},"invocation_id":{"title":"Invocation ID","type":"string","description":"A unique identifier for each API call instance."},"session_id":{"title":"Session ID","type":"string","description":"Session id"},"message":{"title":"Message","type":"string","description":"Message"},"user_id":{"title":"User ID","type":"string","description":"User id"},"id":{"title":"Agent identifier","type":"string","description":"A unique identifier for the agent."},"run_config":{"title":"Run config","type":"string","description":"Run config"},"timestamp":{"title":"Action timestamp","type":"number","description":"The date and time when the action was performed."}},"definitions":{"usage_metadata":{"type":"object","properties":{"prompt_tokens_details[*]":{"title":"Prompt tokens details","type":"array","items":{"$ref":"#/definitions/usage_metadataPrompt_tokens_details[*]"}},"candidates_tokens_details[*]":{"title":"Candidates tokens details","type":"array","items":{"$ref":"#/definitions/usage_metadataCandidates_tokens_details[*]"}},"candidates_token_count":{"title":"Candidates token count","type":"integer","description":"The number of tokens considered for candidate responses."},"traffic_type":{"title":"Traffic type","type":"string","description":"The category of traffic for the API request."},"prompt_token_count":{"title":"Prompt token count","type":"integer","description":"Shows the number of tokens used in the prompt."},"total_token_count":{"title":"Total token count","type":"integer","description":"Displays the total number of tokens used."},"thoughts_token_count":{"title":"Thoughts token count","type":"integer","description":"The number of tokens used in the thoughts process."}}},"usage_metadataPrompt_tokens_details[*]":{"type":"object","properties":{"token_count":{"title":"Prompt token count","type":"integer","description":"The number of tokens used in the prompt."},"modality":{"title":"Prompt tokens modality","type":"string","description":"The type of input modality for each prompt token."}}},"content":{"type":"object","properties":{"parts[*]":{"title":"Parts","type":"array","items":{"$ref":"#/definitions/contentParts[*]"}},"role":{"title":"Content role","type":"string","description":"Specifies the role associated with the content."}}},"contentParts[*]":{"type":"object","properties":{"text":{"title":"Content text","type":"string","description":"The text content of each part in the response."}}},"usage_metadataCandidates_tokens_details[*]":{"type":"object","properties":{"token_count":{"title":"Candidate token count","type":"integer","description":"The number of tokens used in candidate responses."},"modality":{"title":"Candidates tokens modality","type":"string","description":"The type of modality used for candidate tokens."}}}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="v2uinmWqC" name="response" type="jsonSchema" elementId="Activity_33SO9w" canonicalId="response5"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"status":{"title":"Status","type":"string"}},"definitions":{}}]]></uipath:inputOutput>
+      </uipath:variables>
+      <uipath:bindings version="v1">
+        <uipath:binding id="bTsQ1nFcb" name="uipath-salesforce-sfdc connection" type="string" elementId="Activity_5jxJQu" default="fde064f5-b058-4f9a-9bf1-38059d2e3b2f" resource="Connection" resourceKey="fde064f5-b058-4f9a-9bf1-38059d2e3b2f" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bBtqOPGh8" name="releaseKey" type="string" default="90903B47-D6FE-4681-923A-5A4213D7D614" resource="process" resourceKey="90903B47-D6FE-4681-923A-5A4213D7D614" propertyAttribute="Key" />
+        <uipath:binding id="bxw6XYIjV" name="releaseKey" type="string" default="AC4B5986-4149-47E2-B29C-EF76B71691FD" resource="process" resourceKey="AC4B5986-4149-47E2-B29C-EF76B71691FD" propertyAttribute="Key" />
+        <uipath:binding id="bkg3fp2hJ" name="releaseKey" type="string" default="D2F94705-1768-4C8B-9088-FD845261C53B" resource="process" resourceKey="D2F94705-1768-4C8B-9088-FD845261C53B" propertyAttribute="Key" />
+        <uipath:binding id="bazS7e9OO" name="releaseKey" type="string" default="F71677B5-6077-4AEC-A237-3B02D41C24E7" resource="process" resourceKey="F71677B5-6077-4AEC-A237-3B02D41C24E7" propertyAttribute="Key" />
+        <uipath:binding id="bR5JSMTjp" name="releaseKey" type="string" default="54C2EE62-6FFD-4591-8B38-223171ACD5D0" resource="process" resourceKey="54C2EE62-6FFD-4591-8B38-223171ACD5D0" propertyAttribute="Key" />
+        <uipath:binding id="bdIKXxpuW" name="releaseKey" type="string" default="EA9D6C71-686D-4FFC-B89E-0FE7A3E94647" resource="process" resourceKey="EA9D6C71-686D-4FFC-B89E-0FE7A3E94647" propertyAttribute="Key" />
+        <uipath:binding id="bi3mhVLY2" name="releaseKey" type="string" default="5FE87146-56E5-46A4-A6A0-3B89E1EA0300" resource="process" resourceKey="5FE87146-56E5-46A4-A6A0-3B89E1EA0300" propertyAttribute="Key" />
+        <uipath:binding id="bBmaQHocD" name="releaseKey" type="string" default="B97B69E5-B7A9-4D98-AB18-E34F82EB3695" resource="process" resourceKey="B97B69E5-B7A9-4D98-AB18-E34F82EB3695" propertyAttribute="Key" />
+        <uipath:binding id="baRQDCHo7" name="FolderKey" type="string" default="98e3034a-11c5-4b39-a858-5792174acfba" resource="Connection" resourceKey="fde064f5-b058-4f9a-9bf1-38059d2e3b2f" propertyAttribute="folderKey" />
+        <uipath:binding id="bFvCSgTiq" name="uipath-salesforce-sfdc connection" type="string" default="0be8cd29-bd4c-4f11-b343-70f50f6b8f25" resource="Connection" resourceKey="0be8cd29-bd4c-4f11-b343-70f50f6b8f25" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bZugwkYLq" name="FolderKey" type="string" default="973d5e7c-e87c-4da9-83c0-d1033f53253a" resource="Connection" resourceKey="0be8cd29-bd4c-4f11-b343-70f50f6b8f25" propertyAttribute="folderKey" />
+        <uipath:binding id="bpFdFpbF4" name="folderPath" type="string" default="Shared" resource="process" resourceSubType="Agent" resourceKey="Shared.ACH-Payment-Research-Agent-demo-version" propertyAttribute="folderPath" />
+        <uipath:binding id="bwk8VAx7B" name="name" type="string" default="ACH-Payment-Research-Agent-demo-version" resource="process" resourceSubType="Agent" resourceKey="Shared.ACH-Payment-Research-Agent-demo-version" propertyAttribute="name" />
+        <uipath:binding id="bhDfxQhOK" name="name" type="string" default="Treasury.Classify.Email" resource="process" resourceKey="Shared.Treasury.Classify.Email" propertyAttribute="name" />
+        <uipath:binding id="bn6iYnRkJ" name="uipath-crewai-crewai connection" type="string" default="0b43add9-cdd9-426f-beda-a9da2082d944" resource="Connection" resourceKey="0b43add9-cdd9-426f-beda-a9da2082d944" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bvdWTNuvE" name="FolderKey" type="string" default="9d8d8643-984a-4393-82c5-080cb643c689" resource="Connection" resourceKey="0b43add9-cdd9-426f-beda-a9da2082d944" propertyAttribute="folderKey" />
+        <uipath:binding id="bEEbgLLOV" name="name" type="string" default="Treasury-Operations-ACH-Payment-Research-Agent" resource="process" resourceSubType="Agent" resourceKey="Shared.Treasury-Operations-ACH-Payment-Research-PolicyAnalyst" propertyAttribute="name" />
+        <uipath:binding id="bHa28ZyA9" name="folderPath" type="string" default="FINS SE/Treasury" resource="process" resourceSubType="Agent" resourceKey="FINS SE/Treasury.Treasury-Operations-ACH-Payment-Research-PolicyAnalyst" propertyAttribute="folderPath" />
+        <uipath:binding id="bjmFkTOZn" name="folderPath" type="string" default="Solution Folder" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.langgraph-react-agent" propertyAttribute="folderPath" />
+        <uipath:binding id="bDztx9vHz" name="name" type="string" default="langgraph-react-agent" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.langgraph-react-agent" propertyAttribute="name" />
+        <uipath:binding id="bDjOO0UqV" name="folderPath" type="string" default="Shared" resource="process" resourceSubType="Agent" resourceKey="Shared.Treasury-Operations-ACH-Payment-Research-PolicyAnalyst" propertyAttribute="folderPath" />
+        <uipath:binding id="bEv4bdscX" name="folderPath" type="string" default="Solution Folder" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.ACH Payment Research PolicyAnalyst" propertyAttribute="folderPath" />
+        <uipath:binding id="bFwoFbWcV" name="name" type="string" default="ACH Payment Research Agent" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.ACH Payment Research PolicyAnalyst" propertyAttribute="name" />
+        <uipath:binding id="b3nE9RmjQ" name="FolderKey" type="string" default="17f90dc0-ee1e-4273-b87a-83a7923a9aed" resource="Connection" resourceKey="6a21b25a-b99f-49b0-b252-a88c40100f25" propertyAttribute="folderKey" />
+        <uipath:binding id="bOW06x541" name="folderPath" type="string" default="Solution Folder" resource="process" resourceKey="Solution Folder.EmailClassifierLLMFlow" propertyAttribute="folderPath" />
+        <uipath:binding id="bIVFzN4JL" name="name" type="string" default="EmailClassifierLLMFlow" resource="process" resourceKey="Solution Folder.EmailClassifierLLMFlow" propertyAttribute="name" />
+        <uipath:binding id="bsYfg7hbr" name="uipath-salesforce-sfdc connection" type="string" default="e80727a3-013a-48f8-acef-46d4c8ce9aff" resource="Connection" resourceKey="e80727a3-013a-48f8-acef-46d4c8ce9aff" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bsBL5ZwKy" name="FolderKey" type="string" default="e072bd13-1c37-4125-a891-fde9bf3d7311" resource="Connection" resourceKey="e80727a3-013a-48f8-acef-46d4c8ce9aff" propertyAttribute="folderKey" />
+        <uipath:binding id="bCjwKhfIN" name="uipath-uipath-dataservice connection" type="string" default="07dd8820-fd9e-454d-a491-eb37ed81de6d" resource="Connection" resourceKey="07dd8820-fd9e-454d-a491-eb37ed81de6d" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bqZj47IXK" name="folderPath" type="string" default="Solution Folder" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.ACH Case Process Manager" propertyAttribute="folderPath" />
+        <uipath:binding id="bSULmmA3j" name="name" type="string" default="ACH Case Process Manager" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.ACH Case Process Manager" propertyAttribute="name" />
+        <uipath:binding id="bC8IKbXEL" name="folderPath" type="string" default="Solution Folder" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.General Inquiry Assessor" propertyAttribute="folderPath" />
+        <uipath:binding id="bG2yPu20E" name="name" type="string" default="General Inquiry Assessor" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.General Inquiry Assessor" propertyAttribute="name" />
+        <uipath:binding id="btcBz8W4w" name="folderPath" type="string" default="Solution Folder" resource="app" resourceKey="Solution Folder.Treasury Operations - ACH Payment Research Agent Email Review" propertyAttribute="folderPath" />
+        <uipath:binding id="bszCDtRA8" name="name" type="string" default="Treasury Operations - ACH Payment Research Agent Email Review" resource="app" resourceKey="Solution Folder.Treasury Operations - ACH Payment Research Agent Email Review" propertyAttribute="name" />
+        <uipath:binding id="bvEsKFT1e" name="folderPath" type="string" default="Solution Folder" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.email-writer-agent" propertyAttribute="folderPath" />
+        <uipath:binding id="bFbDr5jfb" name="name" type="string" default="email-writer-agent" resource="process" resourceSubType="Agent" resourceKey="Solution Folder.email-writer-agent" propertyAttribute="name" />
+        <uipath:binding id="bvezG2jK0" name="uipath-microsoft-outlook365 connection" type="string" default="6ceaefdd-c68d-4753-a691-d115334f04a6" resource="Connection" resourceKey="6ceaefdd-c68d-4753-a691-d115334f04a6" propertyAttribute="ConnectionId" />
+        <uipath:binding id="byDIeZ9bP" name="folderPath" type="string" default="Solution Folder" resource="app" resourceKey="Solution Folder.ClaimsHITL" propertyAttribute="folderPath" />
+        <uipath:binding id="bwVxX4afv" name="name" type="string" default="ClaimsHITL" resource="app" resourceKey="Solution Folder.ClaimsHITL" propertyAttribute="name" />
+        <uipath:binding id="b9hrPCSwZ" name="uipath-salesforce-slack connection" type="string" default="8b77067e-411d-492e-ac8a-1d047235be23" resource="Connection" resourceKey="8b77067e-411d-492e-ac8a-1d047235be23" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bYY2tiS3R" name="FolderKey" type="string" default="b62f59ea-d352-4cd8-ac31-95249c1dd3eb" resource="Connection" resourceKey="8b77067e-411d-492e-ac8a-1d047235be23" propertyAttribute="folderKey" />
+        <uipath:binding id="bBnKkaytA" name="uipath-salesforce-slack connection" type="string" default="22c4915f-4bf0-4cb9-a782-75859b9c2422" resource="Connection" resourceKey="22c4915f-4bf0-4cb9-a782-75859b9c2422" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bPA5GVkmA" name="uipath-crewai-crewai connection" type="string" default="3c560125-db02-4716-aad1-78bb83d60feb" resource="Connection" resourceKey="3c560125-db02-4716-aad1-78bb83d60feb" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bHzbr2Sqg" name="FolderKey" type="string" default="68b4fac1-db1d-42e9-855c-55b7b7c7a15b" resource="Connection" resourceKey="3c560125-db02-4716-aad1-78bb83d60feb" propertyAttribute="folderKey" />
+        <uipath:binding id="biGqEQm6z" name="folderPath" type="string" resource="process" resourceKey="RPA Workflow" propertyAttribute="folderPath" />
+        <uipath:binding id="bHFzqQpWB" name="name" type="string" default="RPA Workflow" resource="process" resourceKey="RPA Workflow" propertyAttribute="name" />
+        <uipath:binding id="bqRjkKYxH" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Loan Eligibility Agent 2.0" propertyAttribute="folderPath" />
+        <uipath:binding id="bQMhMP8oO" name="name" type="string" default="Loan Eligibility Agent 2.0" resource="process" resourceSubType="Agent" resourceKey="Loan Eligibility Agent 2.0" propertyAttribute="name" />
+        <uipath:binding id="bMEvyNaLl" name="folderPath" type="string" resource="process" resourceKey="Get Action Center Tasks" propertyAttribute="folderPath" />
+        <uipath:binding id="bkYWam8pB" name="name" type="string" default="Get Action Center Tasks" resource="process" resourceKey="Get Action Center Tasks" propertyAttribute="name" />
+        <uipath:binding id="b6xZ6Z9Fk" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Loan Eligibility Agent 2.0" propertyAttribute="folderPath" />
+        <uipath:binding id="bi0iSGWXZ" name="folderPath" type="string" resource="app" resourceKey="ClaimsHITL" propertyAttribute="folderPath" />
+        <uipath:binding id="bVPnJcYLZ" name="name" type="string" default="ClaimsHITL" resource="app" resourceKey="ClaimsHITL" propertyAttribute="name" />
+        <uipath:binding id="bQyHj7cGJ" name="FolderKey" type="string" default="e072bd13-1c37-4125-a891-fde9bf3d7311" resource="Connection" resourceKey="6ceaefdd-c68d-4753-a691-d115334f04a6" propertyAttribute="folderKey" />
+        <uipath:binding id="bhaqxcUVY" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="email-writer-agent" propertyAttribute="folderPath" />
+        <uipath:binding id="bfwsnmWAN" name="name" type="string" default="email-writer-agent" resource="process" resourceSubType="Agent" resourceKey="email-writer-agent" propertyAttribute="name" />
+        <uipath:binding id="bfW6ju5Lh" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="email-writer-agent" propertyAttribute="folderPath" />
+        <uipath:binding id="blS7GZIsY" name="uipath-crewai-crewai connection" type="string" default="a2d2cff5-2dcf-4bbf-9f3d-cf5ee5c466e8" resource="Connection" resourceKey="a2d2cff5-2dcf-4bbf-9f3d-cf5ee5c466e8" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bZgj2fXLm" name="FolderKey" type="string" default="c4b087fe-c9c7-4b49-94d1-5d8f98995e2c" resource="Connection" resourceKey="a2d2cff5-2dcf-4bbf-9f3d-cf5ee5c466e8" propertyAttribute="folderKey" />
+        <uipath:binding id="bc1C3dauC" name="uipath-crewai-crewai connection" type="string" default="401d80a4-8c49-4d7a-973e-6eddac1d5706" resource="Connection" resourceKey="401d80a4-8c49-4d7a-973e-6eddac1d5706" propertyAttribute="ConnectionId" />
+        <uipath:binding id="buMs4vmwh" name="FolderKey" type="string" default="e072bd13-1c37-4125-a891-fde9bf3d7311" resource="Connection" resourceKey="401d80a4-8c49-4d7a-973e-6eddac1d5706" propertyAttribute="folderKey" />
+        <uipath:binding id="bsZ2hQuaU" name="uipath-google-vertex connection" type="string" default="6dce200b-d8f9-4b24-a0f7-2a1e91fbc0cf" resource="Connection" resourceKey="6dce200b-d8f9-4b24-a0f7-2a1e91fbc0cf" propertyAttribute="ConnectionId" />
+        <uipath:binding id="byMoB9ewu" name="FolderKey" type="string" default="e072bd13-1c37-4125-a891-fde9bf3d7311" resource="Connection" resourceKey="6dce200b-d8f9-4b24-a0f7-2a1e91fbc0cf" propertyAttribute="folderKey" />
+        <uipath:binding id="bZrXKFxJ5" name="uipath-google-vertex connection" type="string" default="f3344e9b-04be-450e-9cda-2e3d58a86fd9" resource="Connection" resourceKey="f3344e9b-04be-450e-9cda-2e3d58a86fd9" propertyAttribute="ConnectionId" />
+        <uipath:binding id="bGYkMfqA1" name="FolderKey" type="string" default="e072bd13-1c37-4125-a891-fde9bf3d7311" resource="Connection" resourceKey="f3344e9b-04be-450e-9cda-2e3d58a86fd9" propertyAttribute="folderKey" />
+        <uipath:binding id="bZuSnU7Wd" name="FolderKey" type="string" default="e072bd13-1c37-4125-a891-fde9bf3d7311" resource="Connection" resourceKey="07dd8820-fd9e-454d-a491-eb37ed81de6d" propertyAttribute="folderKey" />
+      </uipath:bindings>
+      <uipath:migrationVersion version="11" />
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="Event_start" name="New Email">
+      <bpmn:extensionElements>
+        <uipath:entryPointId value="86689224-17b3-4bff-ab11-1d96d3853fea" />
+        <uipath:mapping version="v1">
+          <uipath:type value="BPMN.Variables" version="v1" />
+          <uipath:output name="subjectFilter" type="string" source="=vars.vbvfr4sRU" var="vrAAlvvky" />
+        </uipath:mapping>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>xy-edge___Event_start-Activity_1j8W74</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sendTask id="Activity_5jxJQu" name="Create Case">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Intsvc.ActivityExecution" version="v1" />
+          <uipath:context>
+            <uipath:input name="connectorKey" type="string" value="uipath-salesforce-sfdc" />
+            <uipath:input name="operation" type="string" value="InsertRecord" />
+            <uipath:input name="objectName" type="string" value="Case" />
+            <uipath:input name="method" type="string" value="POST" />
+            <uipath:input name="path" type="string" value="/Case" />
+            <uipath:input name="connection" type="string" value="=bindings.bsYfg7hbr" />
+            <uipath:input name="folderKey" type="string" value="=bindings.bsBL5ZwKy" />
+            <uipath:input name="resourceKey" type="string" value="d62db80e-9815-4893-a912-a7c3a3fcfba3" />
+            <uipath:input name="metadata" type="json"><![CDATA[{"designTimeMetadata":{"connectorLogoUrl":"https://staging.uipath.com/elements_/scaleunit_/3bb68e40-df8b-11eb-a004-313b868ca6bd/v3/element/elements/uipath-salesforce-sfdc/image","activityDisplayName":"Insert Record","activityDescription":"Insert a new record in Salesforce","manageProperties":["AccountId","Status","Description","Subject","Comments"],"activityConfig":{"isCurated":false,"operation":"Create"}},"metadataState":{"jsonSchema":{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"Origin":{"title":"Case origin","type":"string","description":"Case Origin"},"PotentialLiability__c":{"title":"Potential liability","type":"string","description":"Potential Liability"},"LastModifiedDate":{"title":"Last modified date","type":"string","description":"Last Modified Date"},"AccountId":{"title":"Account ID","type":"string","description":"Account ID"},"Wound_Sizes__c":{"title":"Wound sizes","type":"string","description":"Wound Sizes"},"Practice_Name__c":{"title":"Practice name","type":"string","description":"Practice Name"},"Patient_Name__c":{"title":"Patient name","type":"string","description":"Patient Name"},"CreatedById":{"title":"Created by ID","type":"string","description":"Created By ID"},"Provider_NPI__c":{"title":"Provider npi","type":"string","description":"Provider NPI"},"SuppliedName":{"title":"Name","type":"string","description":"Name"},"SuppliedPhone":{"title":"Phone","type":"string","description":"Phone"},"Product__c":{"title":"Product","type":"string","description":"Product"},"MasterRecordId":{"title":"Master record ID","type":"string","description":"Master Record ID"},"ContactMobile":{"title":"Contact mobile","type":"string","description":"Contact Mobile"},"Provider_Name__c":{"title":"Provider name","type":"string","description":"Provider Name"},"Status":{"title":"Status","type":"string","description":"Status"},"IsDeleted":{"title":"Deleted","type":"boolean","description":"Deleted"},"Graft_Application__c":{"title":"Graft application","type":"string","description":"Graft Application"},"Priority":{"title":"Priority","type":"string","description":"Priority"},"LastViewedDate":{"title":"Last viewed date","type":"string","description":"Last Viewed Date"},"Secondary_Member_ID__c":{"title":"Secondary member ID","type":"string","description":"Secondary Member ID"},"IsEscalated":{"title":"Escalated","type":"boolean","description":"Escalated"},"CreatedDate":{"title":"Created date","type":"string","description":"Created Date"},"Patient_DOB__c":{"title":"Patient dob","type":"string","description":"Patient DOB"},"Secondary_Insurance__c":{"title":"Secondary insurance","type":"string","description":"Secondary Insurance"},"Id":{"title":"Case ID","type":"string","description":"Case ID"},"AssetId":{"title":"Asset ID","type":"string","description":"Asset ID"},"Practice_Contact__c":{"title":"Practice contact","type":"string","description":"Practice Contact"},"Description":{"title":"Description","type":"string","description":"Description"},"SuppliedCompany":{"title":"Company","type":"string","description":"Company"},"ServiceNow_ID__c":{"title":"Service now ID","type":"string","description":"ServiceNow ID"},"SourceId":{"title":"Case source ID","type":"string","description":"Case Source ID"},"Primary_Member_ID__c":{"title":"Primary member ID","type":"string","description":"Primary Member ID"},"LastReferencedDate":{"title":"Last referenced date","type":"string","description":"Last Referenced Date"},"ContactId":{"title":"Contact ID","type":"string","description":"Contact ID"},"IsClosed":{"title":"Closed","type":"boolean","description":"Closed"},"Reason":{"title":"Case reason","type":"string","description":"Case Reason"},"ContactPhone":{"title":"Contact phone","type":"string","description":"Contact Phone"},"SuppliedEmail":{"title":"Email address","type":"string","description":"Email Address"},"Practice_Phone__c":{"title":"Practice phone","type":"string","description":"Practice Phone"},"Primary_Insurance__c":{"title":"Primary insurance","type":"string","description":"Primary Insurance"},"Diagnosis_Codes__c":{"title":"Diagnosis codes","type":"string","description":"Diagnosis Codes"},"OwnerId":{"title":"Owner ID","type":"string","description":"Owner ID"},"CaseNumber":{"title":"Case number","type":"string","description":"Case Number"},"ContactFax":{"title":"Contact fax","type":"string","description":"Contact Fax"},"Practice_Email__c":{"title":"Practice email","type":"string","description":"Practice Email"},"ParentId":{"title":"Parent case ID","type":"string","description":"Parent Case ID"},"Comments":{"title":"Internal comments","type":"string","description":"Internal Comments"},"Subject":{"title":"Subject","type":"string","description":"Subject"},"Owner_Full_Name__c":{"title":"Owner full name","type":"string","description":"Owner Full Name"},"SystemModstamp":{"title":"System modstamp","type":"string","description":"System Modstamp"},"Type":{"title":"Case type","type":"string","description":"Case Type"},"SLAViolation__c":{"title":"Sla violation","type":"string","description":"SLA Violation"},"EngineeringReqNumber__c":{"title":"Engineering req number","type":"string","description":"Engineering Req Number"},"ContactEmail":{"title":"Contact email","type":"string","description":"Contact Email"},"ClosedDate":{"title":"Closed date","type":"string","description":"Closed Date"},"LastModifiedById":{"title":"Last modified by ID","type":"string","description":"Last Modified By ID"}},"definitions":{}}},"telemetryData":{"primaryKeyName":"Id"},"inputMetadata":{},"errorState":{"hasError":false}}]]></uipath:input>
+          </uipath:context>
+          <uipath:input name="body" type="json" target="body"><![CDATA[{"Status":"New","AccountId":"=vars.v0gB3Gvwj","Description":"=vars.v0KivxvIm","Comments":"=vars.vMvXHtAJu","Subject":"=vars.vjK5o2nAb"}]]></uipath:input>
+          <uipath:output name="Id" type="string" source="=response.Id" var="vtGostxzY" />
+          <uipath:output name="response" type="jsonSchema" source="=response" var="vu9jKcaKc" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>xy-edge__Activity_1j8W74-Activity_5jxJQu</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_5jxJQu-Activity_9jAHrO</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:serviceTask id="Activity_1j8W74" name="Determine Email Intent &#38; Entities">
+      <bpmn:documentation>Analyzes Email content and extracts entities</bpmn:documentation>
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Orchestrator.StartJob" version="v2" />
+          <uipath:context>
+            <uipath:input name="name" type="string" value="=bindings.bIVFzN4JL" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bOW06x541" />
+            <uipath:input name="_label" type="string" value="EmailClassifierLLMFlow" />
+            <uipath:inputSchema type="jsonSchema"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"subjectFilter":{"type":"string"}},"required":[]}]]></uipath:inputSchema>
+          </uipath:context>
+          <uipath:input name="JobArguments" type="json" target="bodyField"><![CDATA[{"subjectFilter":"=vars.vrAAlvvky"}]]></uipath:input>
+          <uipath:output name="Error" type="jsonSchema" source="=Error" var="vywdLzAME" />
+          <uipath:output name="caseType" type="string" source="=caseType" var="vMvXHtAJu" />
+          <uipath:output name="caseEntities" type="object" source="=caseEntities" var="vmX7GWn2d" />
+          <uipath:output name="sfAccountId" type="string" source="=sfAccountId" var="v0gB3Gvwj" />
+          <uipath:output name="emailSubject" type="string" source="=emailSubject" var="vjK5o2nAb" />
+          <uipath:output name="emailBody" type="string" source="=emailBody" var="v0KivxvIm" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>xy-edge___Event_start-Activity_1j8W74</bpmn:incoming>
+      <bpmn:outgoing>xy-edge__Activity_1j8W74-Activity_5jxJQu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_wjHu9f" name="Message Classification">
+      <bpmn:incoming>edge___Gateway_0fIWta-Gateway_wjHu9f</bpmn:incoming>
+      <bpmn:outgoing>xy-edge___Gateway_wjHu9f-Activity_f3P7Bb</bpmn:outgoing>
+      <bpmn:outgoing>xy-edge___Gateway_wjHu9f-Activity_vfdEFe</bpmn:outgoing>
+      <bpmn:outgoing>xy-edge__Gateway_wjHu9f-Activity_PiSeDK</bpmn:outgoing>
+      <bpmn:outgoing>edge_Gateway_wjHu9f-Activity_39KZ3n</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_f3P7Bb" name="General Inquiry Assessor Agent">
+      <bpmn:documentation>Triage email out of inbox</bpmn:documentation>
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Orchestrator.StartAgentJob" version="v2" />
+          <uipath:context>
+            <uipath:input name="name" type="string" value="=bindings.bG2yPu20E" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bC8IKbXEL" />
+            <uipath:input name="_label" type="string" value="General Inquiry Assessor" />
+            <uipath:inputSchema type="jsonSchema"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"email_content":{"type":"string"}},"required":[]}]]></uipath:inputSchema>
+          </uipath:context>
+          <uipath:input name="JobArguments" type="json" target="bodyField"><![CDATA[{"email_content":"=datafabric.TreasuryOpsCaseEntity.b62D6LVhKRvaM2pnhpoyMq.Description"}]]></uipath:input>
+          <uipath:output name="Error" type="jsonSchema" source="=Error" var="vrvehOck3" />
+          <uipath:output name="main_topic" type="string" source="=main_topic" var="v8YGwvm5g" />
+          <uipath:output name="category" type="string" source="=category" var="vCKdhfkD6" />
+          <uipath:output name="key_points" type="array" subType="string" source="=key_points" var="vcGsFiECa" />
+          <uipath:output name="suggested_resolution" type="string" source="=suggested_resolution" var="v8Oyi9xeT" />
+          <uipath:output name="additional_notes" type="string" source="=additional_notes" var="vw8ZnNu4V" />
+          <uipath:output name="process_manually" type="boolean" source="=process_manually" var="vynyWkEVs" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>xy-edge___Gateway_wjHu9f-Activity_f3P7Bb</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_f3P7Bb-Gateway_F8jso3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_vfdEFe" name="Vertex - Product Inquiry Match Agent">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Intsvc.AsyncAgentExecution" version="v1" />
+          <uipath:context>
+            <uipath:input name="connectorKey" type="string" value="uipath-google-vertex" />
+            <uipath:input name="method" type="string" value="POST" />
+            <uipath:input name="objectName" type="string" value="createSession" />
+            <uipath:input name="operation" type="string" />
+            <uipath:input name="path" type="string" value="/createSession" />
+            <uipath:input name="executionType" type="string" value="sync" />
+            <uipath:input name="eventMode" type="string" />
+            <uipath:input name="connection" type="string" value="=bindings.bZrXKFxJ5" />
+            <uipath:input name="folderKey" type="string" value="=bindings.bGYkMfqA1" />
+            <uipath:input name="resourceKey" type="string" value="f3344e9b-04be-450e-9cda-2e3d58a86fd9" />
+            <uipath:input name="metadata" type="json"><![CDATA[{"designTimeMetadata":{"connectorLogoUrl":"https://staging.uipath.com/elements_/scaleunit_/4a9b6040-645f-4006-a000-829794b794d4/v3/element/elements/uipath-google-vertex/image","activityDesignerVersion":"2","activityDisplayName":"Execute Google Vertex Agent","activityDescription":"Create a session","activityHelpUrlTemplate":"https://docs.uipath.com/{0}/activities/other/latest/integration-service/uipath-google-vertex-Execute-Google-Vertex-Agent","designTimeLookups":{"parent":[{"id":"projects/370422224217/locations/us-central1/reasoningEngines/8259922773992800256","title":"financial_coordinator"}]}},"metadataState":{"jsonSchema":{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"usage_metadata":{"title":"Usage metadata","$ref":"#/definitions/usage_metadata"},"content":{"title":"Content","$ref":"#/definitions/content"},"author":{"title":"Author","type":"string","description":"The name of the person who created the content."},"invocation_id":{"title":"Invocation ID","type":"string","description":"A unique identifier for each API call instance."},"session_id":{"title":"Session ID","type":"string","description":"Session id"},"message":{"title":"Message","type":"string","description":"Message"},"user_id":{"title":"User ID","type":"string","description":"User id"},"id":{"title":"Agent identifier","type":"string","description":"A unique identifier for the agent."},"run_config":{"title":"Run config","type":"string","description":"Run config"},"timestamp":{"title":"Action timestamp","type":"number","description":"The date and time when the action was performed."}},"definitions":{"usage_metadata":{"type":"object","properties":{"prompt_tokens_details[*]":{"title":"Prompt tokens details","type":"array","items":{"$ref":"#/definitions/usage_metadataPrompt_tokens_details[*]"}},"candidates_tokens_details[*]":{"title":"Candidates tokens details","type":"array","items":{"$ref":"#/definitions/usage_metadataCandidates_tokens_details[*]"}},"candidates_token_count":{"title":"Candidates token count","type":"integer","description":"The number of tokens considered for candidate responses."},"traffic_type":{"title":"Traffic type","type":"string","description":"The category of traffic for the API request."},"prompt_token_count":{"title":"Prompt token count","type":"integer","description":"Shows the number of tokens used in the prompt."},"total_token_count":{"title":"Total token count","type":"integer","description":"Displays the total number of tokens used."},"thoughts_token_count":{"title":"Thoughts token count","type":"integer","description":"The number of tokens used in the thoughts process."}}},"usage_metadataPrompt_tokens_details[*]":{"type":"object","properties":{"token_count":{"title":"Prompt token count","type":"integer","description":"The number of tokens used in the prompt."},"modality":{"title":"Prompt tokens modality","type":"string","description":"The type of input modality for each prompt token."}}},"content":{"type":"object","properties":{"parts[*]":{"title":"Parts","type":"array","items":{"$ref":"#/definitions/contentParts[*]"}},"role":{"title":"Content role","type":"string","description":"Specifies the role associated with the content."}}},"contentParts[*]":{"type":"object","properties":{"text":{"title":"Content text","type":"string","description":"The text content of each part in the response."}}},"usage_metadataCandidates_tokens_details[*]":{"type":"object","properties":{"token_count":{"title":"Candidate token count","type":"integer","description":"The number of tokens used in candidate responses."},"modality":{"title":"Candidates tokens modality","type":"string","description":"The type of modality used for candidate tokens."}}}}}},"telemetryData":{"operationType":"Create","objectName":"createSession","objectDisplayName":"Execute Google Vertex Agent","connectorKey":"uipath-google-vertex","connectorName":"Google Vertex","primaryKeyName":""},"inputMetadata":{},"errorState":{"hasError":false}}]]></uipath:input>
+            <uipath:input name="activityConfigurationVersion" type="string" value="v1" />
+          </uipath:context>
+          <uipath:input name="parent" type="string" value="projects/370422224217/locations/us-central1/reasoningEngines/8259922773992800256" target="query" />
+          <uipath:input name="body" type="json" target="body"><![CDATA[{"user_id":"1234","message":"What can you do"}]]></uipath:input>
+          <uipath:output name="content.parts[*].text" type="string" source="=response.content.parts[*].text" var="contentpartstext" />
+          <uipath:output name="response" type="jsonSchema" source="=response" var="response7" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>xy-edge___Gateway_wjHu9f-Activity_vfdEFe</bpmn:incoming>
+      <bpmn:outgoing>edge_APoh3h</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_PiSeDK" name="ACH Case Processing Agent">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Orchestrator.StartAgentJob" version="v2" />
+          <uipath:context>
+            <uipath:input name="name" type="string" value="=bindings.bSULmmA3j" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bqZj47IXK" />
+            <uipath:input name="_label" type="string" value="ACH Case Process Manager" />
+            <uipath:inputSchema type="jsonSchema"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"case_entities":{"type":"object"},"case_type":{"type":"string"}},"required":[]}]]></uipath:inputSchema>
+          </uipath:context>
+          <uipath:input name="JobArguments" type="json" target="bodyField"><![CDATA[{"case_entities":"=vars.vmX7GWn2d","case_type":"=vars.vMvXHtAJu"}]]></uipath:input>
+          <uipath:output name="Error" type="jsonSchema" source="=Error" var="v10qeEOTq" />
+          <uipath:output name="resolution_plan" type="jsonSchema" subType="string" source="=resolution_plan" var="vwEYkLqMW" />
+          <uipath:output name="relevant_sops" type="jsonSchema" subType="string" source="=relevant_sops" var="vwKcgsY1y" />
+          <uipath:output name="return_code" type="string" source="=return_code" var="v84XYSS3L" />
+          <uipath:output name="communication_instructions" type="string" source="=communication_instructions" var="vD08aDvS4" />
+          <uipath:output name="customer_resolution_recommendations" type="jsonSchema" subType="string" source="=customer_resolution_recommendations" var="v6tMjeklQ" />
+          <uipath:output name="internal_recommendations" type="jsonSchema" subType="string" source="=internal_recommendations" var="vOgMKe7iQ" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>xy-edge__Gateway_wjHu9f-Activity_PiSeDK</bpmn:incoming>
+      <bpmn:outgoing>edge_Tm2P90</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="Event_w7YqRY" attachedToRef="Activity_PiSeDK">
+      <bpmn:outgoing>edge_yMFBf3</bpmn:outgoing>
+      <bpmn:errorEventDefinition />
+    </bpmn:boundaryEvent>
+    <bpmn:endEvent id="Event_Iz2d43" name="End">
+      <bpmn:incoming>edge_Activity_33SO9w-Event_Iz2d43i2cntT</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sendTask id="Activity_lCYbMp" name="Update Case">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Intsvc.ActivityExecution" version="v1" />
+          <uipath:context>
+            <uipath:input name="connectorKey" type="string" value="uipath-salesforce-sfdc" />
+            <uipath:input name="operation" type="string" value="UpdateRecord" />
+            <uipath:input name="objectName" type="string" value="Case" />
+            <uipath:input name="method" type="string" value="PATCH" />
+            <uipath:input name="path" type="string" value="/Case/{caseId}" />
+            <uipath:input name="connection" type="string" value="=bindings.bsYfg7hbr" />
+            <uipath:input name="folderKey" type="string" value="=bindings.bsBL5ZwKy" />
+            <uipath:input name="resourceKey" type="string" value="d62db80e-9815-4893-a912-a7c3a3fcfba3" />
+            <uipath:input name="metadata" type="json"><![CDATA[{"designTimeMetadata":{"connectorLogoUrl":"https://staging.uipath.com/elements_/scaleunit_/3bb68e40-df8b-11eb-a004-313b868ca6bd/v3/element/elements/uipath-salesforce-sfdc/image","activityDisplayName":"Update Record","activityDescription":"Updates a record in Salesforce","manageProperties":["Comments"],"activityConfig":{"isCurated":false,"operation":"Update"}},"metadataState":{"jsonSchema":{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"Origin":{"title":"Case origin","type":"string","description":"Case Origin"},"PotentialLiability__c":{"title":"Potential liability","type":"string","description":"Potential Liability"},"LastModifiedDate":{"title":"Last modified date","type":"string","description":"Last Modified Date"},"AccountId":{"title":"Account ID","type":"string","description":"Account ID"},"Wound_Sizes__c":{"title":"Wound sizes","type":"string","description":"Wound Sizes"},"Practice_Name__c":{"title":"Practice name","type":"string","description":"Practice Name"},"Patient_Name__c":{"title":"Patient name","type":"string","description":"Patient Name"},"CreatedById":{"title":"Created by ID","type":"string","description":"Created By ID"},"Provider_NPI__c":{"title":"Provider npi","type":"string","description":"Provider NPI"},"SuppliedName":{"title":"Name","type":"string","description":"Name"},"SuppliedPhone":{"title":"Phone","type":"string","description":"Phone"},"Product__c":{"title":"Product","type":"string","description":"Product"},"MasterRecordId":{"title":"Master record ID","type":"string","description":"Master Record ID"},"ContactMobile":{"title":"Contact mobile","type":"string","description":"Contact Mobile"},"Provider_Name__c":{"title":"Provider name","type":"string","description":"Provider Name"},"Status":{"title":"Status","type":"string","description":"Status"},"IsDeleted":{"title":"Deleted","type":"boolean","description":"Deleted"},"Graft_Application__c":{"title":"Graft application","type":"string","description":"Graft Application"},"Priority":{"title":"Priority","type":"string","description":"Priority"},"LastViewedDate":{"title":"Last viewed date","type":"string","description":"Last Viewed Date"},"Secondary_Member_ID__c":{"title":"Secondary member ID","type":"string","description":"Secondary Member ID"},"IsEscalated":{"title":"Escalated","type":"boolean","description":"Escalated"},"CreatedDate":{"title":"Created date","type":"string","description":"Created Date"},"Patient_DOB__c":{"title":"Patient dob","type":"string","description":"Patient DOB"},"Secondary_Insurance__c":{"title":"Secondary insurance","type":"string","description":"Secondary Insurance"},"Id":{"title":"Case ID","type":"string","description":"Case ID"},"AssetId":{"title":"Asset ID","type":"string","description":"Asset ID"},"Practice_Contact__c":{"title":"Practice contact","type":"string","description":"Practice Contact"},"Description":{"title":"Description","type":"string","description":"Description"},"SuppliedCompany":{"title":"Company","type":"string","description":"Company"},"ServiceNow_ID__c":{"title":"Service now ID","type":"string","description":"ServiceNow ID"},"SourceId":{"title":"Case source ID","type":"string","description":"Case Source ID"},"Primary_Member_ID__c":{"title":"Primary member ID","type":"string","description":"Primary Member ID"},"LastReferencedDate":{"title":"Last referenced date","type":"string","description":"Last Referenced Date"},"ContactId":{"title":"Contact ID","type":"string","description":"Contact ID"},"IsClosed":{"title":"Closed","type":"boolean","description":"Closed"},"Reason":{"title":"Case reason","type":"string","description":"Case Reason"},"ContactPhone":{"title":"Contact phone","type":"string","description":"Contact Phone"},"SuppliedEmail":{"title":"Email address","type":"string","description":"Email Address"},"Practice_Phone__c":{"title":"Practice phone","type":"string","description":"Practice Phone"},"Primary_Insurance__c":{"title":"Primary insurance","type":"string","description":"Primary Insurance"},"Diagnosis_Codes__c":{"title":"Diagnosis codes","type":"string","description":"Diagnosis Codes"},"OwnerId":{"title":"Owner ID","type":"string","description":"Owner ID"},"CaseNumber":{"title":"Case number","type":"string","description":"Case Number"},"ContactFax":{"title":"Contact fax","type":"string","description":"Contact Fax"},"Practice_Email__c":{"title":"Practice email","type":"string","description":"Practice Email"},"ParentId":{"title":"Parent case ID","type":"string","description":"Parent Case ID"},"Comments":{"title":"Internal comments","type":"string","description":"Internal Comments"},"Subject":{"title":"Subject","type":"string","description":"Subject"},"Owner_Full_Name__c":{"title":"Owner full name","type":"string","description":"Owner Full Name"},"SystemModstamp":{"title":"System modstamp","type":"string","description":"System Modstamp"},"Type":{"title":"Case type","type":"string","description":"Case Type"},"SLAViolation__c":{"title":"Sla violation","type":"string","description":"SLA Violation"},"EngineeringReqNumber__c":{"title":"Engineering req number","type":"string","description":"Engineering Req Number"},"ContactEmail":{"title":"Contact email","type":"string","description":"Contact Email"},"ClosedDate":{"title":"Closed date","type":"string","description":"Closed Date"},"LastModifiedById":{"title":"Last modified by ID","type":"string","description":"Last Modified By ID"}},"definitions":{}}},"telemetryData":{"primaryKeyName":"Id"},"inputMetadata":{},"errorState":{"hasError":false}}]]></uipath:input>
+          </uipath:context>
+          <uipath:input name="caseId" type="string" value="=vars.vtGostxzY" target="path" />
+          <uipath:input name="body" type="json" target="body"><![CDATA[{"Comments":"=vars.vu9jKcaKc.Comments"}]]></uipath:input>
+          <uipath:output name="Id" type="string" source="=response.Id" var="vsAOSWJ9L" />
+          <uipath:output name="response" type="jsonSchema" source="=response" var="vJj4UWACR" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>edge_kk6ETM</bpmn:incoming>
+      <bpmn:incoming>edge_azU15Z</bpmn:incoming>
+      <bpmn:outgoing>edge_rtIAuk</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:userTask id="Activity_hkN6Xo" name="HITL - SME Review">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Actions.HITL" version="v2" />
+          <uipath:context>
+            <uipath:input name="name" type="string" value="=bindings.bVPnJcYLZ" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bi0iSGWXZ" />
+            <uipath:input name="_label" type="string" value="ClaimsHITL" />
+            <uipath:input name="taskTitle" type="string" value="Review Submitted Case" />
+            <uipath:input name="recipient" type="json" />
+            <uipath:input name="priority" type="string" />
+            <uipath:input name="labels" type="string" />
+            <uipath:input name="actionCatalogName" type="string" />
+            <uipath:input name="enableActionableNotifications" type="boolean" value="false" />
+            <uipath:inputSchema type="jsonSchema"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"CaseUrl":{"type":"string"},"Email_Message":{"type":"string"},"Send_To":{"type":"string"},"Subject":{"type":"string"},"AgentName":{"type":"string"},"RequestType":{"type":"string"},"RequestDetails":{"type":"string"},"ClaimReportContentValidation":{"type":"any"},"InternalRecommendations":{"type":"string"},"Contact":{"type":"string"},"Organization":{"type":"string"},"AgentPlan":{"type":"string"}},"required":[]}]]></uipath:inputSchema>
+          </uipath:context>
+          <uipath:input name="HitlTaskArguments" type="json" target="bodyField"><![CDATA[{"CaseUrl":null,"Email_Message":"=vars.vv0gBJX5X","Send_To":null,"Subject":"=string.Format(\"Case {0}: ACH Research Request\", vars.vtGostxzY)","AgentName":null,"RequestType":"=vars.vMvXHtAJu","RequestDetails":"=vars.vETVanziU.resolutionPlan","ClaimReportContentValidation":"","InternalRecommendations":"=vars.vETVanziU.internalRecommendations","Contact":"=vars.vu9jKcaKc.SuppliedName","Organization":"=vars.vu9jKcaKc.SuppliedCompany","AgentPlan":"=vars.vETVanziU.customerResolutionRecommendations"}]]></uipath:input>
+          <uipath:output name="Response" type="string" source="=Response" var="vtEC2Wdny" />
+          <uipath:output name="Email" type="string" source="=Email" var="v6vnM8glm" />
+          <uipath:output name="Action" type="string" source="=Action" var="v45zujAsm" />
+          <uipath:output name="Error" type="jsonSchema" source="=Error" var="vAnhrV4vD" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>edge_h9kjfb</bpmn:incoming>
+      <bpmn:outgoing>edge_kk6ETM</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="Activity_33SO9w" name="Send Email">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Intsvc.ActivityExecution" version="v1" />
+          <uipath:context>
+            <uipath:input name="connectorKey" type="string" value="uipath-microsoft-outlook365" />
+            <uipath:input name="connection" type="string" value="=bindings.bvezG2jK0" />
+            <uipath:input name="folderKey" type="string" value="=bindings.bQyHj7cGJ" />
+            <uipath:input name="operation" type="string" value="SendEmailV2" />
+            <uipath:input name="objectName" type="string" value="send-mail-v2" />
+            <uipath:input name="method" type="string" value="POST" />
+            <uipath:input name="path" type="string" value="/hubs/productivity/send-mail-v2" />
+            <uipath:input name="resourceKey" type="string" value="f4cda4e1-30b5-4be6-9e00-6538779d39b3" />
+            <uipath:input name="metadata" type="json"><![CDATA[{"designTimeMetadata":{"connectorLogoUrl":"https://staging.uipath.com/elements_/scaleunit_/3bb68e40-df8b-11eb-a004-313b868ca6bd/v3/element/elements/uipath-microsoft-outlook365/image","activityDisplayName":"Send Email","activityDescription":"Send an email message based on the input parameters","activityConfig":{"isCurated":true,"operation":null}},"metadataState":{"jsonSchema":{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"status":{"title":"Status","type":"string"}},"definitions":{}}},"telemetryData":{"operationType":"Create","objectName":"send-mail-v2","objectDisplayName":"Send Mail","connectorKey":"uipath-microsoft-outlook365","connectorName":"Microsoft Outlook 365","primaryKeyName":""},"inputMetadata":{"type":"multipart","multipart":{"bodyFieldName":"body"}},"errorState":{"hasError":false}}]]></uipath:input>
+            <uipath:input name="activityConfigurationVersion" type="string" value="v1" />
+          </uipath:context>
+          <uipath:input name="saveAsDraft" type="string" value="false" target="query" />
+          <uipath:input name="body" type="json" target="body"><![CDATA[{"saveToSentItems":true,"message":{"toRecipients":"james.dickson@uipath.com","subject":"=string.Format(\"Case {0}: ACH Payment\", vars.vsAOSWJ9L)","body":{"content":"=vars.v0KivxvIm"}}}]]></uipath:input>
+          <uipath:output name="response" type="jsonSchema" source="=response" var="v2uinmWqC" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>edge_rtIAuk</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_33SO9w-Event_Iz2d43i2cntT</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:exclusiveGateway id="Gateway_TlKejt" name="Has Attachments">
+      <bpmn:incoming>edge_8yynOK</bpmn:incoming>
+      <bpmn:outgoing>edge___Gateway_TlKejt-Activity_B5YLNM</bpmn:outgoing>
+      <bpmn:outgoing>edge___Gateway_TlKejt-Gateway_0fIWta</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_B5YLNM" name="IDP - Process Attachments">
+      <bpmn:incoming>edge___Gateway_TlKejt-Activity_B5YLNM</bpmn:incoming>
+      <bpmn:outgoing>edge___Activity_B5YLNM-Gateway_0fIWta</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_0fIWta">
+      <bpmn:incoming>edge___Gateway_TlKejt-Gateway_0fIWta</bpmn:incoming>
+      <bpmn:incoming>edge___Activity_B5YLNM-Gateway_0fIWta</bpmn:incoming>
+      <bpmn:outgoing>edge___Gateway_0fIWta-Gateway_wjHu9f</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_F8jso3" name="Auto-respond?">
+      <bpmn:incoming>edge_Activity_f3P7Bb-Gateway_F8jso3</bpmn:incoming>
+      <bpmn:outgoing>edge_Gateway_F8jso3-Event_kQU7Zg</bpmn:outgoing>
+      <bpmn:outgoing>edge_eEBUlX</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_kQU7Zg">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Intsvc.ActivityExecution" version="v1" />
+          <uipath:context>
+            <uipath:input name="connectorKey" type="string" value="uipath-salesforce-slack" />
+            <uipath:input name="connection" type="string" value="=bindings.bBnKkaytA" />
+            <uipath:input name="folderKey" type="string" value="=bindings.bsBL5ZwKy" />
+            <uipath:input name="operation" type="string" value="SendMessageToUser" />
+            <uipath:input name="objectName" type="string" value="send_message_to_user_v2" />
+            <uipath:input name="method" type="string" value="POST" />
+            <uipath:input name="path" type="string" value="/send_message_to_user_v2" />
+            <uipath:input name="metadata" type="json"><![CDATA[{"designTimeMetadata":{"connectorLogoUrl":"https://staging.uipath.com/elements_/scaleunit_/3bb68e40-df8b-11eb-a004-313b868ca6bd/v3/element/elements/uipath-salesforce-slack/image","activityDisplayName":"Send Message to User","activityDescription":"Send a message to an individual user in Slack.","designTimeLookups":{"channel":[{"id":"U03T5GCJNG2","title":"jms.dcksn88 - jms.dcksn88@gmail.com - U03T5GCJNG2"}],"send_as":[{"id":"bot","title":"Bot"}]}},"metadataState":{"jsonSchema":{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"message":{"title":"Message","$ref":"#/definitions/message"},"blocks[*]":{"title":"Blocks","type":"array","items":{"$ref":"#/definitions/blocks[*]"}},"channel":{"title":"User","type":"string","description":"User"},"root":{"title":"Root","$ref":"#/definitions/root"},"app_id":{"title":"App ID","type":"string"},"thread_ts":{"title":"Message timestamp","type":"string","description":"The ID (timestamp) of the message sent"},"icons":{"title":"Icons","$ref":"#/definitions/icons"},"response_metadata":{"title":"Response metadata","$ref":"#/definitions/response_metadata"},"metadata":{"title":"Metadata","$ref":"#/definitions/metadata"},"ts":{"title":"Message timestamp","type":"string","description":"The ID (timestamp) of the message sent"},"subtype":{"title":"Subtype","type":"string"},"ok":{"title":"Ok","type":"boolean"},"username":{"title":"Bot name","type":"string","description":"Bot name"}},"definitions":{"message":{"type":"object","properties":{"blocks[*]":{"title":"Blocks","type":"array","items":{"$ref":"#/definitions/messageBlocks[*]"}},"bot_profile":{"title":"Bot profile","$ref":"#/definitions/messageBot_profile"},"root":{"title":"Root","$ref":"#/definitions/messageRoot"},"text":{"title":"Message text","type":"string"},"attachments[*]":{"title":"Attachments","type":"array","items":{"$ref":"#/definitions/messageAttachments[*]"}},"thread_ts":{"title":"Message thread ts","type":"string"},"icons":{"title":"Icons","$ref":"#/definitions/messageIcons"},"username":{"title":"Message username","type":"string"},"metadata":{"title":"Metadata","$ref":"#/definitions/messageMetadata"},"team":{"title":"Team","type":"string"},"type":{"title":"Message type","type":"string"},"subtype":{"title":"Message subtype","type":"string"},"bot_id":{"title":"Bot ID","type":"string"},"app_id":{"title":"Message app ID","type":"string"},"user":{"title":"User","type":"string"},"ts":{"title":"Message ts","type":"string"}}},"messageBlocks[*]":{"type":"object","properties":{"text":{"title":"Text","$ref":"#/definitions/messageBlocks[*]Text"},"type":{"title":"Message blocks type","type":"string"},"block_id":{"title":"Message blocks block ID","type":"string"}}},"messageBlocks[*]Text":{"type":"object","properties":{"type":{"title":"Message blocks text type","type":"string"},"text":{"title":"Message blocks text","type":"string"},"emoji":{"title":"Message blocks text emoji","type":"boolean"}}},"blocks[*]":{"type":"object","properties":{"text":{"title":"Text","$ref":"#/definitions/blocks[*]Text"},"block_id":{"title":"Blocks block ID","type":"string"},"type":{"title":"Blocks type","type":"string"}}},"blocks[*]Text":{"type":"object","properties":{"text":{"title":"Blocks text text","type":"string"},"type":{"title":"Type","type":"string"},"emoji":{"title":"Blocks text emoji","type":"boolean"}}},"messageBot_profile":{"type":"object","properties":{"team_id":{"title":"Team ID","type":"string"},"icons":{"title":"Icons","$ref":"#/definitions/messageBot_profileIcons"},"name":{"title":"Message bot profile name","type":"string"},"updated":{"title":"Updated","type":"integer"},"app_id":{"title":"Application ID","type":"string"},"deleted":{"title":"Deleted","type":"boolean"},"id":{"title":"Message bot profile ID","type":"string"}}},"messageRoot":{"type":"object","properties":{"reply_users[*]":{"title":"Message root reply users","type":"array","items":{"type":"string"}},"blocks[*]":{"title":"Blocks","type":"array","items":{"$ref":"#/definitions/messageRootBlocks[*]"}},"subtype":{"title":"Message root subtype","type":"string"},"reply_users_count":{"title":"Message root reply users count","type":"integer"},"username":{"title":"Message root username","type":"string"},"bot_id":{"title":"Message root bot ID","type":"string"},"app_id":{"title":"Message root app ID","type":"string"},"latest_reply":{"title":"Message root latest reply","type":"string"},"type":{"title":"Message root type","type":"string"},"ts":{"title":"Message root ts","type":"string"},"subscribed":{"title":"Message root subscribed","type":"boolean"},"text":{"title":"Message root text","type":"string"},"reply_count":{"title":"Message root reply count","type":"integer"},"is_locked":{"title":"Message root is locked","type":"boolean"},"icons":{"title":"Icons","$ref":"#/definitions/messageRootIcons"},"thread_ts":{"title":"Message root thread ts","type":"string"},"metadata":{"title":"Metadata","$ref":"#/definitions/messageRootMetadata"}}},"messageAttachments[*]":{"type":"object","properties":{"actions[*]":{"title":"Actions","type":"array","items":{"$ref":"#/definitions/messageAttachments[*]Actions[*]"}},"id":{"title":"Id","type":"integer"},"color":{"title":"Message attachments color","type":"string"},"text":{"title":"Message attachments text","type":"string"},"fallback":{"title":"Fall back","type":"string"},"callback_id":{"title":"Call back ID","type":"string"}}},"messageAttachments[*]Actions[*]":{"type":"object","properties":{"name":{"title":"Name","type":"string"},"confirm":{"title":"Confirm","$ref":"#/definitions/messageAttachments[*]Actions[*]Confirm"},"style":{"title":"Style","type":"string"},"id":{"title":"Message attachments actions ID","type":"string"},"value":{"title":"Value","type":"string"},"type":{"title":"Message attachments actions type","type":"string"},"text":{"title":"Message attachments actions text","type":"string"}}},"messageRootBlocks[*]":{"type":"object","properties":{"block_id":{"title":"Message root blocks block ID","type":"string"},"elements[*]":{"title":"Elements","type":"array","items":{"$ref":"#/definitions/messageRootBlocks[*]Elements[*]"}},"type":{"title":"Message root blocks type","type":"string"}}},"root":{"type":"object","properties":{"text":{"title":"Root text","type":"string"},"is_locked":{"title":"Root is locked","type":"boolean"},"app_id":{"title":"Root app ID","type":"string"},"username":{"title":"Root username","type":"string"},"subtype":{"title":"Root subtype","type":"string"},"reply_users_count":{"title":"Root reply users count","type":"integer"},"latest_reply":{"title":"Root latest reply","type":"string"},"ts":{"title":"Root ts","type":"string"},"bot_id":{"title":"Root bot ID","type":"string"},"type":{"title":"Root type","type":"string"},"subscribed":{"title":"Root subscribed","type":"boolean"},"blocks[*]":{"title":"Blocks","type":"array","items":{"$ref":"#/definitions/rootBlocks[*]"}},"reply_users[*]":{"title":"Root reply users","type":"array","items":{"type":"string"}},"thread_ts":{"title":"Root thread ts","type":"string"},"reply_count":{"title":"Root reply count","type":"integer"},"icons":{"title":"Icons","$ref":"#/definitions/rootIcons"},"metadata":{"title":"Metadata","$ref":"#/definitions/rootMetadata"}}},"messageAttachments[*]Actions[*]Confirm":{"type":"object","properties":{"title":{"title":"Title","type":"string"},"ok_text":{"title":"Ok text","type":"string"},"dismiss_text":{"title":"Dismiss text","type":"string"},"text":{"title":"Message attachments actions confirm text","type":"string"}}},"messageRootBlocks[*]Elements[*]":{"type":"object","properties":{"type":{"title":"Message root blocks elements type","type":"string"},"elements[*]":{"title":"Elements","type":"array","items":{"$ref":"#/definitions/messageRootBlocks[*]Elements[*]Elements[*]"}}}},"messageIcons":{"type":"object","properties":{"emoji":{"title":"Message icons emoji","type":"string"}}},"messageMetadata":{"type":"object","properties":{"event_payload":{"title":"Event payload","$ref":"#/definitions/messageMetadataEvent_payload"},"event_type":{"title":"Message metadata event type","type":"string"}}},"messageMetadataEvent_payload":{"type":"object","properties":{"title":{"title":"Message metadata event payload title","type":"string"},"id":{"title":"Message metadata event payload ID","type":"string"}}},"icons":{"type":"object","properties":{"emoji":{"title":"Icons emoji","type":"string"}}},"messageBot_profileIcons":{"type":"object","properties":{"image_48":{"title":"Image 4 8","type":"string"},"image_36":{"title":"Image 3 6","type":"string"},"image_72":{"title":"Image 7 2","type":"string"}}},"response_metadata":{"type":"object","properties":{"warnings[*]":{"title":"Response metadata warnings","type":"array","items":{"type":"string"}}}},"metadata":{"type":"object","properties":{"event_type":{"title":"Metadata event type","type":"string"},"event_payload":{"title":"Event payload","$ref":"#/definitions/metadataEvent_payload"}}},"rootBlocks[*]":{"type":"object","properties":{"block_id":{"title":"Root blocks block ID","type":"string"},"elements[*]":{"title":"Elements","type":"array","items":{"$ref":"#/definitions/rootBlocks[*]Elements[*]"}},"type":{"title":"Root blocks type","type":"string"}}},"rootBlocks[*]Elements[*]":{"type":"object","properties":{"type":{"title":"Root blocks elements type","type":"string"},"elements[*]":{"title":"Elements","type":"array","items":{"$ref":"#/definitions/rootBlocks[*]Elements[*]Elements[*]"}}}},"metadataEvent_payload":{"type":"object","properties":{"title":{"title":"Metadata event payload title","type":"string"},"id":{"title":"Metadata event payload ID","type":"string"}}},"messageRootIcons":{"type":"object","properties":{"emoji":{"title":"Message root icons emoji","type":"string"}}},"rootIcons":{"type":"object","properties":{"emoji":{"title":"Root icons emoji","type":"string"}}},"rootMetadata":{"type":"object","properties":{"event_type":{"title":"Root metadata event type","type":"string"}}},"messageRootBlocks[*]Elements[*]Elements[*]":{"type":"object","properties":{"text":{"title":"Message root blocks elements text","type":"string"},"type":{"title":"Message root blocks elements elements type","type":"string"}}},"rootBlocks[*]Elements[*]Elements[*]":{"type":"object","properties":{"type":{"title":"Root blocks elements elements type","type":"string"},"text":{"title":"Root blocks elements text","type":"string"}}},"messageRootMetadata":{"type":"object","properties":{"event_type":{"title":"Message root metadata event type","type":"string"}}}}}},"telemetryData":{"operationType":"Create","objectName":"send_message_to_user_v2","objectDisplayName":"Channel","connectorKey":"uipath-salesforce-slack","connectorName":"Slack","primaryKeyName":""},"inputMetadata":{},"errorState":{"hasError":false}}]]></uipath:input>
+          </uipath:context>
+          <uipath:input name="send_as" type="string" value="bot" target="query" />
+          <uipath:input name="body" type="json" target="body"><![CDATA[{"channel":"U03T5GCJNG2","messageToSend":"=\"Please follow up on this inquiry from your client: \" + vars.v0KivxvIm + \"\\nYou can use the AI scheduling assistant here: https://staging.uipath.com/uipathlabs/assistant_/?tenant=Playground\""}]]></uipath:input>
+          <uipath:output name="ts" type="string" source="=response.ts" var="veeTpx5fM" />
+          <uipath:output name="response" type="jsonSchema" source="=response" var="vnlwgIcxW" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>edge_Gateway_F8jso3-Event_kQU7Zg</bpmn:incoming>
+      <bpmn:messageEventDefinition />
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_B85mzt" name="Professional Email Writer Agent (Python)">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Orchestrator.StartAgentJob" version="v2" />
+          <uipath:context>
+            <uipath:input name="name" type="string" value="=bindings.bfwsnmWAN" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bfW6ju5Lh" />
+            <uipath:input name="_label" type="string" value="email-writer-agent" />
+            <uipath:inputSchema type="jsonSchema"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"topic":{"type":"string"},"recipient":{"type":"string"},"signoffName":{"type":"string"},"email":{"type":"string"},"grader_score":{"type":"number"}},"required":[]}]]></uipath:inputSchema>
+          </uipath:context>
+          <uipath:input name="JobArguments" type="json" target="bodyField"><![CDATA[{"topic":"=vars.vD08aDvS4","recipient":"Valued Customer","signoffName":"Treasury Ops Team","email":null,"grader_score":null}]]></uipath:input>
+          <uipath:output name="Error" type="jsonSchema" source="=Error" var="vYPq76s5k" />
+          <uipath:output name="topic" type="string" source="=topic" var="vbJDiMMfl" />
+          <uipath:output name="recipient" type="string" source="=recipient" var="vuIcg3RDA" />
+          <uipath:output name="signoffName" type="string" source="=signoffName" var="vT9IlFq3z" />
+          <uipath:output name="email" type="string" source="=email" var="vv0gBJX5X" />
+          <uipath:output name="grader_score" type="number" source="=grader_score" var="vJPxP6BwW" />
+        </uipath:activity>
+      </bpmn:extensionElements>
+      <bpmn:incoming>edge_4wcoYW</bpmn:incoming>
+      <bpmn:outgoing>edge_ksFz9C</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_XmuoJw" name="Review?" default="edge_h9kjfb">
+      <bpmn:incoming>edge_s9WhkI</bpmn:incoming>
+      <bpmn:outgoing>edge_h9kjfb</bpmn:outgoing>
+      <bpmn:outgoing>edge_azU15Z</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_kza62L">
+      <bpmn:incoming>edge_APoh3h</bpmn:incoming>
+      <bpmn:incoming>edge_Tm2P90</bpmn:incoming>
+      <bpmn:incoming>edge_eEBUlX</bpmn:incoming>
+      <bpmn:outgoing>edge_4wcoYW</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:manualTask id="Activity_39KZ3n" name="SME-Handled Case">
+      <bpmn:incoming>edge_Gateway_wjHu9f-Activity_39KZ3n</bpmn:incoming>
+      <bpmn:incoming>edge_yMFBf3</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_39KZ3n-Event_FjyIwj</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:endEvent id="Event_FjyIwj">
+      <bpmn:incoming>edge_Activity_39KZ3n-Event_FjyIwj</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sendTask id="Activity_9jAHrO" name="Sync Data Entities">
+      <bpmn:incoming>edge_Activity_5jxJQu-Activity_9jAHrO</bpmn:incoming>
+      <bpmn:outgoing>edge_8yynOK</bpmn:outgoing>
+      <bpmn:dataInputAssociation id="edge_MimcHf">
+        <bpmn:sourceRef>Data_s3uFuH</bpmn:sourceRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:sendTask>
+    <bpmn:dataStoreReference id="Data_s3uFuH" name="Data Fabric" />
+    <bpmn:scriptTask id="Activity_v6DvKj" name="Transform data" scriptFormat="JavaScript">
+      <bpmn:extensionElements>
+        <uipath:mapping version="v1">
+          <uipath:type value="BPMN.Variables" version="v1" />
+          <uipath:context>
+            <uipath:inputSchema type="jsonSchema"><![CDATA[{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"resolution_plan":{"type":"object"},"internal_recommendations":{"type":"object"},"customer_resolution_recommendations":{"type":"object"}},"required":[]}]]></uipath:inputSchema>
+          </uipath:context>
+          <uipath:input name="args" type="json" target="bodyField"><![CDATA[{"resolution_plan":"=vars.vwEYkLqMW","internal_recommendations":"=vars.vOgMKe7iQ","customer_resolution_recommendations":"=vars.v6tMjeklQ"}]]></uipath:input>
+          <uipath:output name="scriptResponse" type="jsonSchema" source="=result.response" var="vETVanziU" />
+          <uipath:output name="Error" type="jsonSchema" source="=Error" var="v4HZeh74o" />
+        </uipath:mapping>
+        <uipath:scriptVersion value="v2" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>edge_ksFz9C</bpmn:incoming>
+      <bpmn:outgoing>edge_s9WhkI</bpmn:outgoing>
+      <bpmn:script><![CDATA[var resolutionPlan = resolution_plan.join(" ")
+var internalRecommendations = internal_recommendations.join(" ")
+var customerResolutionRecommendations = customer_resolution_recommendations.join(" ")
+
+return {
+    resolutionPlan,
+    internalRecommendations,
+    customerResolutionRecommendations
+    };]]></bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="xy-edge___Event_start-Activity_1j8W74" sourceRef="Event_start" targetRef="Activity_1j8W74" />
+    <bpmn:sequenceFlow id="xy-edge__Activity_1j8W74-Activity_5jxJQu" sourceRef="Activity_1j8W74" targetRef="Activity_5jxJQu" />
+    <bpmn:sequenceFlow id="xy-edge___Gateway_wjHu9f-Activity_f3P7Bb" name="General" sourceRef="Gateway_wjHu9f" targetRef="Activity_f3P7Bb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=vars.vMvXHtAJu.Contains("General")</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="xy-edge___Gateway_wjHu9f-Activity_vfdEFe" name="Product" sourceRef="Gateway_wjHu9f" targetRef="Activity_vfdEFe">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="xy-edge__Gateway_wjHu9f-Activity_PiSeDK" name="ACH" sourceRef="Gateway_wjHu9f" targetRef="Activity_PiSeDK">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=vars.vMvXHtAJu.Contains("ACH")</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge___Gateway_TlKejt-Activity_B5YLNM" name="True" sourceRef="Gateway_TlKejt" targetRef="Activity_B5YLNM">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge___Gateway_TlKejt-Gateway_0fIWta" name="False" sourceRef="Gateway_TlKejt" targetRef="Gateway_0fIWta">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge___Activity_B5YLNM-Gateway_0fIWta" sourceRef="Activity_B5YLNM" targetRef="Gateway_0fIWta" />
+    <bpmn:sequenceFlow id="edge___Gateway_0fIWta-Gateway_wjHu9f" name="" sourceRef="Gateway_0fIWta" targetRef="Gateway_wjHu9f" />
+    <bpmn:association id="edge___Activity_1j8W74-Text_imhXDP" sourceRef="Activity_1j8W74" targetRef="Text_imhXDP" />
+    <bpmn:association id="edge_Activity_B5YLNM-Text_Mv3bQx" sourceRef="Activity_B5YLNM" targetRef="Text_Mv3bQx" />
+    <bpmn:association id="edge_Activity_5jxJQu-Text_qblRCx" sourceRef="Activity_5jxJQu" targetRef="Text_qblRCx" />
+    <bpmn:association id="edge_Activity_PiSeDK-Text_w6QBuJ" sourceRef="Activity_PiSeDK" targetRef="Text_w6QBuJ" />
+    <bpmn:association id="edge_Activity_hkN6Xo-Text_O6vzMl" sourceRef="Activity_hkN6Xo" targetRef="Text_O6vzMl" />
+    <bpmn:sequenceFlow id="edge_Activity_33SO9w-Event_Iz2d43i2cntT" sourceRef="Activity_33SO9w" targetRef="Event_Iz2d43" />
+    <bpmn:association id="edge_Group_5MHBM4-Text_iNnJxi" sourceRef="Group_5MHBM4" targetRef="Text_iNnJxi" />
+    <bpmn:sequenceFlow id="edge_Activity_f3P7Bb-Gateway_F8jso3" sourceRef="Activity_f3P7Bb" targetRef="Gateway_F8jso3" />
+    <bpmn:sequenceFlow id="edge_Gateway_F8jso3-Event_kQU7Zg" name="No" sourceRef="Gateway_F8jso3" targetRef="Event_kQU7Zg">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=vars.vynyWkEVs</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_h9kjfb" name="Yes" sourceRef="Gateway_XmuoJw" targetRef="Activity_hkN6Xo">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_kk6ETM" sourceRef="Activity_hkN6Xo" targetRef="Activity_lCYbMp" />
+    <bpmn:sequenceFlow id="edge_rtIAuk" sourceRef="Activity_lCYbMp" targetRef="Activity_33SO9w" />
+    <bpmn:sequenceFlow id="edge_APoh3h" sourceRef="Activity_vfdEFe" targetRef="Gateway_kza62L" />
+    <bpmn:sequenceFlow id="edge_Tm2P90" sourceRef="Activity_PiSeDK" targetRef="Gateway_kza62L" />
+    <bpmn:sequenceFlow id="edge_eEBUlX" name="Yes" sourceRef="Gateway_F8jso3" targetRef="Gateway_kza62L">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=!vars.vynyWkEVs</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_4wcoYW" sourceRef="Gateway_kza62L" targetRef="Activity_B85mzt" />
+    <bpmn:association id="edge_Event_kQU7Zg-Text_GC4tg7" sourceRef="Event_kQU7Zg" targetRef="Text_GC4tg7" />
+    <bpmn:sequenceFlow id="edge_azU15Z" name="No" sourceRef="Gateway_XmuoJw" targetRef="Activity_lCYbMp">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_Gateway_wjHu9f-Activity_39KZ3n" name="Unknown" sourceRef="Gateway_wjHu9f" targetRef="Activity_39KZ3n">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_Activity_39KZ3n-Event_FjyIwj" sourceRef="Activity_39KZ3n" targetRef="Event_FjyIwj" />
+    <bpmn:sequenceFlow id="edge_Activity_5jxJQu-Activity_9jAHrO" sourceRef="Activity_5jxJQu" targetRef="Activity_9jAHrO" />
+    <bpmn:sequenceFlow id="edge_8yynOK" sourceRef="Activity_9jAHrO" targetRef="Gateway_TlKejt" />
+    <bpmn:association id="edge_Group_jgk70M-Text_Cat8MM" sourceRef="Group_jgk70M" targetRef="Text_Cat8MM" />
+    <bpmn:association id="edge_Activity_9jAHrO-Text_IEh9v5" sourceRef="Activity_9jAHrO" targetRef="Text_IEh9v5" />
+    <bpmn:association id="edge_Group_f7EQuH-Text_afDIv3" sourceRef="Group_f7EQuH" targetRef="Text_afDIv3" />
+    <bpmn:association id="edge_Data_s3uFuH-Text_fULlLU" sourceRef="Data_s3uFuH" targetRef="Text_fULlLU" />
+    <bpmn:sequenceFlow id="edge_yMFBf3" sourceRef="Event_w7YqRY" targetRef="Activity_39KZ3n" />
+    <bpmn:sequenceFlow id="edge_ksFz9C" sourceRef="Activity_B85mzt" targetRef="Activity_v6DvKj" />
+    <bpmn:sequenceFlow id="edge_s9WhkI" sourceRef="Activity_v6DvKj" targetRef="Gateway_XmuoJw" />
+    <bpmn:group id="Group_5MHBM4" />
+    <bpmn:group id="Group_jgk70M" />
+    <bpmn:group id="Group_f7EQuH" />
+    <bpmn:textAnnotation id="Text_imhXDP">
+      <bpmn:text>🧠 Proprietary LLM to analyze intent, tone, and extract entities</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_Mv3bQx">
+      <bpmn:text>📄 Advanced Generative AI framework to extract from complex documents</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_qblRCx">
+      <bpmn:text>High-performance API workflow</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_w6QBuJ">
+      <bpmn:text>✨ Build powerful agents with UiPath Agent Builder. Multi-agent node for thorough and accurate research</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_O6vzMl">
+      <bpmn:text>✅ Supervise agentic systems with native human review </bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_iNnJxi">
+      <bpmn:text>Ingestion and Classification</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_GC4tg7">
+      <bpmn:text>Notification - SME Takes Request Forward</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_Cat8MM">
+      <bpmn:text>Agentic AI for reasoning, analysis, research and decisioning</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_IEh9v5">
+      <bpmn:text>Virtual Data Objects for scalable data sharing across agents</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_afDIv3">
+      <bpmn:text>Review and close request</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Text_fULlLU">
+      <bpmn:text>Virtual Data Objects to house artifacts for case</bpmn:text>
+    </bpmn:textAnnotation>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="S_Group_5MHBM4" bpmnElement="Group_5MHBM4">
+        <dc:Bounds x="-193.2062994964017" y="-102" width="966" height="689" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-193.2062994964017" y="592" width="966" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Group_jgk70M" bpmnElement="Group_jgk70M">
+        <dc:Bounds x="779" y="-103.1637508634371" width="771" height="689" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="779" y="590.8362491365629" width="771" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Group_f7EQuH" bpmnElement="Group_f7EQuH">
+        <dc:Bounds x="1554.5" y="-102.16375086343709" width="600" height="687" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1554.5" y="589.8362491365629" width="600" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Event_start" bpmnElement="Event_start">
+        <dc:Bounds x="-173" y="199" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-173" y="240" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_5jxJQu" bpmnElement="Activity_5jxJQu">
+        <dc:Bounds x="124" y="177" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="124" y="262" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_1j8W74" bpmnElement="Activity_1j8W74">
+        <dc:Bounds x="-68" y="177" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-68" y="262" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_wjHu9f" bpmnElement="Gateway_wjHu9f">
+        <dc:Bounds x="821" y="193" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="821" y="248" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_f3P7Bb" bpmnElement="Activity_f3P7Bb">
+        <dc:Bounds x="1025" y="6.836249136562898" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1025" y="91.8362491365629" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_vfdEFe" bpmnElement="Activity_vfdEFe">
+        <dc:Bounds x="1025" y="178" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1025" y="263" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_PiSeDK" bpmnElement="Activity_PiSeDK">
+        <dc:Bounds x="1025" y="302.05194381305967" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1025" y="387.05194381305967" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Event_w7YqRY" bpmnElement="Event_w7YqRY">
+        <dc:Bounds x="1057" y="364.05194381305967" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1057" y="405.05194381305967" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Event_Iz2d43" bpmnElement="Event_Iz2d43">
+        <dc:Bounds x="2090.556205382403" y="199" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2090.556205382403" y="240" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_lCYbMp" bpmnElement="Activity_lCYbMp">
+        <dc:Bounds x="1751.7937005035983" y="177" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1751.7937005035983" y="262" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_hkN6Xo" bpmnElement="Activity_hkN6Xo">
+        <dc:Bounds x="1566" y="39.051943813059665" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1566" y="124.05194381305967" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_33SO9w" bpmnElement="Activity_33SO9w">
+        <dc:Bounds x="1934.5403693158112" y="177" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1934.5403693158112" y="262" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_TlKejt" bpmnElement="Gateway_TlKejt">
+        <dc:Bounds x="488" y="193" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="488" y="248" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_B5YLNM" bpmnElement="Activity_B5YLNM">
+        <dc:Bounds x="463" y="64" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="463" y="149" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_0fIWta" bpmnElement="Gateway_0fIWta">
+        <dc:Bounds x="656" y="193" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="656" y="248" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_imhXDP" bpmnElement="Text_imhXDP">
+        <dc:Bounds x="-68" y="63" width="125" height="76" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-68" y="144" width="125" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_Mv3bQx" bpmnElement="Text_Mv3bQx">
+        <dc:Bounds x="574" y="-42" width="157" height="79" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="574" y="42" width="157" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_qblRCx" bpmnElement="Text_qblRCx">
+        <dc:Bounds x="110" y="296" width="128" height="51" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="110" y="352" width="128" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_w6QBuJ" bpmnElement="Text_w6QBuJ">
+        <dc:Bounds x="1150" y="391.8456443166581" width="178" height="77" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1150" y="473.8456443166581" width="178" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_O6vzMl" bpmnElement="Text_O6vzMl">
+        <dc:Bounds x="1657.7937005035983" y="-58.66375086343709" width="130" height="57" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1657.7937005035983" y="3.3362491365629126" width="130" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_iNnJxi" bpmnElement="Text_iNnJxi">
+        <dc:Bounds x="111.7937005035983" y="-159" width="282" height="39" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="111.7937005035983" y="-115" width="282" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_F8jso3" bpmnElement="Gateway_F8jso3">
+        <dc:Bounds x="1163" y="21.8362491365629" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1163" y="76.8362491365629" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Event_kQU7Zg" bpmnElement="Event_kQU7Zg">
+        <dc:Bounds x="1221" y="-48.1637508634371" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1221" y="-7.163750863437102" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_B85mzt" bpmnElement="Activity_B85mzt">
+        <dc:Bounds x="1285.7937005035983" y="178" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1285.7937005035983" y="263" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_XmuoJw" bpmnElement="Gateway_XmuoJw">
+        <dc:Bounds x="1591" y="192" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1591" y="247" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_kza62L" bpmnElement="Gateway_kza62L">
+        <dc:Bounds x="1214" y="193" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1214" y="248" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_GC4tg7" bpmnElement="Text_GC4tg7">
+        <dc:Bounds x="1309" y="-70.1637508634371" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1309" y="14.836249136562898" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_39KZ3n" bpmnElement="Activity_39KZ3n">
+        <dc:Bounds x="1025" y="481" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1025" y="566" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Event_FjyIwj" bpmnElement="Event_FjyIwj">
+        <dc:Bounds x="1194" y="503" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1194" y="544" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_9jAHrO" bpmnElement="Activity_9jAHrO">
+        <dc:Bounds x="310" y="178" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="310" y="263" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_Cat8MM" bpmnElement="Text_Cat8MM">
+        <dc:Bounds x="1053" y="-207.6637508634371" width="168" height="79" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1053" y="-123.66375086343709" width="168" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_IEh9v5" bpmnElement="Text_IEh9v5">
+        <dc:Bounds x="256" y="77" width="158" height="75" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="256" y="157" width="158" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_afDIv3" bpmnElement="Text_afDIv3">
+        <dc:Bounds x="1746.5" y="-186.6637508634371" width="134" height="65" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1746.5" y="-116.66375086343709" width="134" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Data_s3uFuH" bpmnElement="Data_s3uFuH">
+        <dc:Bounds x="335" y="319.22227321730304" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="335" y="374.22227321730304" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Text_fULlLU" bpmnElement="Text_fULlLU">
+        <dc:Bounds x="427" y="372.22227321730304" width="130" height="63" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="427" y="440.22227321730304" width="130" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_v6DvKj" bpmnElement="Activity_v6DvKj">
+        <dc:Bounds x="1433.893343492945" y="178" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1433.893343492945" y="263" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_xy-edge___Event_start-Activity_1j8W74" bpmnElement="xy-edge___Event_start-Activity_1j8W74">
+        <di:waypoint x="-137" y="217" />
+        <di:waypoint x="-68" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_xy-edge__Activity_1j8W74-Activity_5jxJQu" bpmnElement="xy-edge__Activity_1j8W74-Activity_5jxJQu">
+        <di:waypoint x="32" y="217" />
+        <di:waypoint x="124" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_xy-edge___Gateway_wjHu9f-Activity_f3P7Bb" bpmnElement="xy-edge___Gateway_wjHu9f-Activity_f3P7Bb">
+        <di:waypoint x="846" y="193" />
+        <di:waypoint x="846" y="47" />
+        <di:waypoint x="1025" y="47" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_xy-edge___Gateway_wjHu9f-Activity_vfdEFe" bpmnElement="xy-edge___Gateway_wjHu9f-Activity_vfdEFe">
+        <di:waypoint x="871" y="218" />
+        <di:waypoint x="1025" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_xy-edge__Gateway_wjHu9f-Activity_PiSeDK" bpmnElement="xy-edge__Gateway_wjHu9f-Activity_PiSeDK">
+        <di:waypoint x="871" y="218" />
+        <di:waypoint x="948" y="218" />
+        <di:waypoint x="948" y="342" />
+        <di:waypoint x="1025" y="342" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge___Gateway_TlKejt-Activity_B5YLNM" bpmnElement="edge___Gateway_TlKejt-Activity_B5YLNM">
+        <di:waypoint x="513" y="193" />
+        <di:waypoint x="513" y="144" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge___Gateway_TlKejt-Gateway_0fIWta" bpmnElement="edge___Gateway_TlKejt-Gateway_0fIWta">
+        <di:waypoint x="538" y="218" />
+        <di:waypoint x="656" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge___Activity_B5YLNM-Gateway_0fIWta" bpmnElement="edge___Activity_B5YLNM-Gateway_0fIWta">
+        <di:waypoint x="563" y="104" />
+        <di:waypoint x="681" y="104" />
+        <di:waypoint x="681" y="193" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge___Gateway_0fIWta-Gateway_wjHu9f" bpmnElement="edge___Gateway_0fIWta-Gateway_wjHu9f">
+        <di:waypoint x="706" y="218" />
+        <di:waypoint x="821" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge___Activity_1j8W74-Text_imhXDP" bpmnElement="edge___Activity_1j8W74-Text_imhXDP">
+        <di:waypoint x="-11.589743589743588" y="177" />
+        <di:waypoint x="-11.750000000000002" y="139" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_B5YLNM-Text_Mv3bQx" bpmnElement="edge_Activity_B5YLNM-Text_Mv3bQx">
+        <di:waypoint x="563" y="79.98566308243727" />
+        <di:waypoint x="619.3051643192489" y="37" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_5jxJQu-Text_qblRCx" bpmnElement="edge_Activity_5jxJQu-Text_qblRCx">
+        <di:waypoint x="174" y="257" />
+        <di:waypoint x="174" y="296" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_PiSeDK-Text_w6QBuJ" bpmnElement="edge_Activity_PiSeDK-Text_w6QBuJ">
+        <di:waypoint x="1125" y="357.23295006415674" />
+        <di:waypoint x="1189.2909043910656" y="391.8456443166581" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_hkN6Xo-Text_O6vzMl" bpmnElement="edge_Activity_hkN6Xo-Text_O6vzMl">
+        <di:waypoint x="1666" y="41.26146820641229" />
+        <di:waypoint x="1707.9732988282988" y="-1.6637508634370874" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_33SO9w-Event_Iz2d43i2cntT" bpmnElement="edge_Activity_33SO9w-Event_Iz2d43i2cntT">
+        <di:waypoint x="2035" y="217" />
+        <di:waypoint x="2091" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Group_5MHBM4-Text_iNnJxi" bpmnElement="edge_Group_5MHBM4-Text_iNnJxi">
+        <di:waypoint x="257" y="-102" />
+        <di:waypoint x="255" y="-120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_f3P7Bb-Gateway_F8jso3" bpmnElement="edge_Activity_f3P7Bb-Gateway_F8jso3">
+        <di:waypoint x="1125" y="47" />
+        <di:waypoint x="1163" y="47" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Gateway_F8jso3-Event_kQU7Zg" bpmnElement="edge_Gateway_F8jso3-Event_kQU7Zg">
+        <di:waypoint x="1188" y="22" />
+        <di:waypoint x="1188" y="-30" />
+        <di:waypoint x="1221" y="-30" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_h9kjfb" bpmnElement="edge_h9kjfb">
+        <di:waypoint x="1616" y="192" />
+        <di:waypoint x="1616" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_kk6ETM" bpmnElement="edge_kk6ETM">
+        <di:waypoint x="1666" y="79" />
+        <di:waypoint x="1802" y="79" />
+        <di:waypoint x="1802" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_rtIAuk" bpmnElement="edge_rtIAuk">
+        <di:waypoint x="1852" y="217" />
+        <di:waypoint x="1935" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_APoh3h" bpmnElement="edge_APoh3h">
+        <di:waypoint x="1125" y="218" />
+        <di:waypoint x="1214" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Tm2P90" bpmnElement="edge_Tm2P90">
+        <di:waypoint x="1125" y="342" />
+        <di:waypoint x="1239" y="342" />
+        <di:waypoint x="1239" y="243" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_eEBUlX" bpmnElement="edge_eEBUlX">
+        <di:waypoint x="1213" y="47" />
+        <di:waypoint x="1239" y="47" />
+        <di:waypoint x="1239" y="193" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_4wcoYW" bpmnElement="edge_4wcoYW">
+        <di:waypoint x="1264" y="218" />
+        <di:waypoint x="1286" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Event_kQU7Zg-Text_GC4tg7" bpmnElement="edge_Event_kQU7Zg-Text_GC4tg7">
+        <di:waypoint x="1257" y="-30.1637508634371" />
+        <di:waypoint x="1309" y="-30.1637508634371" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_azU15Z" bpmnElement="edge_azU15Z">
+        <di:waypoint x="1641" y="217" />
+        <di:waypoint x="1752" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Gateway_wjHu9f-Activity_39KZ3n" bpmnElement="edge_Gateway_wjHu9f-Activity_39KZ3n">
+        <di:waypoint x="846" y="243" />
+        <di:waypoint x="846" y="521" />
+        <di:waypoint x="1025" y="521" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_39KZ3n-Event_FjyIwj" bpmnElement="edge_Activity_39KZ3n-Event_FjyIwj">
+        <di:waypoint x="1125" y="521" />
+        <di:waypoint x="1194" y="521" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_5jxJQu-Activity_9jAHrO" bpmnElement="edge_Activity_5jxJQu-Activity_9jAHrO">
+        <di:waypoint x="224" y="218" />
+        <di:waypoint x="310" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_8yynOK" bpmnElement="edge_8yynOK">
+        <di:waypoint x="410" y="218" />
+        <di:waypoint x="488" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Group_jgk70M-Text_Cat8MM" bpmnElement="edge_Group_jgk70M-Text_Cat8MM">
+        <di:waypoint x="1138.8952702702702" y="-103.16375086343709" />
+        <di:waypoint x="1153.7115384615386" y="-128.6637508634371" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_9jAHrO-Text_IEh9v5" bpmnElement="edge_Activity_9jAHrO-Text_IEh9v5">
+        <di:waypoint x="344.8484848484849" y="178" />
+        <di:waypoint x="349.76377952755905" y="152" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Group_f7EQuH-Text_afDIv3" bpmnElement="edge_Group_f7EQuH-Text_afDIv3">
+        <di:waypoint x="1815.702479338843" y="-102.16375086343709" />
+        <di:waypoint x="1839.125" y="-121.66375086343709" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_MimcHf" bpmnElement="edge_MimcHf">
+        <di:waypoint x="360" y="319.22227321730304" />
+        <di:waypoint x="360" y="258" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Data_s3uFuH-Text_fULlLU" bpmnElement="edge_Data_s3uFuH-Text_fULlLU">
+        <di:waypoint x="385" y="349.52530352033335" />
+        <di:waypoint x="435.3529411764706" y="372.22227321730304" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_yMFBf3" bpmnElement="edge_yMFBf3">
+        <di:waypoint x="1075" y="400" />
+        <di:waypoint x="1075" y="481" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_ksFz9C" bpmnElement="edge_ksFz9C">
+        <di:waypoint x="1386" y="218" />
+        <di:waypoint x="1434" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_s9WhkI" bpmnElement="edge_s9WhkI">
+        <di:waypoint x="1534" y="218" />
+        <di:waypoint x="1562" y="218" />
+        <di:waypoint x="1562" y="217" />
+        <di:waypoint x="1591" y="217" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

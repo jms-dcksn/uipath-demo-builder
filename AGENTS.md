@@ -3,12 +3,20 @@
 This repository is a context harness for building UiPath demos from a use case, industry, and requirements notes.
 It is optimized for Maestro-centric solutions with Data Fabric persistence and custom front ends.
 
-## Minimum Inputs From User
+## Ideal inputs from user
 
 - Use case title and one-paragraph business goal.
 - Industry and domain.
 - Demo requirements and constraints.
 - Known systems/APIs/documents (if available).
+
+The user may also point you to a use case mardown file with more details. Review that first.
+
+## Minimum inputs from user
+
+- Customer/Account name
+
+If the user only provides an account name, you should include account research in your plan and then create the ideal inputs listed above. Provide 2-3 options for use cases and ask the user to pick one.
 
 ## Standard Delivery Workflow
 
@@ -20,7 +28,10 @@ It is optimized for Maestro-centric solutions with Data Fabric persistence and c
 6. Define case data model in Data Fabric (if case-based).
 7. Produce implementation specs for components and UI.
 8. Build what is supported directly (agents, frontend, case entity JSON) and hand off proprietary components with detailed specs.
-9. Produce a suggested demo script with `3-4` key messages, each mapped to `2-3` concrete demo visuals.
+9. For each AI agent, define a design brief (role, boundaries, prompt strategy, tool policy, escalation path, and output contract) before coding.
+10. Use available skills as accelerators, then extend implementation with additional tools as required by the use case.
+11. If required tools/integrations are unavailable, implement lightweight mock tools/wrappers so the demo remains runnable and clearly mark replacement points.
+12. Produce a suggested demo script with `3-4` key messages, each mapped to `2-3` concrete demo visuals.
 
 ## Capability Contract
 
@@ -30,7 +41,7 @@ It is optimized for Maestro-centric solutions with Data Fabric persistence and c
 | Use-case discovery    | Perform web research, summarize operations, extract process patterns            | Guarantee full domain completeness without SME review            |
 | Process modeling      | Produce BPMN-ready logic and case management stage/task diagrams in Mermaid     | Directly edit proprietary case modeling editors                  |
 | Automation components | Write detailed RPA/API/IDP specifications and contracts                         | Build proprietary RPA/IDP workflows inside locked tooling        |
-| AI agents             | Build Python agents with UiPath SDK, prefer `uipath-langchain` + `create_agent` | Bypass tenant/runtime constraints outside available environment  |
+| AI agents             | Build Python agents with UiPath SDK, prefer `uipath-langchain` + `create_agent`, and design task-aligned toolsets including mock tools when integrations are unavailable | Bypass tenant/runtime constraints outside available environment  |
 | Data Fabric           | Produce case entity schema/example JSON for import                              | Execute tenant-side imports without platform access              |
 | Frontend              | Build Vite + React + TypeScript app using UiPath TypeScript SDK                 | Validate against inaccessible tenant configs without credentials |
 
@@ -98,6 +109,14 @@ It is optimized for Maestro-centric solutions with Data Fabric persistence and c
 - Maintain requirement-to-task-to-data traceability across all partitions.
 - Document deviations from template defaults in the corresponding README.
 
+## Agent Design Working Rules
+
+- Use relevant skills (for example `bootstrap-uipath-agent`) to speed up setup, but do not stop at scaffold defaults.
+- Always include a short agent design rationale tied to business tasks and orchestration handoffs.
+- Propose and implement any additional tools needed for demo behavior (retrieval, validation, API wrappers, scoring, policy checks).
+- If a dependency is blocked or unavailable, provide mock tool code with deterministic outputs for predefined demo paths.
+- Keep mock/real tool interfaces identical where possible so replacement is low-friction.
+
 ## Demo Approach and Considerations
 
 - Any code you write is used for demos only - avoid defensive programming, excessive try/catches - KEEP IT SIMPLE
@@ -116,6 +135,6 @@ It is optimized for Maestro-centric solutions with Data Fabric persistence and c
 - A very clear path to creating the Maestro (BPMN or Case Management) flow is provided to the user
 - Clear descriptions on all proprietary workflows (API, RPA, IDP) that need to be built provided to the user
 - You have provided documents to include for the IDP extraction service that will be used
-- AI Agents (uipath-langchain) are fully built and tested
+- AI Agents (uipath-langchain) are fully built and tested, with explicit design rationale and implemented tool contracts (real or mock)
 - Front end experience matches requirements and you have given the user clear instructions on setting .env variables to test locally.
 - You have provided a suggested demo script that emphasizes 3-4 key messages, with alignment to 2-3 demo visuals for each key message.

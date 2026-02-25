@@ -5,7 +5,7 @@ This partition translates the designed model into component-level implementation
 ## Purpose
 
 - Define detailed specs for `RPA`, `API`, and `IDP` tasks.
-- Define build-ready specs for Python `AI Agents` using `uipath-langchain`.
+- Define build-ready specs for Python `AI Agents` using `uipath-langchain`, including design rationale and tool contracts.
 - Organize delivery into a practical backlog with acceptance scenarios.
 - Produce a delivery-ready demo script that maps key messages to visuals.
 
@@ -21,6 +21,6 @@ This partition translates the designed model into component-level implementation
 
 - Every task in the matrix has an implementation owner and spec depth.
 - Proprietary components have complete handoff specs.
-- Agent tasks include build/run/test instructions.
+- Agent tasks include build/run/test instructions plus a justified tool plan (real integrations and/or mock substitutes).
 - Acceptance scenarios cover happy path and critical exceptions.
 - Demo script includes `3-4` key messages with `2-3` visuals per message and explicit operator actions.

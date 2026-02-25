@@ -21,6 +21,7 @@ This folder contains partitioned context documents for designing and delivering 
 - Case entity schema/example JSON for Data Fabric import.
 - Frontend architecture and page contracts.
 - Implementation and handoff pack for proprietary components plus buildable assets for agents/frontend.
+- Agent design packet with tool-selection rationale and mock-tool fallbacks for unavailable integrations.
 - Suggested demo script with `3-4` key messages, each aligned to `2-3` concrete visuals and operator actions.
 
 ## Authoring Rules

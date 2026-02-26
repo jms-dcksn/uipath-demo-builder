@@ -1,81 +1,131 @@
 # Agent Build Spec - KYC Onboarding
 
 Prefer `uipath-langchain` and `create_agent` for agent implementation.
+Each identified agent is scaffolded independently with `uipath new <agent-name>`.
+No multi-role prompt multiplexing is used in a shared runtime.
 
 Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 
 ## 1) Agent Index
 
-| Agent ID | Task IDs | Role | Inputs | Outputs | Owner |
-|---|---|---|---|---|---|
-| AG-COMP-01 | T-003 | Completeness validation | Extracted field set + confidence | Missing fields + readiness score | AI Team |
-| AG-OWN-01 | T-005 | Ownership compliance analysis | Beneficial owner structure | Ownership pass/fail + rationale | AI Team |
-| AG-BRIEF-01 | T-007 | Reviewer briefing synthesis | Screening output + case notes | Structured review brief | AI Team |
+| Agent ID | Agent Name (`uipath new`) | Project Path | Task IDs | Role | Inputs | Outputs | Owner |
+|---|---|---|---|---|---|---|---|
+| AG-COMP-01 | `kyc-completeness-agent` | `agents/kyc-completeness-agent` | T-003 | Completeness validation | Extracted field set + confidence | Missing fields + readiness score | AI Team |
+| AG-OWN-01 | `kyc-ownership-agent` | `agents/kyc-ownership-agent` | T-005 | Ownership compliance analysis | Beneficial owner structure | Ownership pass/fail + rationale | AI Team |
+| AG-BRIEF-01 | `kyc-review-briefing-agent` | `agents/kyc-review-briefing-agent` | T-007 | Reviewer briefing synthesis | Screening output + case notes | Structured review brief | AI Team |
 
-## 2) Agent Specification
+## 2) Bootstrap Plan (Required)
+
+| Agent ID | Command | Working Directory | Expected Output Folder | Status |
+|---|---|---|---|---|
+| AG-COMP-01 | `uipath new kyc-completeness-agent` | `<repo-root>/agents` | `agents/kyc-completeness-agent` | Planned |
+| AG-OWN-01 | `uipath new kyc-ownership-agent` | `<repo-root>/agents` | `agents/kyc-ownership-agent` | Planned |
+| AG-BRIEF-01 | `uipath new kyc-review-briefing-agent` | `<repo-root>/agents` | `agents/kyc-review-briefing-agent` | Planned |
+
+- A separate scaffold is created for each `AG-*` ID.
+- Shared helper modules are permitted, but each project maintains its own prompt contract and tool list.
+
+## 3) Agent Specification
 
 ### Agent: `AG-COMP-01`
 
+- Agent project name (`uipath new <agent-name>`): `kyc-completeness-agent`.
+- Project path: `agents/kyc-completeness-agent`.
 - Objective: Determine whether a case can proceed to screening without missing critical information.
 - Trigger/event: Completion of T-002 extraction.
 - Inputs: Required-field policy, extracted fields, confidence metrics.
 - Outputs: `isComplete`, `missingFields[]`, `confidenceFlags[]`, `recommendedStatus`.
 - Tooling dependencies: Policy rules source, entity read/update tool.
+- Architecture pattern: Single-role validation agent.
+- Prompt strategy: Deterministic validation contract; no autonomous adjudication.
 - Decision policy: Deterministic required-field checks with explicit thresholds.
 - Guardrails: No approval authority; cannot set final decision.
 - Human escalation condition: Any critical field missing twice.
 - Observability signals: completeness score distribution, false-negative rate.
+- Inter-agent handoff contract: Emits validated payload for AG-OWN-01 only when `isComplete=true`.
+
+### Agent: `AG-OWN-01`
+
+- Agent project name (`uipath new <agent-name>`): `kyc-ownership-agent`.
+- Project path: `agents/kyc-ownership-agent`.
+- Objective: Assess beneficial ownership compliance against threshold and data-quality policies.
+- Trigger/event: AG-COMP-01 returns complete payload.
+- Inputs: Beneficial owner list, ownership percentages, policy thresholds.
+- Outputs: `ownershipPass`, `violations[]`, `rationale`, `recommendedStatus`.
+- Tooling dependencies: Ownership policy retriever, entity read/update tool.
+- Architecture pattern: Single-role ownership rules agent.
+- Prompt strategy: Policy-grounded analysis with structured JSON output.
+- Decision policy: Rule-based threshold checks with deterministic fail reasons.
+- Guardrails: No final approve/reject; route policy exceptions to human review.
+- Human escalation condition: Any threshold breach or unresolved ownership ambiguity.
+- Observability signals: violation frequency, manual override rate.
+- Inter-agent handoff contract: Emits ownership assessment used by AG-BRIEF-01 for reviewer context.
 
 ### Agent: `AG-BRIEF-01`
 
+- Agent project name (`uipath new <agent-name>`): `kyc-review-briefing-agent`.
+- Project path: `agents/kyc-review-briefing-agent`.
 - Objective: Summarize risk and evidence for fast, accountable human adjudication.
 - Trigger/event: T-006 screening completed.
 - Inputs: Screening hits, ownership profile, validation notes.
 - Outputs: brief sections: `KeyFindings`, `RiskDrivers`, `RecommendedNextAction`.
 - Tooling dependencies: Case read access, screening result parser.
+- Architecture pattern: Single-role summarization agent.
+- Prompt strategy: Citation-first synthesis with no autonomous final decision.
 - Decision policy: Summarization only; no autonomous approval/rejection.
 - Guardrails: Must cite source task IDs for every risk statement.
 - Human escalation condition: Any confirmed match or unresolved ambiguity.
 - Observability signals: average briefing generation time, reviewer acceptance feedback.
+- Inter-agent handoff contract: Final structured brief is persisted for the human compliance task.
 
-## 3) Implementation Skeleton
+## 4) Tool Contract
 
-Start from scaffolded project artifacts.
+| Tool Name | Type (`UiPath`/`API`/`Retriever`/`Mock`) | Task IDs | Input Contract | Output Contract | Runtime Source |
+|---|---|---|---|---|---|
+| `read_case_snapshot` | UiPath | T-003, T-005, T-007 | `case_id: str` | `dict` case snapshot | Data Fabric entity |
+| `write_case_assessment` | UiPath | T-003, T-005, T-007 | assessment payload | persisted assessment status | Data Fabric entity |
+| `lookup_ownership_policy` | Retriever | T-005 | `policy_version: str` | ownership policy clauses | Policy KB |
+| `mock_screening_summary_parser` | Mock | T-007 | screening payload | normalized findings list | Local deterministic stub |
+
+## 5) Implementation Skeleton
+
+Start from each scaffolded project artifact independently.
 
 ```python
 from typing import Any
 from langchain.agents import create_agent
 
-# Scaffold commands:
-# uipath new kyc-review-agent
+# Scaffold command is run once per agent:
+# uipath new <agent-name>
 # uipath init
 
 tools: list[Any] = [
-    # Add UiPath and custom tools used by agent tasks
+    # Add only tools required by this agent's mapped tasks
 ]
 
 agent = create_agent(
     model="YOUR_MODEL_OR_PROVIDER_CONFIG",
     tools=tools,
     system_prompt=(
-        "You are a KYC support agent. "
+        "You are the AG-<ROLE>-01 KYC agent for one specific role. "
         "Return structured outputs only. "
         "Do not make final approval or rejection decisions."
     )
 )
 ```
 
-## 4) Runtime And Security
+## 6) Runtime And Security
 
 - Tenant/environment assumptions: Separate dev/demo/prod style environments.
 - Credential sources: Vault-managed secrets only.
 - Secrets handling: No credentials in prompts or logs.
 - Data retention and redaction rules: Mask PII in nonessential logs.
 
-## 5) Validation Plan
+## 7) Validation Plan
 
 | Test ID | Scenario | Expected Behavior | Pass Criteria |
 |---|---|---|---|
 | AG-T-01 | Missing required field | AG-COMP-01 flags incomplete and suggests PendingInfo | Structured output with missing field list |
 | AG-T-02 | Ambiguous screening summary input | AG-BRIEF-01 highlights ambiguity and recommends manual adjudication | No autonomous decision language |
 | AG-T-03 | Malformed owner payload | AG-OWN-01 returns validation error and escalation tag | Safe failure with reason code |
+| AG-T-04 | Prompt multiplexing attempt | Any agent rejects/ignores request to switch to another agent role | Output remains within that agent's declared contract |

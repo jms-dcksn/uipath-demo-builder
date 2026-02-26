@@ -52,3 +52,10 @@ Use one of the following values consistently:
 - Use ISO 8601 timestamps in examples.
 - Mark unknowns as `TBD` with owner/date.
 - Keep version numbers in each major artifact.
+
+## 7) Agent Packaging Rules
+
+- Keep a `1:1` mapping between each `AG-*` ID and a scaffolded UiPath agent project.
+- Record the bootstrap command explicitly as `uipath new <agent-name>` for each identified agent.
+- Do not implement multi-role prompt/tool multiplexing inside one agent runtime.
+- Shared helper modules are allowed, but each agent must keep its own `main.py` prompt contract and task-aligned tool list.

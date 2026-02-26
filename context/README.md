@@ -22,11 +22,13 @@ This folder contains partitioned context documents for designing and delivering 
 - Frontend architecture and page contracts.
 - Implementation and handoff pack for proprietary components plus buildable assets for agents/frontend.
 - Agent design packet with tool-selection rationale and mock-tool fallbacks for unavailable integrations.
+- One `uipath new <agent-name>` bootstrap command and project path per identified agent role (no multiplexed multi-role prompts in a single runtime).
 - Suggested demo script with `3-4` key messages, each aligned to `2-3` concrete visuals and operator actions.
 
 ## Authoring Rules
 
 - Keep IDs stable across partitions (`BR-*`, `SEG-*`, `T-*`, `R-*`).
 - Maintain end-to-end traceability from requirement to task to data to UI.
+- Keep `AG-*` IDs in `1:1` alignment with scaffolded agent projects created via `uipath new`.
 - Mark unknowns as `TBD` with owner/date.
 - Keep citations for all material research claims.

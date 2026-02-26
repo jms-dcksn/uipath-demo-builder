@@ -114,6 +114,8 @@ If the user only provides an account name, you should include account research i
 - Use relevant skills (for example `bootstrap-uipath-agent`) to speed up setup, but do not stop at scaffold defaults.
 - Maintain a `1:1` mapping between each identified `AG-*` role and a scaffolded agent project created with `uipath new <agent-name>`.
 - Do not multiplex multiple role/system prompts inside one agent runtime; when prompt contract or tool policy differs, create another agent scaffold.
+- If the user provides a UiPath Context Grounding index, follow the `bootstrap-uipath-agent` skill pattern and wire `ContextGroundingRetriever` with both `index_name` and `folder_path`.
+- If the user provides an MCP URL for an agent, integrate streamable HTTP MCP tools for that specific agent and capture the MCP tool contract in the build spec.
 - Always include a short agent design rationale tied to business tasks and orchestration handoffs.
 - Propose and implement any additional tools needed for demo behavior (retrieval, validation, API wrappers, scoring, policy checks).
 - If a dependency is blocked or unavailable, provide mock tool code with deterministic outputs for predefined demo paths.
@@ -137,6 +139,6 @@ If the user only provides an account name, you should include account research i
 - A very clear path to creating the Maestro (BPMN or Case Management) flow is provided to the user
 - Clear descriptions on all proprietary workflows (API, RPA, IDP) that need to be built provided to the user
 - You have provided documents to include for the IDP extraction service that will be used
-- AI Agents (uipath-langchain) are fully built and tested, with explicit design rationale, implemented tool contracts (real or mock), and independent `uipath new` scaffolds for each identified agent role
+- AI Agents (uipath-langchain) are fully built and tested, with explicit design rationale, implemented tool contracts (real or mock), independent `uipath new` scaffolds for each identified agent role, and user-provided Context Grounding/MCP inputs incorporated when available
 - Front end experience matches requirements and you have given the user clear instructions on setting .env variables to test locally.
 - You have provided a suggested demo script that emphasizes 3-4 key messages, with alignment to 2-3 demo visuals for each key message.

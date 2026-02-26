@@ -23,5 +23,6 @@ This partition translates the designed model into component-level implementation
 - Proprietary components have complete handoff specs.
 - Agent tasks include build/run/test instructions plus a justified tool plan (real integrations and/or mock substitutes).
 - Identified AI agents are not multiplexed through one runtime; each has its own `uipath new <agent-name>` scaffold and prompt contract.
+- If the user provides Context Grounding index details and/or an MCP URL, those integrations are explicitly represented in the agent tool contracts and validation scenarios.
 - Acceptance scenarios cover happy path and critical exceptions.
 - Demo script includes `3-4` key messages with `2-3` visuals per message and explicit operator actions.

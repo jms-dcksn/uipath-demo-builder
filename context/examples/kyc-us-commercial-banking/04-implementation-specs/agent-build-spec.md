@@ -43,6 +43,8 @@ Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 - Human escalation condition: Any critical field missing twice.
 - Observability signals: completeness score distribution, false-negative rate.
 - Inter-agent handoff contract: Emits validated payload for AG-OWN-01 only when `isComplete=true`.
+- Context Grounding config (if provided): `index_name=TBD`, `folder_path=TBD`, retriever tool name `kyc_completeness_context`.
+- MCP config (if provided): `streamable_http_url=TBD`, auth `TBD`, enabled tools `TBD`.
 
 ### Agent: `AG-OWN-01`
 
@@ -60,6 +62,8 @@ Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 - Human escalation condition: Any threshold breach or unresolved ownership ambiguity.
 - Observability signals: violation frequency, manual override rate.
 - Inter-agent handoff contract: Emits ownership assessment used by AG-BRIEF-01 for reviewer context.
+- Context Grounding config (if provided): `index_name=TBD`, `folder_path=TBD`, retriever tool name `kyc_ownership_context`.
+- MCP config (if provided): `streamable_http_url=TBD`, auth `TBD`, enabled tools `TBD`.
 
 ### Agent: `AG-BRIEF-01`
 
@@ -77,13 +81,17 @@ Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 - Human escalation condition: Any confirmed match or unresolved ambiguity.
 - Observability signals: average briefing generation time, reviewer acceptance feedback.
 - Inter-agent handoff contract: Final structured brief is persisted for the human compliance task.
+- Context Grounding config (if provided): `index_name=TBD`, `folder_path=TBD`, retriever tool name `kyc_briefing_context`.
+- MCP config (if provided): `streamable_http_url=TBD`, auth `TBD`, enabled tools `TBD`.
 
 ## 4) Tool Contract
 
-| Tool Name | Type (`UiPath`/`API`/`Retriever`/`Mock`) | Task IDs | Input Contract | Output Contract | Runtime Source |
+| Tool Name | Type (`UiPath`/`API`/`Retriever`/`MCP`/`Mock`) | Task IDs | Input Contract | Output Contract | Runtime Source |
 |---|---|---|---|---|---|
 | `read_case_snapshot` | UiPath | T-003, T-005, T-007 | `case_id: str` | `dict` case snapshot | Data Fabric entity |
 | `write_case_assessment` | UiPath | T-003, T-005, T-007 | assessment payload | persisted assessment status | Data Fabric entity |
+| `kyc_policy_context_retriever` | Retriever | T-003, T-005 | `query: str` | KYC policy excerpts + citations | UiPath Context Grounding (`index_name`, `folder_path`) |
+| `mcp_watchlist_enrichment` | MCP | T-007 | normalized subject payload | watchlist enrichment summary | Streamable HTTP MCP endpoint |
 | `lookup_ownership_policy` | Retriever | T-005 | `policy_version: str` | ownership policy clauses | Policy KB |
 | `mock_screening_summary_parser` | Mock | T-007 | screening payload | normalized findings list | Local deterministic stub |
 
@@ -94,14 +102,30 @@ Start from each scaffolded project artifact independently.
 ```python
 from typing import Any
 from langchain.agents import create_agent
+from langchain_core.tools.retriever import create_retriever_tool
+from uipath_langchain.retrievers import ContextGroundingRetriever
 
 # Scaffold command is run once per agent:
 # uipath new <agent-name>
 # uipath init
 
+def build_context_tool(index_name: str, folder_path: str) -> Any:
+    retriever = ContextGroundingRetriever(index_name=index_name, folder_path=folder_path)
+    return create_retriever_tool(
+        retriever,
+        "kyc_policy_context_retriever",
+        "Retrieve KYC policy context and citations."
+    )
+
+def build_mcp_tools(mcp_url: str) -> list[Any]:
+    # Bind streamable HTTP MCP tools when URL is provided.
+    return []
+
 tools: list[Any] = [
     # Add only tools required by this agent's mapped tasks
 ]
+# tools.append(build_context_tool(index_name="YOUR_INDEX", folder_path="YOUR/FOLDER"))
+# tools.extend(build_mcp_tools(mcp_url="https://example.com/mcp"))
 
 agent = create_agent(
     model="YOUR_MODEL_OR_PROVIDER_CONFIG",
@@ -129,3 +153,5 @@ agent = create_agent(
 | AG-T-02 | Ambiguous screening summary input | AG-BRIEF-01 highlights ambiguity and recommends manual adjudication | No autonomous decision language |
 | AG-T-03 | Malformed owner payload | AG-OWN-01 returns validation error and escalation tag | Safe failure with reason code |
 | AG-T-04 | Prompt multiplexing attempt | Any agent rejects/ignores request to switch to another agent role | Output remains within that agent's declared contract |
+| AG-T-05 | Context Grounding configured | Retriever uses configured `index_name` + `folder_path` and returns citation-ready context | Retrieval output includes source references |
+| AG-T-06 | MCP URL configured | MCP tools are invoked through streamable HTTP and mapped to output contract | Agent output includes MCP-enriched fields |

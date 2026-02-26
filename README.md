@@ -24,6 +24,7 @@ Business goal: Reduce time to first decision by 40% while improving consistency 
 Industry/domain: Insurance / Claims Operations.
 Requirements: Use UiPath Maestro, Data Fabric, at least 2 Python agents, and a React frontend with dashboard + case detail pages.
 Implementation rule: each identified agent must be scaffolded independently with `uipath new <agent-name>` (no multi-role prompt multiplexing in one runtime).
+Optional agent inputs: include UiPath Context Grounding `index_name` + `folder_path` and/or an MCP streamable HTTP URL when provided.
 Known systems: Policy admin API, document inbox, adjuster notes in SharePoint.
 Constraints: Demo-ready in 2 weeks, show happy path and exception path, include a final suggested demo script.
 ```

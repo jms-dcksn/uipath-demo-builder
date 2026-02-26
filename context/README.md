@@ -23,6 +23,7 @@ This folder contains partitioned context documents for designing and delivering 
 - Implementation and handoff pack for proprietary components plus buildable assets for agents/frontend.
 - Agent design packet with tool-selection rationale and mock-tool fallbacks for unavailable integrations.
 - One `uipath new <agent-name>` bootstrap command and project path per identified agent role (no multiplexed multi-role prompts in a single runtime).
+- If provided by the user, agent specs include UiPath Context Grounding (`index_name` + `folder_path`) and/or streamable HTTP MCP URL integration details.
 - Suggested demo script with `3-4` key messages, each aligned to `2-3` concrete visuals and operator actions.
 
 ## Authoring Rules
@@ -30,5 +31,6 @@ This folder contains partitioned context documents for designing and delivering 
 - Keep IDs stable across partitions (`BR-*`, `SEG-*`, `T-*`, `R-*`).
 - Maintain end-to-end traceability from requirement to task to data to UI.
 - Keep `AG-*` IDs in `1:1` alignment with scaffolded agent projects created via `uipath new`.
+- Record user-provided agent integration inputs (Context Grounding index/folder and MCP URL) in the corresponding agent build spec sections.
 - Mark unknowns as `TBD` with owner/date.
 - Keep citations for all material research claims.

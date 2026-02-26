@@ -59,3 +59,5 @@ Use one of the following values consistently:
 - Record the bootstrap command explicitly as `uipath new <agent-name>` for each identified agent.
 - Do not implement multi-role prompt/tool multiplexing inside one agent runtime.
 - Shared helper modules are allowed, but each agent must keep its own `main.py` prompt contract and task-aligned tool list.
+- If a user provides Context Grounding details, capture `index_name` and `folder_path` in the agent spec and tool contract.
+- If a user provides an MCP URL, capture it as a streamable HTTP MCP integration in the agent spec and tool contract.

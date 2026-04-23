@@ -21,7 +21,7 @@ A set of Claude Code skills for building **demo-grade** UiPath solutions from a 
 In Claude Code, add this repo as a marketplace and install the plugin:
 
 ```
-/plugin marketplace add <this-repo-url>
+/plugin marketplace add https://github.com/jms-dcksn/uipath-demo-builder.git
 /plugin install demo-builder@uipath-demo-builder
 ```
 

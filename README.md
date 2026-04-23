@@ -27,21 +27,6 @@ In Claude Code, add this repo as a marketplace and install the plugin:
 
 That's it — all 7 skills and 4 sub-agents are registered. To update: `/plugin update demo-builder`.
 
-```bash
-git clone <this-repo-url> ~/src/demo-builder
-mkdir -p ~/.claude/skills ~/.claude/agents
-ln -s ~/src/demo-builder/skills/demo-builder-planner          ~/.claude/skills/demo-builder-planner
-ln -s ~/src/demo-builder/skills/demo-builder-discovery        ~/.claude/skills/demo-builder-discovery
-ln -s ~/src/demo-builder/skills/demo-builder-data-fabric      ~/.claude/skills/demo-builder-data-fabric
-ln -s ~/src/demo-builder/skills/demo-builder-case-management  ~/.claude/skills/demo-builder-case-management
-ln -s ~/src/demo-builder/skills/demo-builder-agents           ~/.claude/skills/demo-builder-agents
-ln -s ~/src/demo-builder/skills/demo-builder-frontend         ~/.claude/skills/demo-builder-frontend
-ln -s ~/src/demo-builder/skills/demo-builder-script           ~/.claude/skills/demo-builder-script
-for a in agent-builder case-designer data-modeler frontend-builder; do
-  ln -s ~/src/demo-builder/agents/$a.md ~/.claude/agents/$a.md
-done
-```
-
 ### Required companion skills
 
 These skills delegate deep work to the production UiPath skills. Install them from the UiPath Skills repo: https://github.com/uipath/skills

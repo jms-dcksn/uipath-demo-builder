@@ -1,0 +1,22 @@
+{
+  "name": "uipath-demo-builder",
+  "owner": {
+    "name": "UiPath"
+  },
+  "description": "UiPath internal marketplace for demo-building plugins.",
+  "plugins": [
+    {
+      "name": "demo-builder",
+      "source": ".",
+      "description": "Build demo-grade UiPath Agentic Orchestration solutions (discovery → case management → data fabric → agents → frontend → demo script).",
+      "version": "0.1.0",
+      "category": "uipath",
+      "keywords": [
+        "uipath",
+        "demo",
+        "agentic-orchestration"
+      ],
+      "strict": false
+    }
+  ]
+}

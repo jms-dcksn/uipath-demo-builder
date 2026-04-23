@@ -1,0 +1,16 @@
+{
+  "name": "demo-builder",
+  "version": "0.1.0",
+  "description": "UiPath Agentic Orchestration demo builder — 7 skills + 4 sub-agents that take a use case, industry, and requirements and produce a demo-grade solution (discovery, case management, data fabric, agents, frontend, script).",
+  "author": {
+    "name": "UiPath"
+  },
+  "keywords": [
+    "uipath",
+    "demo",
+    "agentic-orchestration",
+    "maestro",
+    "case-management",
+    "data-fabric"
+  ]
+}

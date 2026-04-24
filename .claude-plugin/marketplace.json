@@ -3,11 +3,13 @@
   "owner": {
     "name": "UiPath"
   },
-  "description": "UiPath internal marketplace for demo-building plugins.",
+  "metadata": {
+    "description": "UiPath internal marketplace for demo-building plugins."
+  },
   "plugins": [
     {
       "name": "demo-builder",
-      "source": ".",
+      "source": "./",
       "description": "Build demo-grade UiPath Agentic Orchestration solutions (discovery → case management → data fabric → agents → frontend → demo script).",
       "version": "0.1.0",
       "category": "uipath",

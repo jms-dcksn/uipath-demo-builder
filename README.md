@@ -63,9 +63,9 @@ uip tools install @uipath/codedapp-tool
 Fastest path — use the slash command:
 
 ```
-/demo-build Acme Bank KYC
-/demo-build path/to/use-case-brief.md
-/demo-build            # no args — it will ask for a customer or brief
+/demo-builder:demo-build Acme Bank KYC
+/demo-builder:demo-build path/to/use-case-brief.md
+/demo-builder:demo-build            # no args — it will ask for a customer or brief
 ```
 
 The command deterministically enters the planner skill and runs discovery -> data model -> case management -> agents -> frontend -> demo script -> manual completion checklist.

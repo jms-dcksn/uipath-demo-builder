@@ -1,0 +1,122 @@
+{
+  "reqid": "MIR-REQ-2026-000287",
+  "stage": "ProtocolReview",
+  "prioritylevel": "P2",
+  "datereceived": "2026-02-19T09:42:55-08:00",
+  "datecreated": "2026-02-19T09:40:22-08:00",
+  "modality": "Ultrasound",
+  "patienthistory": "Right upper quadrant pain for 3 weeks. Elevated liver enzymes noted in recent bloodwork.",
+  "mobilitystatus": "Ambulatory",
+  "accessibilityneeds": [
+    "language_interpreter_es",
+    "wheelchair_accessible_entrance"
+  ],
+  "pregnancystatus": "NotPregnant",
+  "protocolinstructions": "NPO for 6 hours before exam. Prioritize right upper quadrant protocol.",
+  "airecommendations": [
+    "Prioritize within 7 days due to symptom duration and lab findings.",
+    "Recommend facility with weekend ultrasound capacity."
+  ],
+  "patientfirstname": "Avery",
+  "patientlastname": "Cole",
+  "patientdateofbirth": "1986-11-04",
+  "patientsex": "Female",
+  "patientphn": "9736451287",
+  "patientaddressstreet": "1457 Oak Ridge Drive",
+  "patientaddresscity": "Surrey",
+  "patientaddressprovince": "BC",
+  "patientaddresspostalcode": "V3R 2L1",
+  "patientphone": "+1-604-555-0136",
+  "patientheightcm": 168.2,
+  "patientweightkg": 70.4,
+  "examdetails": {
+    "examCode": "US-ABD-COMPLETE",
+    "bodyPart": "Abdomen",
+    "laterality": "N/A",
+    "contrast": false,
+    "clinicalQuestion": "Evaluate biliary obstruction"
+  },
+  "billing": {
+    "payerType": "Provincial",
+    "coveragePlan": "MSP",
+    "authorizationRequired": false
+  },
+  "previousimaginghistory": [
+    {
+      "date": "2024-11-10",
+      "modality": "X-ray",
+      "facility": "Fraser Health Imaging",
+      "summary": "Normal chest radiograph."
+    }
+  ],
+  "aisuggestions": [
+    {
+      "category": "facility",
+      "priority": "High",
+      "recommendation": "Book at Surrey Memorial Outpatient Imaging (earliest slot in 3 days)."
+    },
+    {
+      "category": "protocol",
+      "priority": "Medium",
+      "recommendation": "Include hepatobiliary focus due to elevated ALT/AST."
+    }
+  ],
+  "stagehistories": [
+    {
+      "stage": "Intake",
+      "enteredAt": "2026-02-19T09:40:22-08:00",
+      "leftAt": "2026-02-19T09:44:03-08:00"
+    },
+    {
+      "stage": "ProtocolReview",
+      "enteredAt": "2026-02-19T09:44:03-08:00",
+      "leftAt": null
+    }
+  ],
+  "comments": [
+    {
+      "author": "clerk.smith@facility.example",
+      "timestamp": "2026-02-19T09:45:17-08:00",
+      "message": "Confirmed referral notes and lab requisition attachment."
+    }
+  ],
+  "audithistories": [
+    {
+      "action": "CREATE_REQUISITION",
+      "actor": "api-gateway",
+      "timestamp": "2026-02-19T09:40:22-08:00"
+    },
+    {
+      "action": "UPDATE_STAGE",
+      "actor": "workflow-engine",
+      "timestamp": "2026-02-19T09:44:03-08:00",
+      "details": "Intake -> ProtocolReview"
+    }
+  ],
+  "facilityoptions": [
+    {
+      "facilityId": "FAC-2201",
+      "facilityName": "Surrey Memorial Outpatient Imaging",
+      "distanceKm": 6.2,
+      "nextAvailableSlot": "2026-02-22T14:30:00-08:00"
+    },
+    {
+      "facilityId": "FAC-2208",
+      "facilityName": "Peace Arch Hospital Imaging",
+      "distanceKm": 17.8,
+      "nextAvailableSlot": "2026-02-23T09:15:00-08:00"
+    }
+  ],
+  "bookinginfo": {
+    "status": "Tentative",
+    "facilityId": "FAC-2201",
+    "scheduledStart": "2026-02-22T14:30:00-08:00",
+    "scheduledEnd": "2026-02-22T15:00:00-08:00",
+    "confirmationCode": "BK-702441"
+  },
+  "orderingpractitionername": "Dr. Jordan Malik",
+  "orderingpractitionerlicensenumber": "BC-MD-447201",
+  "orderingpractitionerphone": "+1-604-555-0188",
+  "orderingpractitionerfax": "+1-604-555-0149",
+  "requisitiongroup": "d07d6b8f-9f63-4fd8-9a1a-8f4e60e56f8f"
+}

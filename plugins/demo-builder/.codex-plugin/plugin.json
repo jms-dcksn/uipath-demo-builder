@@ -1,6 +1,6 @@
 {
   "name": "demo-builder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "UiPath demo builder with skills, agents, and commands for turning a use case into a demo-grade solution.",
   "author": {
     "name": "UiPath",

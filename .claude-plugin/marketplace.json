@@ -11,7 +11,7 @@
       "name": "demo-builder",
       "source": "./",
       "description": "Build demo-grade UiPath Agentic Orchestration solutions (discovery → case management → data fabric → agents → frontend → demo script).",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "category": "uipath",
       "keywords": [
         "uipath",

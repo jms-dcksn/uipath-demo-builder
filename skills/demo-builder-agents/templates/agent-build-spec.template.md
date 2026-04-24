@@ -1,9 +1,9 @@
 # Agent Build Spec Template (UiPath Python + LangChain)
 
 Prefer `uipath-langchain` and `create_agent` for agent implementation.
-Every identified agent must be scaffolded as an independent project with `uipath new <agent-name>`.
+Every identified coded agent must be scaffolded as an independent project with `uip codedagent new <agent-name>`.
 Do not multiplex multiple role/system prompts through one shared agent runtime.
-When the user provides Context Grounding details, use the `bootstrap-uipath-agent` skill pattern and include both `index_name` and `folder_path`.
+When the user provides Context Grounding details, include both `index_name` and `folder_path`.
 When the user provides an MCP URL, integrate streamable HTTP MCP tools for that agent.
 
 ## References
@@ -12,7 +12,7 @@ When the user provides an MCP URL, integrate streamable HTTP MCP tools for that 
 
 ## 1) Agent Index
 
-| Agent ID | Agent Name (`uipath new`) | Project Path | Task IDs | Role | Inputs | Outputs | Owner |
+| Agent ID | Agent Name (`uip codedagent new`) | Project Path | Task IDs | Role | Inputs | Outputs | Owner |
 |---|---|---|---|---|---|---|---|
 | AG-VAL-01 | `validation-agent` | `agents/validation-agent` | T-002 | Data validation and anomaly detection | Extracted fields | Validation result + explanation |  |
 
@@ -20,9 +20,9 @@ When the user provides an MCP URL, integrate streamable HTTP MCP tools for that 
 
 | Agent ID | Command | Working Directory | Expected Output Folder | Status |
 |---|---|---|---|---|
-| AG-VAL-01 | `uipath new validation-agent` | `<repo-root>/agents` | `agents/validation-agent` | Planned |
+| AG-VAL-01 | `uv add uipath-langchain && uv sync && uip codedagent setup --output json && uip codedagent new validation-agent` | `builds/<demo-slug>/agents/AG-VAL-01` | `builds/<demo-slug>/agents/AG-VAL-01/validation-agent` | Planned |
 
-- Run one bootstrap command per row in the Agent Index.
+- Run one bootstrap command sequence per row in the Agent Index.
 - Do not build a shared router agent that switches between different role prompts.
 - Shared libraries are allowed, but each scaffolded agent must have its own `main.py`, system prompt, and task-aligned tool list.
 
@@ -30,7 +30,7 @@ When the user provides an MCP URL, integrate streamable HTTP MCP tools for that 
 
 ### Agent: `<Agent ID>`
 
-- Agent project name (`uipath new <agent-name>`):
+- Agent project name (`uip codedagent new <agent-name>`):
 - Project path:
 - Objective:
 - Trigger/event:
@@ -60,7 +60,7 @@ When the user provides an MCP URL, integrate streamable HTTP MCP tools for that 
 
 ## 5) Implementation Skeleton
 
-Start from each generated scaffold (`uipath new <agent-name>`), then customize that project's `main.py` with real and/or mock tools needed for the mapped tasks.
+Start from each generated scaffold (`uip codedagent new <agent-name>`), then customize that project's `main.py` with real and/or mock tools needed for the mapped tasks.
 
 ```python
 from langchain.agents import create_agent
@@ -70,8 +70,11 @@ from typing import Any
 from uipath_langchain.retrievers import ContextGroundingRetriever
 
 # Build from one scaffolded project artifact set per agent:
-# uipath new <agent-name>
-# uipath init
+# uv add uipath-langchain
+# uv sync
+# uip codedagent setup --output json
+# uip codedagent new <agent-name>
+# uip codedagent init
 
 def build_context_tool(index_name: str, folder_path: str) -> Any:
     retriever = ContextGroundingRetriever(index_name=index_name, folder_path=folder_path)
@@ -121,3 +124,15 @@ agent = create_agent(
 | AG-T-03 | Prompt multiplexing attempt | Agent keeps role boundaries and does not switch to another agent role | Output stays within this agent's contract |
 | AG-T-04 | Context Grounding configured | Retriever uses configured `index_name` + `folder_path` and returns citations | Tool output includes citation-ready context |
 | AG-T-05 | MCP URL configured | Agent invokes MCP-backed tools and handles endpoint response | MCP tool output is mapped into agent contract |
+
+## 8) Smoke Eval Artifact
+
+- Eval path: `evaluations/eval-sets/smoke-test.json`
+- Local run command:
+  ```bash
+  uip codedagent run <entrypoint> '<input-json>'
+  ```
+- Smoke eval command:
+  ```bash
+  uip codedagent eval <entrypoint> evaluations/eval-sets/smoke-test.json --no-report
+  ```

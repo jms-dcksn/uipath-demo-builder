@@ -1,14 +1,14 @@
 # Agent Build Spec - KYC Onboarding
 
 Prefer `uipath-langchain` and `create_agent` for agent implementation.
-Each identified agent is scaffolded independently with `uipath new <agent-name>`.
+Each identified agent is scaffolded independently with `uip codedagent new <agent-name>`.
 No multi-role prompt multiplexing is used in a shared runtime.
 
 Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 
 ## 1) Agent Index
 
-| Agent ID | Agent Name (`uipath new`) | Project Path | Task IDs | Role | Inputs | Outputs | Owner |
+| Agent ID | Agent Name (`uip codedagent new`) | Project Path | Task IDs | Role | Inputs | Outputs | Owner |
 |---|---|---|---|---|---|---|---|
 | AG-COMP-01 | `kyc-completeness-agent` | `agents/kyc-completeness-agent` | T-003 | Completeness validation | Extracted field set + confidence | Missing fields + readiness score | AI Team |
 | AG-OWN-01 | `kyc-ownership-agent` | `agents/kyc-ownership-agent` | T-005 | Ownership compliance analysis | Beneficial owner structure | Ownership pass/fail + rationale | AI Team |
@@ -18,9 +18,9 @@ Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 
 | Agent ID | Command | Working Directory | Expected Output Folder | Status |
 |---|---|---|---|---|
-| AG-COMP-01 | `uipath new kyc-completeness-agent` | `<repo-root>/agents` | `agents/kyc-completeness-agent` | Planned |
-| AG-OWN-01 | `uipath new kyc-ownership-agent` | `<repo-root>/agents` | `agents/kyc-ownership-agent` | Planned |
-| AG-BRIEF-01 | `uipath new kyc-review-briefing-agent` | `<repo-root>/agents` | `agents/kyc-review-briefing-agent` | Planned |
+| AG-COMP-01 | `uip codedagent new kyc-completeness-agent` | `<repo-root>/agents` | `agents/kyc-completeness-agent` | Planned |
+| AG-OWN-01 | `uip codedagent new kyc-ownership-agent` | `<repo-root>/agents` | `agents/kyc-ownership-agent` | Planned |
+| AG-BRIEF-01 | `uip codedagent new kyc-review-briefing-agent` | `<repo-root>/agents` | `agents/kyc-review-briefing-agent` | Planned |
 
 - A separate scaffold is created for each `AG-*` ID.
 - Shared helper modules are permitted, but each project maintains its own prompt contract and tool list.
@@ -29,7 +29,7 @@ Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 
 ### Agent: `AG-COMP-01`
 
-- Agent project name (`uipath new <agent-name>`): `kyc-completeness-agent`.
+- Agent project name (`uip codedagent new <agent-name>`): `kyc-completeness-agent`.
 - Project path: `agents/kyc-completeness-agent`.
 - Objective: Determine whether a case can proceed to screening without missing critical information.
 - Trigger/event: Completion of T-002 extraction.
@@ -48,7 +48,7 @@ Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 
 ### Agent: `AG-OWN-01`
 
-- Agent project name (`uipath new <agent-name>`): `kyc-ownership-agent`.
+- Agent project name (`uip codedagent new <agent-name>`): `kyc-ownership-agent`.
 - Project path: `agents/kyc-ownership-agent`.
 - Objective: Assess beneficial ownership compliance against threshold and data-quality policies.
 - Trigger/event: AG-COMP-01 returns complete payload.
@@ -67,7 +67,7 @@ Reference: https://uipath.github.io/uipath-python/langchain/quick_start/
 
 ### Agent: `AG-BRIEF-01`
 
-- Agent project name (`uipath new <agent-name>`): `kyc-review-briefing-agent`.
+- Agent project name (`uip codedagent new <agent-name>`): `kyc-review-briefing-agent`.
 - Project path: `agents/kyc-review-briefing-agent`.
 - Objective: Summarize risk and evidence for fast, accountable human adjudication.
 - Trigger/event: T-006 screening completed.
@@ -106,8 +106,11 @@ from langchain_core.tools.retriever import create_retriever_tool
 from uipath_langchain.retrievers import ContextGroundingRetriever
 
 # Scaffold command is run once per agent:
-# uipath new <agent-name>
-# uipath init
+# uv add uipath-langchain
+# uv sync
+# uip codedagent setup --output json
+# uip codedagent new <agent-name>
+# uip codedagent init
 
 def build_context_tool(index_name: str, folder_path: str) -> Any:
     retriever = ContextGroundingRetriever(index_name=index_name, folder_path=folder_path)

@@ -6,11 +6,11 @@ allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 
 # Demo Builder — Demo Script
 
-Final deliverable: the narrated run-of-show. **Exactly 3-4 key messages**, each mapped to **2-3 visuals**. Script must reflect what was actually built — no future-state narration.
+Final deliverable: the narrated run-of-show. **Exactly 3-4 key messages**, each mapped to **2-3 implemented visuals**. Script must reflect what was actually built — no future-state narration.
 
 ## When to use
 
-- Orchestration, agents, frontend, and data are in place.
+- Orchestration, agents, frontend, data, build manifest, and manual completion checklist are in place.
 - User asks for a demo script, run-of-show, or demo narrative.
 
 ## Narrative pattern (from reference)
@@ -42,9 +42,11 @@ Final deliverable: the narrated run-of-show. **Exactly 3-4 key messages**, each 
 
 ## Workflow
 
-1. Fill `templates/demo-script.template.md` — metadata, key messages table, visual inventory, message-to-visual alignment, run-of-show, opening/close, contingency lines, rehearsal checklist.
-2. Verify each `VIS-*` exists in the built frontend (cross-reference `demo-builder-frontend` output).
-3. Verify each `MSG-*` ties to a `BR-*` and to an observable demo outcome.
+1. Copy `templates/demo-script.template.md` to `builds/<demo-slug>/script/demo-script.md` and fill it.
+2. Read `builds/<demo-slug>/manifest.md`; only use artifacts marked implemented or explicitly demo-ready.
+3. Verify each `VIS-*` exists in the built frontend (cross-reference `demo-builder-frontend` output).
+4. Verify each `MSG-*` ties to a `BR-*` and to an observable demo outcome.
+5. Add rehearsal checks for any manual-completion checklist item that could affect the live demo.
 
 ## Templates
 

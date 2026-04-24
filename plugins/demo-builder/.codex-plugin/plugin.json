@@ -1,0 +1,47 @@
+{
+  "name": "demo-builder",
+  "version": "0.1.0",
+  "description": "UiPath demo builder with skills, agents, and commands for turning a use case into a demo-grade solution.",
+  "author": {
+    "name": "UiPath",
+    "email": "support@uipath.com",
+    "url": "https://www.uipath.com/"
+  },
+  "homepage": "https://github.com/jms-dcksn/uipath-demo-builder",
+  "repository": "https://github.com/jms-dcksn/uipath-demo-builder",
+  "license": "UNLICENSED",
+  "keywords": [
+    "uipath",
+    "demo",
+    "agentic-orchestration",
+    "maestro",
+    "case-management",
+    "data-fabric",
+    "coded-apps"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "UiPath Demo Builder",
+    "shortDescription": "Build demo-grade UiPath Agentic Orchestration solutions.",
+    "longDescription": "Use UiPath Demo Builder to plan and scaffold presales demos from a use case or account brief, including discovery, Data Fabric modeling, Case Management design, AI agents, coded app frontend specs, and a demo script.",
+    "developerName": "UiPath",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/jms-dcksn/uipath-demo-builder",
+    "privacyPolicyURL": "https://www.uipath.com/legal/privacy-policy",
+    "termsOfServiceURL": "https://www.uipath.com/legal/terms-of-use",
+    "defaultPrompt": [
+      "Build a UiPath demo for Commercial Insurance Claims Triage.",
+      "Create a case management demo from this use case brief.",
+      "Plan a UiPath Coded Web App demo for this account."
+    ],
+    "brandColor": "#FA4616",
+    "composerIcon": "./assets/demo-builder.svg",
+    "logo": "./assets/demo-builder.svg",
+    "screenshots": []
+  }
+}

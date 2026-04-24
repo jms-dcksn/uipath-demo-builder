@@ -6,7 +6,7 @@ allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUser
 
 # Demo Builder — Discovery
 
-Interactive, research-first phase for demo builds. Turns a use case + industry into segments and a task matrix that feeds downstream Case Management design. **Case Management is the default orchestration model** for this skill set — do not try to re-decide BPMN vs Case Management here.
+Interactive, research-first phase for demo builds. Turns a use case + industry into segments and a task matrix that feeds downstream Case Management design. **Case Management is the only orchestration model** for this skill set.
 
 ## When to use
 
@@ -38,7 +38,7 @@ If the user gives a vague prompt like *"build me a demo for banking"*, you MUST 
 
 ## Reference documentation intake
 
-Reference docs the user provides (SOPs, policy PDFs, sample forms, API docs, screenshots) dramatically improve research quality. Set this up early:
+Reference docs the user provides (SOPs, policy PDFs, sample forms, API docs, screenshots) dramatically improve research quality. Set this up early, but do not block indefinitely if the user declines or asks for fast presales mode:
 
 1. Check for a `docs/` directory in the project root (`ls docs/` at repo root). Create it if missing:
    ```bash
@@ -46,24 +46,25 @@ Reference docs the user provides (SOPs, policy PDFs, sample forms, API docs, scr
    ```
 2. Tell the user:
    > I've created a `docs/` folder in the project root. Drop any reference material there — SOPs, policy docs, regulatory references, sample forms, API documentation, screenshots of existing tools. I'll read everything in that folder before finalizing research. Let me know when you're done adding files.
-3. Wait for the user to confirm they've added files (or explicitly say "no docs to add").
+3. Wait for the user to confirm they've added files, explicitly say "no docs to add", or choose fast presales mode.
 4. Inventory the folder: `ls docs/` then `Read` each file. Cite user-provided docs as `[DOC-###]` (separate ID space from `[SRC-###]` web sources).
 5. User-provided docs OUTRANK web sources when there is conflict — flag conflicts explicitly to the user.
 
 ## Workflow
 
-1. **Scope + clarify** — state scope disclosure, ask clarifying questions via `AskUserQuestion`, set up `docs/` and wait for uploads.
-2. **Research the operation** using `WebSearch` + `WebFetch` PLUS `docs/` contents. Follow `references/research-and-citation-rules.md`: ≥5 sources, ≥2 describing real operational workflows, ≥1 on compliance/risk where applicable. Tag web claims with `[SRC-###]` and doc claims with `[DOC-###]`. Fill `templates/use-case-research.template.md`.
-3. **Segment** the operation into 3-4 logical workflow segments with clear entry/exit outcomes that can map cleanly onto Case Management stages. Fill `templates/segment-map.template.md`. Each segment gets a `SEG-##` ID.
-4. **Decompose** each segment into tasks (`T-###`) with execution type: `AI Agent`, `RPA`, `IDP`, `API`, `Human Task`. Cover happy path AND the user-confirmed exception path. Fill `templates/task-automation-matrix.template.md`.
-5. **Checkpoint with the user** — show the segment map and task matrix and ask via `AskUserQuestion` whether to proceed to Case Management design. Do not hand off silently.
+1. **Scope + clarify** — state scope disclosure, ask clarifying questions via `AskUserQuestion`, set up `docs/`, and confirm whether the user wants full research or fast presales mode.
+2. **Research the operation** using `WebSearch` + `WebFetch` PLUS `docs/` contents. Follow `references/research-and-citation-rules.md`: ≥5 sources for full mode; ≥3 sources for fast presales mode. Full mode still needs ≥2 sources describing real operational workflows and ≥1 on compliance/risk where applicable. Tag web claims with `[SRC-###]` and doc claims with `[DOC-###]`. Copy `templates/use-case-research.template.md` to `builds/<demo-slug>/discovery/use-case-research.md` and fill it.
+3. **Register sources** — copy `templates/source-register.template.md` to `builds/<demo-slug>/discovery/source-register.md` and record every `[SRC-###]` and `[DOC-###]`.
+4. **Segment** the operation into 3-4 logical workflow segments with clear entry/exit outcomes that can map cleanly onto Case Management stages. Copy `templates/segment-map.template.md` to `builds/<demo-slug>/discovery/segment-map.md` and fill it. Each segment gets a `SEG-##` ID.
+5. **Decompose** each segment into tasks (`T-###`) with execution type: `AI Agent`, `RPA`, `IDP`, `API`, `Human Task`. Cover happy path AND the user-confirmed exception path. Copy `templates/task-automation-matrix.template.md` to `builds/<demo-slug>/discovery/task-automation-matrix.md` and fill it.
+6. **Checkpoint with the user** — show the segment map and task matrix and ask via `AskUserQuestion` whether to proceed to Case Management design. Do not hand off silently.
 
 ## Completion criteria
 
 - Scope disclosure delivered to the user.
 - All ambiguity resolved via `AskUserQuestion` before research started.
 - `docs/` folder created; user-provided reference material inventoried (or user explicitly declined).
-- ≥5 quality sources with citations; user-provided docs cited as `[DOC-###]`.
+- Source register written; full mode has ≥5 quality sources; fast presales mode has ≥3 quality sources; user-provided docs cited as `[DOC-###]`.
 - Segment map with clear entry/exit outcomes that fit a Case Management lifecycle.
 - Task matrix covering happy path + one exception path.
 - User approved the segment map + task matrix before hand-off.
@@ -80,5 +81,6 @@ Reference docs the user provides (SOPs, policy PDFs, sample forms, API docs, scr
 ## Templates
 
 - `templates/use-case-research.template.md`
+- `templates/source-register.template.md`
 - `templates/segment-map.template.md`
 - `templates/task-automation-matrix.template.md`

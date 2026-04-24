@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">UiPath Demo Builder</title>
+  <desc id="desc">Orange and black geometric mark for the UiPath Demo Builder plugin.</desc>
+  <rect width="256" height="256" rx="48" fill="#111827"/>
+  <path fill="#FA4616" d="M52 68h152v36H52z"/>
+  <path fill="#FFFFFF" d="M52 116h68v72H52z"/>
+  <path fill="#FA4616" d="M136 116h68v72h-68z"/>
+  <path fill="#111827" d="M76 140h20v24H76zM160 140h20v24h-20z"/>
+</svg>

@@ -43,4 +43,4 @@
 | Decision ID | Decision | Rationale | Date | Owner |
 |---|---|---|---|---|
 | DEC-001 | Use Case Management as primary model | Exception-heavy, human-judgment workflow | 2026-02-21 | Demo Architect |
-| DEC-002 | Keep importable BPMN skeleton as secondary artifact | Supports procedural variant discussion and downstream web-editor wiring | 2026-02-21 | Demo Architect |
+| DEC-002 | Keep Case Management as the only orchestration model | Reduces demo build drift and keeps the handoff focused | 2026-02-21 | Demo Architect |

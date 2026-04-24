@@ -64,7 +64,7 @@ Every task with execution type **other than** `AI Agent` or `Human Task` — inc
 ## 7) Agent Packaging Rules
 
 - Keep a `1:1` mapping between each `AG-*` ID and a scaffolded UiPath agent project.
-- Record the bootstrap command explicitly as `uipath new <agent-name>` for each identified agent.
+- Record the bootstrap command explicitly as `uip codedagent new <agent-name>` for each identified coded agent, or `uip agent init "<agent-name>"` for each low-code agent.
 - Do not implement multi-role prompt/tool multiplexing inside one agent runtime.
 - Shared helper modules are allowed, but each agent must keep its own `main.py` prompt contract and task-aligned tool list.
 - If a user provides Context Grounding details, capture `index_name` and `folder_path` in the agent spec and tool contract.

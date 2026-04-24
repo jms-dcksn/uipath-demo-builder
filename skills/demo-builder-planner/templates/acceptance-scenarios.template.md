@@ -2,7 +2,7 @@
 
 ## 1) Scope
 
-- Orchestration model: `BPMN | Case Management`
+- Orchestration model: `Case Management`
 - In-scope segments:
 - In-scope task IDs:
 

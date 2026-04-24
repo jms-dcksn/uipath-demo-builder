@@ -48,7 +48,7 @@
 
 ## 7) Import And Versioning Notes
 
-- Schema artifact location: `context/examples/kyc-us-commercial-banking/02-case-entity-model/case-entity.schema.json`
+- Schema artifact location: `skills/demo-builder-planner/examples/kyc-us-commercial-banking/02-case-entity-model/case-entity.schema.json`
 - Import steps in target tenant: Validate field names/types, import entity, seed `case-entity.example.json`, verify read/write from SDK.
 - Post-import metadata expectations (`id`, `recordCount`, `createTime`, `updateTime`): Platform-managed and excluded from manual authoring.
 - Backward compatibility strategy: Additive changes only; do not rename existing field identifiers.

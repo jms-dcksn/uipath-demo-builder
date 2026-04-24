@@ -54,7 +54,16 @@
 - Backward compatibility strategy:
 - Migration notes for schema changes:
 
-## 8) Known Gaps
+## 8) Reconciliation Notes
+
+- Modeling pass: `initial` or `reconciled`
+- Case Management artifacts reviewed:
+- Stub contracts reviewed:
+- Agent output contracts reviewed:
+- Fields added during reconciliation:
+- Outputs marked non-persistent:
+
+## 9) Known Gaps
 
 - Gap:
 - Owner:

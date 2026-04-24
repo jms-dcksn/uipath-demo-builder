@@ -1,6 +1,6 @@
 # Frontend Architecture Template
 
-Reference stack: Vite + React + TypeScript + UiPath TypeScript SDK.
+Reference stack: UiPath Coded Web App + Vite + React + TypeScript + UiPath TypeScript SDK.
 
 ## 1) Experience Goal
 
@@ -17,6 +17,9 @@ Reference stack: Vite + React + TypeScript + UiPath TypeScript SDK.
 - Route map:
 - Protected routes and auth assumptions:
 - SDK services used (`@uipath/uipath-typescript`):
+- Coded Web App type: `Web`
+- `vite.config.ts` base: `./`
+- Router basename source: `getAppBase()`
 
 ### Sidebar Menu Placeholder Set (Required)
 
@@ -92,25 +95,46 @@ export async function getInstanceDetail(instanceId: string): Promise<Record<stri
 }
 ```
 
-## 7) Error And Empty States
+## 7) UiPath Coded Web App Configuration
+
+| Area | Required Value | Notes |
+|---|---|---|
+| App type | Coded Web App | Use `uip codedapp` lifecycle through `uipath-coded-apps` |
+| Vite asset base | `base: './'` | Required for hosted relative assets |
+| Router basename | `getAppBase()` | Do not hardcode deployment path |
+| OAuth client | External Application client ID | Add to `.env.example` as `VITE_UIPATH_CLIENT_ID` |
+| Base URL | `https://api.uipath.com` or environment-specific API subdomain | Not `cloud.uipath.com` |
+| Scopes | Required SDK scopes | Include Maestro, Data Fabric, Tasks, and Orchestrator scopes actually used |
+
+## 8) Local And Build Verification
+
+```bash
+npm install
+npm run dev
+npm run build
+```
+
+Record verification results in `builds/<demo-slug>/manifest.md`.
+
+## 9) Error And Empty States
 
 - Empty list state:
 - API error state:
 - Partial data state:
 
-## 8) Performance Targets
+## 10) Performance Targets
 
 - Initial load target:
 - List interaction target:
 - Detail page load target:
 
-## 9) Accessibility And Usability
+## 11) Accessibility And Usability
 
 - Keyboard support requirements:
 - Contrast/readability requirements:
 - Form validation requirements:
 
-## 10) Demo-First Engineering Notes
+## 12) Demo-First Engineering Notes
 
 - Seed data strategy:
 - Tenant/environment configuration assumptions:

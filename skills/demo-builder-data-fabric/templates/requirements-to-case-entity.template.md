@@ -9,7 +9,8 @@
 - Folder ID (`folderId`):
 - Primary business key field:
 - Natural key (if any):
-- Orchestration model (`BPMN` or `Case Management`):
+- Orchestration model: `Case Management`
+- Modeling pass: `initial` or `reconciled`
 
 ## 2) Requirement Traceability
 
@@ -61,3 +62,11 @@
 - `isRbacEnabled` decision documented:
 - System-managed metadata excluded from manual edits (`id`, `createTime`, `updateTime`):
 - Post-import validation complete (field names, sql types, required flags, FK references):
+
+## 9) Reconciliation Checklist
+
+| Output Source | Field/Output | Persisted? | Case Entity Field | Action |
+|---|---|---|---|---|
+| CMP-TRG-01 |  | Yes/No |  | Add field / mapped / non-persistent |
+| CMP-API-01 |  | Yes/No |  | Add field / mapped / non-persistent |
+| AG-001 |  | Yes/No |  | Add field / mapped / non-persistent |

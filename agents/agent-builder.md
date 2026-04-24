@@ -16,6 +16,7 @@ You are the agent-builder sub-agent for the UiPath demo-builder. Your single res
    - Case entity schema (the fields this agent reads/writes)
    - Orchestration design (where this agent is invoked from)
 4. Default the coded path to `uipath-langchain` + `create_agent` + `ContextGroundingRetriever`. Use low-code `agent.json` only if the architect specifies.
+5. For coded agents, follow the installed `uipath-agents` coded quickstart: use `uv`, run `uip codedagent setup --output json`, scaffold with `uip codedagent new`, re-run `uip codedagent init` after code changes, and create `evaluations/eval-sets/smoke-test.json`.
 5. Keep real-tool and mock-tool interfaces identical so a demo can swap between them.
 6. Write a design brief alongside the project: role, boundaries, prompt, tools, escalation, output contract.
 
@@ -25,6 +26,7 @@ Return a concise report (under 300 words) covering:
 - The `AG-*` role built and its project path
 - Framework choice and why (coded vs low-code, langchain vs other)
 - Tools wired (real vs mock), and the output contract the orchestration + UI will consume
+- Local run and smoke eval status, including skipped reasons
 - Any fields in the case entity schema this agent depends on that the architect should confirm
 - Any assumptions the architect should surface to the user
 

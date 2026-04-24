@@ -7,11 +7,11 @@ A set of Claude Code skills for building **demo-grade** UiPath solutions from a 
 | Skill | Purpose |
 |---|---|
 | `demo-builder-planner` | Orchestrator. Entry point for any demo build. Drives the end-to-end workflow and delegates to sibling skills. |
-| `demo-builder-discovery` | Web research, segmentation, task-automation matrix, BPMN vs Case Management recommendation. |
+| `demo-builder-discovery` | Web research, segmentation, task-automation matrix, and Case Management-ready process boundaries. |
 | `demo-builder-data-fabric` | Case entity schema + example records for UiPath Data Fabric import. |
 | `demo-builder-case-management` | Demo-grade Case Management design. Produces minimal `sdd.md` and delegates to the production `uipath-case-management` skill. |
 | `demo-builder-agents` | Demo-grade AI agents (coded via `uipath-langchain` + `create_agent`, or low-code `agent.json`). 1:1 agent-project scaffolding. |
-| `demo-builder-frontend` | Vite + React + TypeScript app using the UiPath TypeScript SDK. Multi-page shell, dashboard, case detail, UI-to-entity data contract. |
+| `demo-builder-frontend` | UiPath Coded Web App using Vite + React + TypeScript and the UiPath TypeScript SDK. Multi-page shell, dashboard, case detail, UI-to-entity data contract. |
 | `demo-builder-script` | Narrated run-of-show. 3-4 key messages × 2-3 visuals each. |
 
 ## Install
@@ -27,6 +27,20 @@ In Claude Code, add this repo as a marketplace and install the plugin:
 
 That's it — all 7 skills and 4 sub-agents are registered. To update: `/plugin update demo-builder`.
 
+### Also available as a Codex plugin marketplace
+
+This repo also includes Codex marketplace metadata at `.agents/plugins/marketplace.json`. Add the repo as a Codex marketplace:
+
+```bash
+codex plugin marketplace add https://github.com/jms-dcksn/uipath-demo-builder.git
+```
+
+Then install or enable `demo-builder` from the Codex plugin marketplace UI. For local testing from this checkout, use:
+
+```bash
+codex plugin marketplace add .
+```
+
 ### Required companion skills
 
 These skills delegate deep work to the production UiPath skills. Install them from the UiPath Skills repo: https://github.com/uipath/skills
@@ -34,12 +48,14 @@ These skills delegate deep work to the production UiPath skills. Install them fr
 - `uipath-agents` — deep agent lifecycle, framework selection, evals, HITL, `agent.json` format
 - `uipath-case-management` — `sdd.md` → `tasks.md` → `caseplan.json` generation via `uip maestro case`
 - `uipath-data-fabric` — production Data Fabric CRUD, CSV import, attachments
+- `uipath-coded-apps` — coded web/action app scaffold, build, package, publish, deploy
 - `uipath-platform` — Orchestrator/Studio Web publish
 
-### CLI prerequisite
+### CLI prerequisites
 
 ```bash
 npm install -g @uipath/cli   # if `which uip` comes back empty
+uip tools install @uipath/codedapp-tool
 ```
 
 ## How to use
@@ -52,7 +68,7 @@ Fastest path — use the slash command:
 /demo-build            # no args — it will ask for a customer or brief
 ```
 
-The command deterministically enters the planner skill and runs discovery → data model → case management → agents → frontend → demo script.
+The command deterministically enters the planner skill and runs discovery -> data model -> case management -> agents -> frontend -> demo script -> manual completion checklist.
 
 Or start a conversation in your project directory and describe the demo. The planner skill auto-activates on phrases like "build a UiPath demo", "design a demo for…", or "scope a UiPath use case".
 
@@ -76,7 +92,7 @@ Known systems: Policy admin API, document inbox, adjuster notes in SharePoint.
 Constraints: demo-ready in 2 weeks, show happy path + one exception path, include a final demo script.
 ```
 
-The planner walks the 10-phase delivery workflow, delegating each phase to the appropriate sibling skill.
+The planner walks the Case-Management-only delivery workflow, delegating each phase to the appropriate sibling skill.
 
 ## Delivery workflow (high level)
 
@@ -84,12 +100,12 @@ The planner walks the 10-phase delivery workflow, delegating each phase to the a
 2. Research the operation → sources + process patterns
 3. Decompose into 3-4 segments
 4. Task automation matrix (`AI Agent` / `RPA` / `IDP` / `API` / `Human Task`)
-5. Choose orchestration (BPMN vs Case Management)
+5. Confirm Case Management stage boundaries
 6. Case data model (Data Fabric entity schema + examples)
-7. Orchestration design (Maestro BPMN or Case Management)
+7. Case Management design (`sdd.md`, `tasks.md`, `caseplan.json`)
 8. Build AI agents (one scaffold per `AG-*`)
-9. Build frontend (dashboard + case detail)
-10. Handoff specs for proprietary components (RPA/IDP/API) + demo script (3-4 messages × 2-3 visuals)
+9. Build UiPath Coded Web App frontend (dashboard + case detail)
+10. Manual completion checklist + demo script (3-4 messages × 2-3 visuals)
 
 See `skills/demo-builder-planner/references/delivery-workflow.md` for the full procedure.
 
@@ -103,13 +119,17 @@ See `skills/demo-builder-planner/references/delivery-workflow.md` for the full p
 ## Repository layout
 
 ```
+plugins/demo-builder/ # dual-format plugin wrapper for marketplace installs
+.agents/plugins/      # Codex marketplace manifest
+.claude-plugin/       # Claude Code plugin manifest and marketplace
 skills/              # the skills themselves (installable)
-context/             # original template library (legacy, pre-skills)
-builds/              # example filled builds
-docs/                # design notes and updates
+agents/              # Claude plugin sub-agents
+commands/            # Claude plugin slash commands
+builds/              # ignored generated demo builds
+docs/                # ignored local working notes
 ```
 
-`context/` is retained as a reference library. The skills are the installable artifact.
+The skills, agents, and commands are the installable artifact. Generated builds and local docs are ignored by git.
 
 ## Reference docs
 

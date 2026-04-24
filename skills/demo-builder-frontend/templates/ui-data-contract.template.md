@@ -6,6 +6,8 @@
 - Pages covered (`/dashboard`, `/instances/:instanceId`, placeholders):
 - Related entity schema version:
 - Related process/case API versions:
+- UiPath Coded Web App config version:
+- OAuth scope set:
 
 ## 2) Dashboard Contracts
 
@@ -58,3 +60,13 @@
 - Test case:
 - Expected result:
 - Error-to-UI mapping validated:
+
+## 8) Coded Web App Environment Contract
+
+| Variable | Required | Purpose | Example |
+|---|---|---|---|
+| `VITE_UIPATH_CLIENT_ID` | Yes | External Application OAuth client ID | `TBD` |
+| `VITE_UIPATH_SCOPE` | Yes | Space-separated SDK scopes | `TBD` |
+| `VITE_UIPATH_ORG_NAME` | Yes | Organization slug | `TBD` |
+| `VITE_UIPATH_TENANT_NAME` | Yes | Tenant name | `TBD` |
+| `VITE_UIPATH_BASE_URL` | Yes | API base URL | `https://api.uipath.com` |

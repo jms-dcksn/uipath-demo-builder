@@ -3,7 +3,7 @@
   "displayName": "KYC_Onboarding_Case",
   "entityTypeId": 0,
   "entityType": "Entity",
-  "description": "A single KYC onboarding case used for case-management-first orchestration with a procedural BPMN variant.",
+  "description": "A single KYC onboarding case used for Case Management orchestration.",
   "folderId": "00000000-0000-0000-0000-000000000000",
   "fields": [
     {

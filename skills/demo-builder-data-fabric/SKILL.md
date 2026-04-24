@@ -1,6 +1,6 @@
 ---
 name: demo-builder-data-fabric
-description: "Define the case entity model for a UiPath demo in Data Fabric. Maps business requirements to entity fields, produces a UiPath Data Fabric entity-definition JSON (name, displayName, fields, sqlType, FK references, RBAC flags), and generates a realistic example record aligned to the schema. Use when the demo needs a case data model for persistence. Typically invoked by demo-builder-planner after orchestration is chosen."
+description: "Define and reconcile the case entity model for a UiPath Case Management demo in Data Fabric. Maps business requirements, case stages, stub outputs, agent outputs, and UI fields to entity fields; produces a UiPath Data Fabric entity-definition JSON; and generates realistic normal/urgent/exception records aligned to the schema. Typically invoked by demo-builder-planner before and after Case Management design."
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
@@ -10,20 +10,27 @@ Produce the case entity schema and example records for demo-level Data Fabric im
 
 ## When to use
 
-- After orchestration choice, when the demo needs a persistent case record.
+- Before Case Management design, when the demo needs an initial persistent case record.
+- After Case Management design, when stub/agent/human-task outputs must be reconciled to entity fields.
 - When the UI's `ui-data-contract` needs a backing schema.
 
 ## Inputs
 
 - Task automation matrix (from `demo-builder-discovery` or planner)
-- Orchestration design (BPMN or Case Management)
+- Case Management design and stub contracts, when running in reconciliation mode
+- Agent output contracts, when available
 
 ## Workflow
 
-1. Fill `templates/requirements-to-case-entity.template.md` — each `BR-*` maps to one or more entity fields (traceability).
-2. Produce `templates/case-entity.schema.template.json` — Data Fabric entity definition. Define for every field: `name` (camelCase), `displayName`, `sqlType`, nullability, uniqueness, FK refs, RBAC flags.
-3. Produce `templates/case-entity.example.json` — a realistic example record. Field relationships must be coherent with the list + detail UI pages.
-4. Fill `templates/data-fabric-modeling-notes.template.md` — modeling decisions, lifecycle/state field alignment, security/retention/integration assumptions.
+1. Copy `templates/requirements-to-case-entity.template.md` to `builds/<demo-slug>/case-entity/requirements-to-case-entity.md` and fill it. Each `BR-*` maps to one or more entity fields.
+2. Copy `templates/case-entity.schema.template.json` to `builds/<demo-slug>/case-entity/case-entity.schema.json` and produce the Data Fabric entity definition. Define for every field: `name` (camelCase), `displayName`, `sqlType`, nullability, uniqueness, FK refs, RBAC flags.
+3. Copy `templates/case-entity.example.json` to `builds/<demo-slug>/case-entity/case-entity.example.json` and produce at least three coherent example records: normal, urgent, and exception.
+4. Copy `templates/data-fabric-modeling-notes.template.md` to `builds/<demo-slug>/case-entity/data-fabric-modeling-notes.md` and fill it with modeling decisions, lifecycle/state field alignment, security/retention/integration assumptions, and reconciliation notes.
+5. In reconciliation mode, compare Case Management stub outputs, human-task outputs, and agent output contracts against the schema:
+   - Add missing persisted fields.
+   - Mark non-persistent outputs explicitly.
+   - Update all example records.
+   - Record the reconciliation result in `data-fabric-modeling-notes.md`.
 
 ## Demo rules
 
@@ -35,9 +42,12 @@ Produce the case entity schema and example records for demo-level Data Fabric im
 ## Completion criteria
 
 - Every key `BR-*` maps to one or more fields.
+- Every persisted output from a trigger, RPA/API/IDP stub, human task, or agent maps to a field.
+- Any non-persistent output is explicitly marked as non-persistent.
 - Field SQL types, nullability, uniqueness, FK behavior defined.
 - Lifecycle/state fields align with the orchestration design.
 - JSON artifacts are valid and ready for platform import.
+- Normal, urgent, and exception example records are coherent with the schema.
 
 ## Templates
 

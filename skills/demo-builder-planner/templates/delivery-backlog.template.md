@@ -4,8 +4,8 @@
 
 | Milestone | Goal | Exit Criteria | Target Date |
 |---|---|---|---|
-| M1 | Discovery complete | Research, segment map, and orchestration choice approved |  |
-| M2 | Model complete | BPMN or case model draft approved |  |
+| M1 | Discovery complete | Research, segment map, and task matrix approved |  |
+| M2 | Case model complete | Case Management design draft approved |  |
 | M3 | Build assets complete | Entity JSON, specs, and frontend baseline completed |  |
 | M4 | Demo ready | Acceptance scenarios passed and demo script dry run completed |  |
 

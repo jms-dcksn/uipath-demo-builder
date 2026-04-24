@@ -46,6 +46,12 @@ Use one of the following values consistently:
 - `IDP`
 - `API`
 - `Human Task`
+- `Trigger` — how the case is started (email, form, webhook, schedule, queue item). Every case flow has exactly one.
+- `Intermediate Event` — timer / message / signal waits that occur mid-flow.
+
+## 5a) Non-Agent Stub Contracts
+
+Every task with execution type **other than** `AI Agent` or `Human Task` — including `Trigger` and `Intermediate Event` — must have a stub contract authored during Case Management design. See `skills/demo-builder-case-management/references/stub-contract-rules.md`. Stub component IDs use `CMP-<TYPE>-##` where `<TYPE>` is one of `RPA`, `API`, `IDP`, `TRG`, or `EVT`.
 
 ## 6) Documentation Hygiene
 
@@ -56,7 +62,7 @@ Use one of the following values consistently:
 ## 7) Agent Packaging Rules
 
 - Keep a `1:1` mapping between each `AG-*` ID and a scaffolded UiPath agent project.
-- Record the bootstrap command explicitly as `uipath new <agent-name>` for each identified agent.
+- Record the bootstrap command explicitly as `uip codedagent new <agent-name>` for each identified coded agent, or `uip agent init "<agent-name>"` for each low-code agent.
 - Do not implement multi-role prompt/tool multiplexing inside one agent runtime.
 - Shared helper modules are allowed, but each agent must keep its own `main.py` prompt contract and task-aligned tool list.
 - If a user provides Context Grounding details, capture `index_name` and `folder_path` in the agent spec and tool contract.

@@ -33,20 +33,25 @@ Ask the user up front via `AskUserQuestion`:
 ## Per-agent rules (from AGENTS working rules)
 
 - **1:1 mapping** — every `AG-*` ID gets its OWN scaffolded project (`uip codedagent new <agent-name>` for coded, `uip agent init <agent-name>` for low-code). Never multiplex roles/prompts in one runtime.
-- **Design brief before code** — fill `templates/agent-build-spec.template.md` per agent (role, boundaries, prompt strategy, tool policy, escalation, output contract).
+- **Design brief before code** — copy `templates/agent-build-spec.template.md` to `builds/<demo-slug>/agents/<AG-id>/agent-build-spec.md` per agent and fill it (role, boundaries, prompt strategy, tool policy, escalation, output contract).
 - **Context Grounding** — if the user provides an index, wire `ContextGroundingRetriever` with both `index_name` AND `folder_path`.
 - **MCP** — if the user provides a streamable HTTP MCP URL for an agent, integrate MCP tools and capture the contract in the build spec.
 - **Mock tools** — when a real integration is unavailable, implement a mock tool with deterministic outputs for the demo's pre-defined paths. Keep the mock interface identical to the eventual real tool so replacement is low-friction.
 
 ## Coded path (default)
 
-1. `uip codedagent new <agent-name>` in the agent's subdirectory.
-2. Use `uipath-langchain` + `create_agent`. Python SDK docs: https://uipath.github.io/uipath-python/langchain/quick_start/
-3. Wire tools from the build spec — real tools where available, mock tools otherwise. Keep signatures identical.
-4. If Context Grounding index provided → add `ContextGroundingRetriever(index_name=..., folder_path=...)` as a tool.
-5. If MCP URL provided → register streamable HTTP MCP tools for that agent only.
-6. Run `uip codedagent init` to generate `entry-points.json` / `uipath.json` / `bindings.json` after the agent code is in place.
-7. Smoke-test locally with `uip codedagent run <entrypoint> '<input-json>'` against the pre-staged demo records.
+1. Read the installed `uipath-agents` coded quickstart before scaffolding. Follow its current lifecycle rules.
+2. Create `builds/<demo-slug>/agents/<AG-id>/agent-build-spec.md` by copying `templates/agent-build-spec.template.md` and filling it.
+3. In the agent project directory, use `uv add uipath-langchain` and `uv sync` before scaffolding so the LangGraph/LangChain template is available.
+4. Run `uip codedagent setup --output json` once per environment, then `uip codedagent new <agent-name>`.
+5. Use `uipath-langchain` + `create_agent`. Python SDK docs: https://uipath.github.io/uipath-python/langchain/quick_start/
+6. Wire tools from the build spec — real tools where available, mock tools otherwise. Keep signatures identical.
+7. If Context Grounding index provided → add `ContextGroundingRetriever(index_name=..., folder_path=...)` as a tool.
+8. If MCP URL provided → register streamable HTTP MCP tools for that agent only.
+9. Run `uip codedagent init` after code changes to generate/update `entry-points.json` / `uipath.json` / `bindings.json`.
+10. Create `evaluations/eval-sets/smoke-test.json` with 2-3 demo-path cases.
+11. Smoke-test locally with `uip codedagent run <entrypoint> '<input-json>'` against the pre-staged demo records.
+12. Run `uip codedagent eval <entrypoint> evaluations/eval-sets/smoke-test.json --no-report` when auth/project setup allows it.
 
 For deeper coded guidance (framework choices, HITL, tracing, evaluations), defer to the installed `uipath-agents` skill's `references/coded/*`.
 
@@ -71,6 +76,7 @@ For `agent.json` format details, defer to the installed `uipath-agents` skill's 
 - `agent-build-spec.template.md` filled for each agent with real tool contracts OR clearly marked mock tools.
 - Context Grounding and MCP integrations wired where the user supplied them.
 - Agent runs the demo's happy path and one exception path consistently.
+- Each coded agent has `evaluations/eval-sets/smoke-test.json`.
 - Deploy path chosen and documented in the build spec.
 
 ## Templates

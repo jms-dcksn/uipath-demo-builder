@@ -17,15 +17,15 @@ Show how UiPath Maestro can orchestrate AI Agents, IDP, API checks, and human re
 
 ## Folder Map
 
-- `00-discovery-and-segmentation/`: research, process segmentation, task automation matrix, orchestration choice.
-- `01-use-case-agentic-logic/`: use-case and model logic for BPMN and Case Management.
+- `00-discovery-and-segmentation/`: research, source register, process segmentation, and task automation matrix.
+- `01-use-case-agentic-logic/`: use-case and Case Management logic.
 - `02-case-entity-model/`: Data Fabric case entity mapping and JSON artifacts.
 - `03-frontend-demo-design/`: multi-page dashboard and instance detail UX contracts.
 - `04-implementation-specs/`: component specs, agent build spec, demo script, backlog, acceptance scenarios.
-- `references/`: citation register for this example.
+- `references/`: supporting citation register for this example.
 
 ## Notes
 
 - Regulatory references are included for demo design context and do not replace legal advice.
 - Validate jurisdiction-specific requirements with compliance stakeholders before production build.
-- Procedural BPMN variant artifact: `01-use-case-agentic-logic/kyc-onboarding-procedural-skeleton.bpmn` (import-safe skeleton for downstream wiring).
+- This example is Case-Management-first and does not include a procedural orchestration variant.

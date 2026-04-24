@@ -4,12 +4,12 @@
 
 - Entity logical name (`name`): `KycOnboardingCase`
 - Entity display name (`displayName`): `KYC_Onboarding_Case`
-- Entity purpose/description: Persist adaptive case-management state and procedural BPMN handoff context for KYC onboarding.
+- Entity purpose/description: Persist adaptive Case Management state and handoff context for KYC onboarding.
 - Entity type (`entityType`): `Entity`
 - Folder ID (`folderId`): `00000000-0000-0000-0000-000000000000`
 - Primary business key field: `caseid`
 - Natural key (if any): `applicationreference`
-- Orchestration model (`BPMN` or `Case Management`): `Case Management` (primary), `BPMN` (procedural variant)
+- Orchestration model: `Case Management`
 
 ## 2) Requirement Traceability
 

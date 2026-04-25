@@ -9,7 +9,7 @@ A set of Claude Code skills for building **demo-grade** UiPath solutions from a 
 | `demo-builder-planner` | Orchestrator. Entry point for any demo build. Drives the end-to-end workflow and delegates to sibling skills. |
 | `demo-builder-discovery` | Web research, segmentation, task-automation matrix, and Case Management-ready process boundaries. |
 | `demo-builder-data-fabric` | Case entity schema + example records for UiPath Data Fabric import. |
-| `demo-builder-case-management` | Demo-grade Case Management design. Produces minimal `sdd.md` and delegates to the production `uipath-case-management` skill. |
+| `demo-builder-case-management` | Demo-grade Case Management design. Produces minimal `sdd.md` for architect-owned `uipath-case-management` generation. |
 | `demo-builder-agents` | Demo-grade AI agents (coded via `uipath-langchain` + `create_agent`, or low-code `agent.json`). 1:1 agent-project scaffolding. |
 | `demo-builder-frontend` | UiPath Coded Web App using Vite + React + TypeScript and the UiPath TypeScript SDK. Multi-page shell, dashboard, case detail, UI-to-entity data contract. |
 | `demo-builder-script` | Narrated run-of-show. 3-4 key messages × 2-3 visuals each. |
@@ -68,7 +68,7 @@ Fastest path — use the slash command:
 /demo-builder:demo-build            # no args — it will ask for a customer or brief
 ```
 
-The command deterministically enters the planner skill and runs discovery -> data model -> case management -> agents -> frontend -> demo script -> manual completion checklist.
+The command deterministically enters the planner skill and runs preflight -> discovery -> data model -> Case Management design -> caseplan generation -> agents -> fixture check -> frontend -> schema reconcile -> manual completion checklist -> demo script.
 
 Or start a conversation in your project directory and describe the demo. The planner skill auto-activates on phrases like "build a UiPath demo", "design a demo for…", or "scope a UiPath use case".
 
@@ -96,16 +96,20 @@ The planner walks the Case-Management-only delivery workflow, delegating each ph
 
 ## Delivery workflow (high level)
 
-1. Gather inputs (or research the account)
-2. Research the operation → sources + process patterns
-3. Decompose into 3-4 segments
-4. Task automation matrix (`AI Agent` / `RPA` / `IDP` / `API` / `Human Task`)
-5. Confirm Case Management stage boundaries
-6. Case data model (Data Fabric entity schema + examples)
-7. Case Management design (`sdd.md`, `tasks.md`, `caseplan.json`)
-8. Build AI agents (one scaffold per `AG-*`)
-9. Build UiPath Coded Web App frontend (dashboard + case detail)
-10. Manual completion checklist + demo script (3-4 messages × 2-3 visuals)
+1. Run CLI preflight (`uip`, Case Management, coded agent, and solution surfaces)
+2. Gather inputs (or research the account)
+3. Research the operation → sources + process patterns
+4. Decompose into 3-4 segments
+5. Task automation matrix (`AI Agent` / `RPA` / `IDP` / `API` / `Human Task`)
+6. Confirm Case Management stage boundaries
+7. Case data model (Data Fabric entity schema + examples)
+8. Case Management design (`case-management-design.md`, `sdd.md`)
+9. Architect-owned `uipath-case-management` generation (`tasks.md`, `caseplan.json`)
+10. Build AI agents (one scaffold per `AG-*`)
+11. Fixture consistency check against deterministic agent outputs
+12. Build UiPath Coded Web App frontend (dashboard + case detail)
+13. Frontend/schema reconciliation
+14. Manual completion checklist + demo script (3-4 messages × 2-3 visuals)
 
 See `skills/demo-builder-planner/references/delivery-workflow.md` for the full procedure.
 

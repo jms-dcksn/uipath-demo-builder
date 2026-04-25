@@ -1,5 +1,5 @@
 ---
-description: Start a UiPath Agentic Orchestration demo build — runs discovery → data model → case management → agents → coded web app frontend → manual checklist → demo script.
+description: Start a UiPath Agentic Orchestration demo build — runs preflight → discovery → data model → case management → agents → coded web app frontend → manual checklist → demo script.
 argument-hint: [customer or use case — e.g. "Acme Bank KYC" or a path to a brief]
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion, Agent
 ---

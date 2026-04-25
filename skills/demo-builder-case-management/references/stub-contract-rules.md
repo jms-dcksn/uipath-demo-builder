@@ -52,3 +52,5 @@ Each stub is a single row in the "Non-Agent Stub Contracts" table of `case-manag
 - `demo-builder-frontend` renders stub outputs like any other case entity field — UI never knows a stub is mocked.
 - `agent-builder` sub-agents reference upstream stub IDs in their input contracts; tool wrappers match the stub's output shape.
 - `uipath-case-management` receives these as skeleton tasks in `sdd.md` (type + display name + declared I/O where resolvable); it inserts `<UNRESOLVED: ...>` markers for task-type-ids and connection-ids that must be picked in the Studio Web registry.
+
+Closing note: Every stub output that is referenced in a case-exit-condition, SLA rule, or trigger payload MUST also appear in the corresponding §SDD section. The `case-management-design.md` is the catalog; `sdd.md` is the contract for the production skill.

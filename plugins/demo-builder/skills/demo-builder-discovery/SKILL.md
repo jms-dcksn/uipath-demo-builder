@@ -17,7 +17,7 @@ Interactive, research-first phase for demo builds. Turns a use case + industry i
 
 Before going deep, state what the demo-builder skills will and will not do:
 
-- **Will build:** discovery artifacts, Data Fabric case entity JSON, Case Management design + `sdd.md` handed to the production `uipath-case-management` skill for `caseplan.json` generation, AI agents (coded or low-code scaffolds), Vite + React + TypeScript frontend, a narrated demo script.
+- **Will build:** discovery artifacts, Data Fabric case entity JSON, Case Management design + `sdd.md`, architect-owned `uipath-case-management` generation of `tasks.md` and `caseplan.json`, AI agents (coded or low-code scaffolds), Vite + React + TypeScript frontend, a narrated demo script.
 - **Will NOT build / deploy:** production RPA/IDP/API workflows (specs only — handed off), tenant-side Data Fabric imports, live Orchestrator deployment (delegated to `uipath-platform`), anything requiring credentials the user has not provided.
 - **Demo-grade only:** mock tools with deterministic outputs are preferred over half-working live integrations. Happy path + one exception path.
 
@@ -71,7 +71,7 @@ Reference docs the user provides (SOPs, policy PDFs, sample forms, API docs, scr
 
 ## Hand-off
 
-- Back to planner, which invokes `demo-builder-data-fabric` (case entity) and `demo-builder-case-management` (stage/task design → sdd.md → production `uipath-case-management`).
+- Back to planner, which invokes `demo-builder-data-fabric` (case entity), `demo-builder-case-management` (stage/task design → `sdd.md`), then `uipath-case-management` from the architect thread (`sdd.md` → `tasks.md` → `caseplan.json`).
 
 ## References
 

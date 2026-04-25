@@ -20,6 +20,20 @@ This minimal SDD is the handoff to the installed `uipath-case-management` skill.
 | Happy path fixture |  |
 | Exception path fixture |  |
 
+## Trigger Type
+
+One of: manual / timer / event. If event, name the IS connector + payload schema.
+Justify the choice.
+
+## Variables / Arguments
+
+| Var ID | Scope (input/output/inputOutput) | Type | Source field | Notes |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+Default: case entity fields are surfaced via `=datafabric.<Entity>.<field>`.
+List any *additional* global variables not on the entity here.
+
 ## 3) Stages
 
 | Stage ID | Stage Name | Entry Criteria | Exit Criteria |
@@ -34,6 +48,18 @@ This minimal SDD is the handoff to the installed `uipath-case-management` skill.
 | Intake | T-002 |  | AG-001 | AI Agent |  |  | Agent task |
 | Intake | T-003 |  | role:reviewer | Human Task |  |  | Action task |
 
+## SLA
+
+**Default case SLA:** <e.g., 30 days from CASE_OPENED to FUNDED>
+
+**Conditional SLA rules:**
+
+| Rule ID | Trigger | Deadline | Escalation |
+|---|---|---|---|
+|  |  |  |  |
+
+At minimum declare one rule per regulatory deadline (e.g., TRID LE 3-day).
+
 ## 5) Stub Contracts
 
 Include every trigger, RPA, API, IDP, and intermediate event declared in the Case Management design.
@@ -41,6 +67,14 @@ Include every trigger, RPA, API, IDP, and intermediate event declared in the Cas
 | Component ID | Backs Task | Type | Inputs | Outputs | Demo Behavior | Real-Build Note |
 |---|---|---|---|---|---|---|
 | CMP-TRG-01 | Case start | Trigger |  |  |  |  |
+
+## Case Exit Conditions / Terminal States
+
+| Terminal State | Status | currentStage | Trigger condition | Notes |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+One row per terminal state. Each becomes a case-exit-condition in the caseplan.
 
 ## 6) Transitions And Conditions
 
@@ -59,4 +93,3 @@ Include every trigger, RPA, API, IDP, and intermediate event declared in the Cas
 | Placeholder | Reason | Manual Completion Owner |
 |---|---|---|
 | `<UNRESOLVED: task-type-id>` | Real task resource not available locally |  |
-

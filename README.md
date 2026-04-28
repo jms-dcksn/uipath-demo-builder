@@ -41,6 +41,12 @@ Then install or enable `demo-builder` from the Codex plugin marketplace UI. For 
 codex plugin marketplace add .
 ```
 
+When skills change upstream, update the Codex marketplace cache and then restart Codex App or start a new Codex session so the refreshed skill files are loaded:
+
+```bash
+codex plugin marketplace upgrade uipath-demo-builder
+```
+
 ### Required companion skills
 
 These skills delegate deep work to the production UiPath skills. Install them from the UiPath Skills repo: https://github.com/uipath/skills

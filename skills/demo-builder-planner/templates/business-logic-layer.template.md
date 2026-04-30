@@ -6,62 +6,50 @@
 - Automation objective:
 - Human oversight objective:
 
-## 2) Agent Responsibilities
+## 2) Flow Responsibilities
 
-| Agent/Service | Responsibility | Input Signals | Output Artifacts |
+| Flow Area | Responsibility | Input Signals | Output Artifacts |
 |---|---|---|---|
-| Intake agent | Normalize incoming case data | Form payload, metadata | Structured case record |
+| Intake | Normalize trigger payload | request payload, metadata | structured context |
 
-## 3) Segment To Task Mapping
+## 3) Segment To Node Mapping
 
-| Segment ID | Task ID | Task Name | Execution Type | Component Type | Owner |
+| Segment ID | Task ID | Task Name | Execution Type | Flow Node / Resource ID | Owner |
 |---|---|---|---|---|---|
-| SEG-01 | T-001 | Extract data | Automated | IDP | Platform |
-| SEG-01 | T-002 | Validate data | Automated | AI Agent | AI Team |
-| SEG-02 | T-003 | Persist data | Automated | API | Integration Team |
-| SEG-03 | T-004 | Review eligibility | Human-in-loop | User Task | Operations |
+| SEG-01 | T-001 | Normalize payload | Flow Tool | TOOL-001 | Flow |
+| SEG-01 | T-002 | Classify request | AI Agent | AG-001 | Agent |
+| SEG-02 | T-003 | Notify team | Connector Activity | CONN-001 | Integration |
+| SEG-03 | T-004 | Route result | Flow Control | CTRL-001 | Flow |
 
-## 4) State Model
+## 4) State And Variables
 
-| State | Entry Criteria | Exit Criteria | Owner |
-|---|---|---|---|
-| New | Case created | Validation complete | System |
+| Variable | Direction | Type | Set By | Used By |
+|---|---|---|---|---|
+| demoResult | out | object | End node | caller |
 
 ## 5) Decision Rules
 
 | Rule ID | Description | Inputs | Logic | Fallback |
 |---|---|---|---|---|
-| R-001 | Risk tiering | Score, profile flags | if score >= threshold then high risk | Route to manual review |
+| CTRL-001 | Exception routing | Agent result | high severity -> exception result | Return clear exception output |
 
-## 6) Human In The Loop Design
+## 6) Local Execution Scope
 
-- Task types requiring human review:
-- Evidence shown to reviewer:
-- Approval/rejection semantics:
-- Escalation trigger:
+- Agent nodes:
+- Connector nodes:
+- Flow tool nodes:
+- Flow control nodes:
+- Explicitly out-of-scope resources:
 
 ## 7) Exception Handling
 
-- Retry policy:
-- Dead-letter handling:
-- Manual intervention flow:
-- Data correction flow:
+- Connector failure path:
+- Agent failure path:
+- Tool/control failure path:
+- End output on exception:
 
-## 8) Component Buildability Notes
+## 8) Observability Signals
 
-- Components buildable directly here:
-- Components that require proprietary platform implementation:
-- Handoff artifacts required for proprietary components:
-
-## 9) Observability Signals
-
-| Signal | Event Name | Why It Matters | Dashboard Use |
+| Signal | Source Node | Why It Matters | Demo Use |
 |---|---|---|---|
-| Case SLA breach | CaseSlaBreached | Indicates process risk | Ops monitoring |
-
-## 10) Non-Functional Requirements
-
-- Throughput target:
-- Latency target:
-- Availability target:
-- Auditability requirements:
+| Exception branch taken | CTRL-001 | Shows orchestration control | Narration proof point |

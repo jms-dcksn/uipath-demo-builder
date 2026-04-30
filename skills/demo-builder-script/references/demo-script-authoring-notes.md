@@ -1,29 +1,29 @@
 # Demo Script Authoring Notes
 
-Use this as a practical guide when turning completed demo assets into a narrated run-of-show.
+Use this as a practical guide when turning completed Flow assets into a narrated run-of-show.
 
-## Narrative Pattern (From Reference)
+## Narrative Pattern
 
 1. Open with a business-value statement tied to operational complexity.
-2. Show dashboard triage and select a live case/work item.
-3. Move into case detail and perform a concrete user action (for example, upload evidence).
-4. Pivot to Maestro orchestration to show adaptive coordination across systems and humans.
-5. Drill into an orchestration step to show agent + IDP + integration collaboration.
-6. Show a second case state to prove non-linear/adaptive behavior.
-7. Return to case detail summary and optional conversational-agent deep dive.
-8. Close with decision confidence and business impact.
+2. Show the Flow topology and the trigger input.
+3. Run or inspect the happy path fixture.
+4. Drill into the agent output and explain how it drives routing.
+5. Show the connector, Flow tool, or Flow control proof point.
+6. Show the exception branch and End output.
+7. Close on the End output and the business impact.
 
 ## Required Structure
 
-- Keep to `3-4` key messages.
-- For each message, map `2-3` visuals.
-- For each visual beat, include:
+- Keep to 3-4 key messages.
+- For each message, map 2-3 proof points.
+- For each proof beat, include:
   - Narration line
   - Operator action
-  - Observable proof/outcome
+  - Observable proof or outcome
 
 ## Quality Checks
 
-- Every message maps to at least one orchestration proof and one user-facing proof.
-- Visual sequence matches implemented screens/flows (no future-state narration).
-- Script can be delivered within target demo timebox (typically 6-10 minutes unless specified).
+- Every message maps to at least one Flow proof point.
+- Sequence matches implemented artifacts.
+- No future-state narration.
+- Script can be delivered within the target demo timebox, usually 6-10 minutes unless specified.

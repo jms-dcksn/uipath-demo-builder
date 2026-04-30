@@ -10,13 +10,13 @@
     {
       "name": "demo-builder",
       "source": "./",
-      "description": "Build demo-grade UiPath Agentic Orchestration solutions (discovery → case management → data fabric → agents → frontend → demo script).",
-      "version": "0.1.1",
+      "description": "Build demo-grade local-execution Maestro Flow solutions with agents, connector activities, tools, control nodes, and Studio Web upload.",
+      "version": "0.2.0",
       "category": "uipath",
       "keywords": [
         "uipath",
         "demo",
-        "agentic-orchestration"
+        "maestro-flow"
       ],
       "strict": false
     }

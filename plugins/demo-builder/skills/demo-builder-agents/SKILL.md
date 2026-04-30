@@ -1,89 +1,88 @@
 ---
 name: demo-builder-agents
-description: "Build demo-grade UiPath AI agents for a demo (coded or low-code). Scaffolds each AG-* agent with the `uip` CLI (`uip codedagent new` / `uip agent init`), writes a design brief (role, boundaries, prompt, tools, escalation, output contract), defaults the coded path to `uipath-langchain` + `create_agent` + `ContextGroundingRetriever`, supports optional streamable HTTP MCP tools, and keeps interfaces identical between real and mock tools. Use when the demo needs one or more AI agents. Typically invoked by demo-builder-planner after orchestration and data model are defined."
+description: "Build demo-grade UiPath AI agents used by a Maestro Flow. Supports coded agents with uipath-langchain, low-code agent.json projects, and inline Flow agents. Keeps every AG-* mapped to a Flow node contract."
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
-# Demo Builder — Agents
+# Demo Builder - Agents
 
-Build the AI agents that power the demo. **Demo-grade** — optimize for a consistent, story-friendly happy path and one exception path, not production robustness.
+Build or document the AI agents invoked by the Flow. Keep each agent small, role-specific, and aligned to its Flow node contract.
 
-## When to use
+Agents are the one primary non-control component in this demo-builder. Use them for reasoning, classification, extraction, summarization, drafting, and judgment. Keep deterministic enrichment and routing in connector, Flow tool, or Flow control nodes.
 
-- Planner has one or more `AG-*` roles identified in the task matrix.
-- User wants an agent implemented and scaffolded for a demo.
+## When To Use
 
-## CLI prerequisite
+- Flow architecture identifies one or more `AG-*` roles.
+- User wants a coded, low-code, or inline agent for a demo.
+- Planner needs an agent build spec before Flow wiring.
 
-```bash
-which uip > /dev/null 2>&1 && echo "uip found" || echo "uip NOT found — run: npm install -g @uipath/cli"
-```
+## Branching Questions
 
-If missing, install via `npm install -g @uipath/cli` (ask user to install Node.js first if `npm` is missing).
+Ask up front when not already specified:
 
-## Branching questions
+1. Agent source: existing published agent, existing in-solution sibling agent, new standalone coded agent, new standalone low-code agent, or new inline Flow agent.
+2. For new standalone agents: coded or low-code.
+3. For coded agents: LangChain default unless the user asks for another supported framework.
+4. Runtime target: local sibling in solution or inline Flow agent by default; individual agent push/deploy only when the user explicitly asks. The planner uploads the full solution to Studio Web.
 
-Ask the user up front via `AskUserQuestion`:
+## Rules
 
-1. **Agent mode** — *coded* (Python, `uipath-langchain` + `create_agent`, full control) or *low-code* (`agent.json` via Agent Builder, no Python).
-   - Default for this skill: **coded**. Only switch to low-code if the user asks or if the demo story is "configure without writing code."
-2. **Deploy target** — *Studio Web* (agent runs as a UiPath Studio Web project) or *Orchestrator* (published package, Orchestrator-managed process).
-   - Hand off Orchestrator deploy to `uipath-platform`.
+- One `AG-*` maps to one agent project or one inline agent definition.
+- Do not multiplex multiple role prompts inside one runtime.
+- Coded path defaults to `uipath-langchain` and `create_agent`.
+- Use `uv` for Python package management.
+- If Context Grounding is provided, include both `index_name` and `folder_path`.
+- If an MCP URL is provided, integrate streamable HTTP MCP tools for that agent only.
+- Keep real and mock tool interfaces identical.
+- Agent output contracts must be shaped for downstream Flow node wiring.
+- Do not use an agent to hide work that should be visible as connector, Flow tool, or Flow control nodes in the demo.
 
-## Per-agent rules (from AGENTS working rules)
+## Coded Path
 
-- **1:1 mapping** — every `AG-*` ID gets its OWN scaffolded project (`uip codedagent new <agent-name>` for coded, `uip agent init <agent-name>` for low-code). Never multiplex roles/prompts in one runtime.
-- **Design brief before code** — copy `templates/agent-build-spec.template.md` to `builds/<demo-slug>/agents/<AG-id>/agent-build-spec.md` per agent and fill it (role, boundaries, prompt strategy, tool policy, escalation, output contract).
-- **Context Grounding** — if the user provides an index, wire `ContextGroundingRetriever` with both `index_name` AND `folder_path`.
-- **MCP** — if the user provides a streamable HTTP MCP URL for an agent, integrate MCP tools and capture the contract in the build spec.
-- **Mock tools** — when a real integration is unavailable, implement a mock tool with deterministic outputs for the demo's pre-defined paths. Keep the mock interface identical to the eventual real tool so replacement is low-friction.
+1. Read the installed `uipath-agents` coded quickstart.
+2. Copy `templates/agent-build-spec.template.md` to `builds/<demo-slug>/agents/<AG-id>/agent-build-spec.md`.
+3. Run setup in the agent directory:
+   ```bash
+   uv add uipath-langchain
+   uv sync
+   uip codedagent setup --output json
+   uip codedagent new <agent-name>
+   ```
+4. Implement `main.py` with `uipath-langchain` and `create_agent`.
+5. Wire only the tools needed for this agent's Flow node contract.
+6. Run `uip codedagent init` after code changes.
+7. Create `evaluations/eval-sets/smoke-test.json`.
+8. Smoke-test locally when the CLI/auth state allows it.
 
-## Coded path (default)
+## Low-Code Path
 
-1. Read the installed `uipath-agents` coded quickstart before scaffolding. Follow its current lifecycle rules.
-2. Create `builds/<demo-slug>/agents/<AG-id>/agent-build-spec.md` by copying `templates/agent-build-spec.template.md` and filling it.
-3. In the agent project directory, use `uv add uipath-langchain` and `uv sync` before scaffolding so the LangGraph/LangChain template is available.
-4. Run `uip codedagent setup --output json` once per environment, then `uip codedagent new <agent-name>`.
-5. Use `uipath-langchain` + `create_agent`. Python SDK docs: https://uipath.github.io/uipath-python/langchain/quick_start/
-6. Wire tools from the build spec — real tools where available, mock tools otherwise. Keep signatures identical.
-7. If Context Grounding index provided → add `ContextGroundingRetriever(index_name=..., folder_path=...)` as a tool.
-8. If MCP URL provided → register streamable HTTP MCP tools for that agent only.
-9. Run `uip codedagent init` after code changes to generate/update `entry-points.json` / `uipath.json` / `bindings.json`.
-10. Create `evaluations/eval-sets/smoke-test.json` with 2-3 demo-path cases.
-11. Smoke-test locally with `uip codedagent run <entrypoint> '<input-json>'` against the pre-staged demo records.
-12. Run `uip codedagent eval <entrypoint> evaluations/eval-sets/smoke-test.json --no-report` when auth/project setup allows it.
+1. Use `uip agent init <agent-name>` for standalone low-code agents.
+2. Edit `agent.json` for prompt, model, input schema, output schema, tools, context, and escalation.
+3. Validate with `uip agent validate <agent-project> --output json`.
+4. Keep the output contract simple enough for Flow consumption.
 
-For deeper coded guidance (framework choices, HITL, tracing, evaluations), defer to the installed `uipath-agents` skill's `references/coded/*`.
+## Inline Agent Path
 
-## Low-code path
+1. Use the Flow project directory:
+   ```bash
+   uip agent init <FlowProjectDir> --inline-in-flow --output json
+   ```
+2. Record the returned project ID.
+3. Configure the inline `agent.json`.
+4. Validate:
+   ```bash
+   uip agent validate <FlowProjectDir>/<projectId> --inline-in-flow --output json
+   ```
+5. Hand the project ID to `demo-builder-flow` for the `uipath.agent.autonomous` node.
 
-1. Solution must exist first — `uip solution new "<SOLUTION_NAME>"` if needed.
-2. Inside the solution: `uip agent init "<AGENT_NAME>"` to scaffold `agent.json` + `project.uiproj`.
-3. Edit `agent.json`: system prompt, input/output schemas, tools (pre-built UiPath tools or Integration Service), Context resources (index-backed), escalations.
-4. `uip agent validate "<AGENT_NAME>" --output json` after each bulk of edits. Never hand-edit `.agent-builder/` or `storageVersion`.
-5. Keep the surface minimal — one happy path + one exception path.
+## Completion Criteria
 
-For `agent.json` format details, defer to the installed `uipath-agents` skill's `references/lowcode/*`.
-
-## Deploy
-
-- **Studio Web** → publish via `uip` CLI; runtime is Studio Web project.
-- **Orchestrator** → hand off to `uipath-platform` for package publish and process configuration.
-
-## Completion criteria
-
-- One scaffolded project per `AG-*` ID.
-- `agent-build-spec.template.md` filled for each agent with real tool contracts OR clearly marked mock tools.
-- Context Grounding and MCP integrations wired where the user supplied them.
-- Agent runs the demo's happy path and one exception path consistently.
-- Each coded agent has `evaluations/eval-sets/smoke-test.json`.
-- Deploy path chosen and documented in the build spec.
+- One build spec exists per `AG-*`.
+- Every built agent has a clear Flow node input and output contract.
+- Existing agents have registry discovery notes instead of duplicate scaffolds.
+- New coded agents have a smoke eval artifact.
+- Validation/local run status is recorded with skipped reasons when not run.
 
 ## Templates
 
 - `templates/agent-build-spec.template.md`
-
-## See also
-
-- Installed `uipath-agents` skill — production lifecycle, framework selection, evaluations, HITL.
-- Installed `uipath-platform` skill — Orchestrator package/process deploy.

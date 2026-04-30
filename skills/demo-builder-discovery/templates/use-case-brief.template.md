@@ -24,11 +24,9 @@
 
 ## 4) Demo Narrative Goals
 
-Capture the top messages the final demo script must prove.
-
 | Message ID | Intended Message | Target Audience | Proof Signals |
 |---|---|---|---|
-| MSG-01 |  |  |  |
+| MSG-01 |  |  | Flow branch, agent output, connector/tool result |
 
 ## 5) Actors And Stakeholders
 
@@ -41,35 +39,35 @@ Capture the top messages the final demo script must prove.
 
 - In scope:
 - Out of scope:
-- Phase 2 candidates:
+- Later candidates:
 
 ## 7) User Journeys
 
 | Journey | Trigger | Core Steps | Expected Outcome |
 |---|---|---|---|
-| Example: Intake to approval | New case created | Validate, route, review, decide | Approved/rejected with reason |
+| Intake to decision | Trigger payload received | Normalize, classify, enrich, decide | Flow returns final result |
 
 ## 8) Logical Segments
 
 | Segment ID | Segment Name | Why It Exists | Entry Trigger | Exit Outcome |
 |---|---|---|---|---|
-| SEG-01 | Document Intake | Normalize inbound request package | Submission received | Valid intake package |
+| SEG-01 | Intake | Normalize inbound request | Payload received | Valid context |
 
 ## 9) Technology Mix Summary
 
 | Capability | Included? | Role In Demo |
 |---|---|---|
 | AI Agent | Yes/No | |
-| RPA | Yes/No | |
-| IDP | Yes/No | |
-| API Integration | Yes/No | |
-| Human Task | Yes/No | |
+| Connector Activity | Yes/No | |
+| Flow Tool | Yes/No | |
+| Flow Control | Yes/No | |
 
 ## 10) Constraints And Risks
 
 - Operational constraints:
 - Regulatory constraints:
 - Demo realism constraints:
+- Connector/tool/control availability:
 - Top risks:
 
 ## 11) Assumptions

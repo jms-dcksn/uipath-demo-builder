@@ -6,19 +6,19 @@
 - Sub-domain:
 - Business capability in focus:
 - Neighboring capabilities:
-- Back-office operation in focus:
+- Operation in focus:
 
 ## 2) Persona And Role Model
 
 | Role | Goal | Decisions They Make | System Touchpoints |
 |---|---|---|---|
-| Case worker | Resolve cases quickly | Approve, reject, rework | Task inbox, case detail |
+| Operations user | Resolve work quickly | Approve, reject, rework | Work queue, Flow output, source systems |
 
 ## 3) Event Taxonomy
 
-| Event | Source | Meaning | Downstream Action |
+| Event | Source | Meaning | Downstream Flow Action |
 |---|---|---|---|
-| CaseSubmitted | Frontend | A new case enters workflow | Start orchestration |
+| RequestSubmitted | Form/API/email | New work enters process | Start Flow |
 
 ## 4) Regulatory/Policy Constraints
 
@@ -31,7 +31,7 @@
 
 | Decision Point | Inputs | Rule Type | Decision Owner |
 |---|---|---|---|
-| Eligibility check | Risk score, documents | Deterministic policy rule | Operations manager |
+| Eligibility check | Agent result, policy lookup | Agent + deterministic rule | Operations manager |
 
 ## 6) Process Variants
 
@@ -44,4 +44,4 @@
 
 | Term | Definition | Synonyms To Avoid |
 |---|---|---|
-| Case | Primary business object | Ticket, record |
+| Work item | Primary business object for the demo | Case, ticket, record |

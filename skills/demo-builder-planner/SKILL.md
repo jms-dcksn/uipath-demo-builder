@@ -1,198 +1,207 @@
 ---
 name: demo-builder-planner
-description: "Plan and orchestrate Case-Management-first UiPath Agentic Orchestration demo builds from a use case, industry, and requirements. Runs preflight -> discovery -> segmentation -> case data model -> Case Management design -> caseplan generation -> agents -> fixture check -> UiPath Coded Web App frontend -> demo script -> manual completion checklist. Use when the user asks to build, design, or scope a UiPath demo, or provides only a customer/account name and wants demo options."
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion
+description: "Plan and orchestrate local-execution Maestro Flow demo builds from a use case, industry, or customer brief. Runs preflight -> discovery -> Flow architecture -> agents -> Maestro Flow build -> validate/tidy -> Studio Web upload -> manual checklist -> demo script. Use when the user asks to build, design, or scope a UiPath demo."
+allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion, Agent
 user-invocable: true
 ---
 
-# Demo Builder — Planner
+# Demo Builder - Planner
 
-Orchestrator skill for building UiPath Agentic Orchestration demos. Optimized for Maestro-centric solutions with Data Fabric persistence and custom front ends. **Demos, not production.** Keep code simple, prefer visual appeal and story-telling over defensive engineering.
+Entry point for demo-grade UiPath Maestro Flow builds. The planner owns phase order, user checkpoints, and build-directory coherence. Demos should be simple, working, and useful for presales storytelling.
 
-## When to use
+Default scope: local-execution Flow nodes only. Build around agents as the featured reasoning component, plus connector activities, Flow tool nodes, and Flow control nodes. The default handoff is Studio Web upload so developers can continue editing in the browser. Do not plan API workflow, RPA process, Human Task, Case Management, Data Fabric, Coded App, frontend, or Orchestrator deployment unless the user explicitly asks to leave this local Flow scope.
+
+## When To Use
 
 - User asks to build, design, scope, or propose a UiPath demo.
-- User provides a use case, industry, or requirements doc.
-- User provides only an account/customer name — this skill will research and propose use cases.
-- User references a use-case markdown file.
+- User mentions Maestro Flow, agents, connector activities, Flow tools, Flow control nodes, or agentic orchestration.
+- User provides a customer/account name and wants demo ideas.
+- User provides a use-case brief.
 
-## Not for
+## Not For
 
-- Production-grade automation builds → use the `uipath-*` skills (`uipath-agents`, `uipath-case-management`, `uipath-rpa`, `uipath-platform`, etc.) directly.
-- Running existing automations.
+- Production automation design.
+- Non-local resource orchestration outside the local Flow scope.
+- Running existing automations unless the user explicitly asks to debug or run them.
 
-## Ideal vs minimum inputs
+## Inputs
 
-**Ideal:** use case title + one-paragraph business goal, industry/domain, demo requirements/constraints, known systems/APIs/documents.
+Ideal:
 
-**Minimum:** customer/account name. If that's all you have: research the account, draft ideal inputs above, present 2-3 use-case options via `AskUserQuestion`, and have the user pick one before continuing.
+- Use case title and one-paragraph business goal.
+- Industry/domain.
+- Known systems, connectors, tool needs, agents, documents, and tenant/folder constraints.
+- Demo duration.
+- Happy path and one exception path.
 
-## Delivery workflow
+Minimum:
 
-Follow these phases in order. Each phase references a sibling skill, a companion `uipath-*` skill, or a template in `references/`. Case Management is the only orchestration model for this skill set.
+- Customer/account name. Research and propose 2-3 Flow demo options before continuing.
 
-Exit step for every phase: append to `manifest.md` the phase status (`DONE`/`SKIPPED`/`FAILED`), artifact paths produced, and any open issues. Use the Edit tool, never overwrite — multiple writers preserve order.
+## Delivery Workflow
 
-### Phase 0 — Preflight (architect, < 30s)
+Every phase writes under `builds/<demo-slug>/`. Copy `templates/build-manifest.template.md` to `builds/<demo-slug>/manifest.md` at build start and append phase status at every boundary.
 
-Run and record on `manifest.md`:
+### Phase 0 - Preflight
+
+Run and record:
 
 - `uip --version`
 - `uip login status --output json`
-- `uip maestro case --help` (must list registry/cases/stages/tasks/edges/var/sla/validate)
+- `uip maestro flow --help`
+- `uip maestro flow registry --help`
 - `uip codedagent --help`
+- `uip agent --help`
 - `uip solution --help`
+- `uip is --help`
 
-If any required surface is absent, abort the build and surface a single blocker message to the user. Do NOT proceed to discovery. The user must upgrade the CLI or switch machines first. Record CLI version and login state on `manifest.md` regardless of outcome.
+If `uip maestro flow` or `uip solution` is absent, stop and surface the blocker. Flow projects must be created inside a solution.
 
-### Phase 1 — Discovery
+### Phase 1 - Discovery
 
-Delegate to `demo-builder-discovery` for research, segmentation, and the task-to-execution-type matrix (`AI Agent` / `RPA` / `IDP` / `API` / `Human Task`). See `references/research-and-citation-rules.md` and `references/mapping-conventions.md`.
+Invoke `demo-builder-discovery` for research, reference-doc intake, process segmentation, and the task automation matrix.
 
-### Phase 2 — Initial case data model
+The matrix must identify Flow-buildable work using only these execution types:
 
-Dispatch `data-modeler` to define the initial Data Fabric case entity schema and example records.
+- `AI Agent`
+- `Connector Activity`
+- `Flow Tool`
+- `Flow Control`
+- `Trigger`
 
-### Phase 3a — Case Management design (sub-agent)
+Checkpoint with the user before architecture when the resource mix or connector assumptions are unclear. If discovery reveals API workflows, RPA, Human Task, Case Management, Data Fabric, Coded App, or frontend needs, either reframe them as connector/tool/control/agent behavior or record them as out-of-scope prerequisites.
 
-Dispatch `case-designer` to produce `flow-model/case-management-design.md` and `flow-model/sdd.md`. The sub-agent stops at `sdd.md` and must not write `caseplan.json`.
+### Phase 2 - Flow Architecture
 
-### Phase 3b — caseplan.json generation (architect, main thread)
+Invoke `demo-builder-flow` to produce:
 
-Invoke the installed `uipath-case-management` skill via the Skill tool, passing `builds/<demo-slug>/flow-model/sdd.md` as input. That skill produces `tasks.md` (requires user approval), then `caseplan.json`.
+- `flow/flow-architecture.md`
+- `flow/node-contracts.md`
+- `flow/registry-discovery.md`
+- `flow/connector-bindings.md`
 
-### Phase 4 — Reconcile case data model
+The architecture must name required agents, connector activities, Flow tool/control node types, registry definitions, Flow variables, End outputs, connector bindings, and open prerequisites.
 
-Re-run `data-modeler` in reconciliation mode so stage/task/stub/agent outputs either map to fields or are marked non-persistent.
+### Phase 3 - Agents
 
-### Phase 5 — Agents (HARD CHECKLIST)
+If new agents are required, dispatch one `agent-builder` instance per `AG-*` role. Existing published or in-solution agents do not require a build; document their binding in `flow/node-contracts.md`.
 
-Before dispatching:
-- [ ] Enumerate every `AG-*` ID from the task matrix.
-- [ ] Confirm each has a 1:1 mapping to a planned project directory.
+Rules:
 
-Dispatch:
-- [ ] Send ONE assistant message containing N parallel `Agent` tool calls (one per `AG-*`). Sequential dispatch is a build error.
-- [ ] If you find yourself about to send a second turn before all `AG-*` are dispatched: STOP. Re-issue as a single parallel turn.
+- One `AG-*` per standalone agent project unless the user explicitly selects inline Flow agent.
+- Prefer existing local sibling agents or new inline/standalone agents for demo-contained builds. Use published tenant agents when the user names one.
+- Coded path defaults to `uipath-langchain` and `create_agent`.
+- Low-code path uses `uip agent init`.
+- Inline agents use `uip agent init <FlowProjectDir> --inline-in-flow`.
+- Output contracts are Flow node contracts, not persisted entity fields.
 
-After dispatch:
-- [ ] Each report read once. Mismatches between agent outputs and example records -> Phase 5.5 fixture consistency check.
+### Phase 4 - Flow Build
 
-### Phase 5.5 — Fixture consistency check (architect)
+Invoke `demo-builder-flow` implementation mode.
 
-For each example record in `case-entity/case-entity.example.json`, compute the deterministic output of every `AG-*` against that record's inputs, compare against persisted agent-output fields, and patch the example record to match the agent unless the agent contract is wrong. Output a one-page report in `case-entity/fixture-consistency.md` before Phase 6.
+Hard gates from `uipath-maestro-flow`:
 
-### Phase 6 — Frontend
+- Create/select a solution before creating the Flow project.
+- Use the default node palette only: agents, connector activities/triggers, Flow tool nodes, and Flow control nodes.
+- Do not add API workflow, RPA workflow, Human Task, agentic-process, queue, other Flow resource, Coded App, Data Fabric, or Case Management nodes in the default build.
+- Discover tenant resources first, then in-solution local resources, then scaffold/create only when needed.
+- Validate every node type through registry `search`, `list --local`, and `get`.
+- Connector activities require existing Integration Service connections and enriched metadata with `--connection-id`.
+- Every node type needs a copied registry definition.
+- Every data-producing node needs an `outputs` block.
+- Every edge needs `targetPort`.
+- Use `=js:` for `$vars`, `$metadata`, and `$self` references in value fields.
+- Map every `out` variable on every reachable End node.
+- Do not run `flow debug` without explicit user consent.
 
-Dispatch `frontend-builder` for the UiPath Coded Web App.
+### Phase 5 - Validate And Tidy
 
-### Phase 6.5 — Frontend ↔ schema reconcile
+Run:
 
-After `frontend-builder` reports, diff the TypeScript types in `frontend/src/types/` against `case-entity.schema.json`. Any field in `fixtures.ts` not present in the schema -> re-dispatch `data-modeler` in reconciliation mode to add it. Required before Phase 7.
-
-### Phase 7 — Manual completion checklist
-
-Copy `templates/manual-completion-checklist.template.md` to the build root and fill it with tenant-side work the user must complete.
-
-### Phase 8 — Demo script
-
-Delegate to `demo-builder-script` — 3-4 key messages, each mapped to 2-3 visuals that actually exist.
-
-See `references/delivery-workflow.md` for the full expanded procedure, completion criteria, and phase I/O.
-
-## Capability contract
-
-| Area | Can do | Cannot do |
-|---|---|---|
-| Discovery | Web research, summarize operations, extract process patterns | Guarantee domain completeness without SME review |
-| Process modeling | Case stage/task diagrams in Mermaid | Directly edit proprietary case editors |
-| Automation components | Write RPA/API/IDP specs and contracts | Build inside locked proprietary tooling |
-| AI agents | Scaffold and build Python (`uipath-langchain` + `create_agent`) or low-code agents | Bypass tenant/runtime constraints |
-| Data Fabric | Produce case entity schema + example JSON for import | Execute tenant-side imports without access |
-| Frontend | UiPath Coded Web App with Vite + React + TS SDK | Validate against inaccessible tenant configs |
-
-## Build directory convention
-
-All phase artifacts go in `builds/<demo-slug>/`. Sub-agents read from and write to this directory — never re-derive upstream artifacts. Canonical layout:
-
+```bash
+uip maestro flow validate <FlowProject>.flow --output json
+uip maestro flow tidy <FlowProject>.flow --output json
+uip maestro flow validate <FlowProject>.flow --output json
 ```
+
+Record validation and tidy results in `manifest.md`.
+
+### Phase 6 - Studio Web Upload
+
+Upload the solution for browser editing:
+
+```bash
+uip login status --output json
+uip solution upload <SolutionDir> --output json
+```
+
+Rules:
+
+- `<SolutionDir>` is the folder containing the `.uipx` file.
+- Use `uip solution upload`, not `uip solution pack`, `publish`, or `deploy`.
+- Parse and record the returned Studio Web URL, `SolutionId`, and uploaded projects in `manifest.md`.
+- Inspect the upload response and verify the Flow project and expected agent projects are present. If a local agent is omitted, mark the upload incomplete and surface the blocker.
+- If auth is expired, stop and ask the user to re-authenticate or run the relevant `uip login` command for the target tenant.
+
+### Phase 7 - Manual Completion Checklist
+
+Copy `templates/manual-completion-checklist.template.md` to `builds/<demo-slug>/handoff/manual-completion-checklist.md` and fill tenant-side prerequisites:
+
+- Connector connections and folder keys.
+- Published or local resource bindings.
+- Agent Studio Web upload status or local sibling status.
+- Studio Web URL, SolutionId, and uploaded project list.
+- Any optional Orchestrator pack/publish/deploy steps requested by the user.
+- Manual debug/run approval items.
+
+### Phase 8 - Demo Script
+
+Invoke `demo-builder-script`. Script only against implemented or explicitly demo-ready Flow artifacts.
+
+## Build Directory Convention
+
+```text
 builds/<demo-slug>/
-├── manifest.md          # generated build manifest and validation status
-├── manual-completion-checklist.md
-├── discovery/           # use-case-research.md, source-register.md, segment-map.md, task-automation-matrix.md
-├── case-entity/         # case-entity.schema.json, case-entity.example.json, data-fabric-modeling-notes.md
-├── flow-model/          # case-management-design.md, sdd.md, tasks.md, caseplan.json
-├── agents/<AG-id>/      # one project per AG-*, plus agent-build-spec.md
-├── frontend/            # UiPath Coded Web App
-├── handoff/             # RPA/IDP/API component specs
-└── script/              # demo-script.md
+├── manifest.md
+├── discovery/
+├── flow/
+│   ├── flow-architecture.md
+│   ├── node-contracts.md
+│   ├── registry-discovery.md
+│   ├── connector-bindings.md
+│   └── <SolutionName>/<FlowProject>/<FlowProject>.flow
+├── agents/
+├── fixtures/
+│   ├── happy-path.json
+│   └── exception-path.json
+├── handoff/
+│   └── manual-completion-checklist.md
+└── script/
+    └── demo-script.md
 ```
 
-The architect (planner) establishes `<demo-slug>` before Phase 0 and passes the build directory path when dispatching any sub-agent.
+## Sibling Skills
 
-## Sub-agent dispatch
+- `demo-builder-discovery` - research, segmentation, and Flow-oriented task matrix.
+- `demo-builder-flow` - Flow architecture, registry discovery, connector binding plan, implementation, validate/tidy.
+- `demo-builder-agents` - coded/low-code/inline agent build guidance.
+- `demo-builder-script` - final run-of-show.
 
-When delegating build phases, dispatch to the following sub-agents (defined in `agents/`) instead of invoking sibling skills inline. This isolates context and enables parallelism:
+Companion UiPath skills:
 
-| Phase | Sub-agent | Notes |
-|---|---|---|
-| 2 — Case data model | `data-modeler` | Initial schema |
-| 3a — Case Management design | `case-designer` | Depends on Phase 2 output; returns `case-management-design.md` and `sdd.md` only |
-| 3b — caseplan.json generation | none | Architect invokes `uipath-case-management` via the Skill tool with `flow-model/sdd.md` |
-| 4 — Data model reconciliation | `data-modeler` | Re-run after Phase 3 if case/stub/agent outputs need schema changes |
-| 5 — Agents | `agent-builder` | **Spawn one instance per `AG-*` in a single assistant turn (multiple Agent tool calls in one message) for true parallel execution.** Sequential dispatch defeats the point — agents are independent. |
-| 5.5 — Fixture consistency | none | Architect compares agent deterministic outputs against `case-entity.example.json` and writes `case-entity/fixture-consistency.md` |
-| 6 — Frontend | `frontend-builder` | Depends on Phases 2-5 outputs |
-| 6.5 — Frontend-schema reconcile | `data-modeler` if needed | Architect diffs frontend types/fixtures against schema, then re-dispatches only on schema gaps |
+- `uipath-maestro-flow`
+- `uipath-agents`
+- `uipath-platform`
 
-Discovery, manual completion checklist, and demo script stay in the main architect thread — invoke `demo-builder-discovery` and `demo-builder-script` skills directly.
+## Success Criteria
 
-Each sub-agent returns a short report; the architect reviews it against the build-directory artifacts before advancing phases.
-
-## Traceability IDs
-
-Keep these stable across artifacts. See `references/mapping-conventions.md` for the full set.
-
-`BR-*` requirements · `SEG-*` segments · `T-*` tasks · `R-*` rules · `G-*` gateways · `CMP-*` components · `AG-*` agents · `MSG-*` demo messages · `VIS-*` demo visuals.
-
-Every `BR-*` must trace to a field and a flow step. Every `SEG-*` contains `T-*`s. Every `AG-*` maps 1:1 to a scaffolded agent project.
-
-## Demo rules
-
-- Code is for demos only. No defensive try/catches, no production hardening. It just needs to work for a small set of pre-defined happy + exception paths with consistent fixture data.
-- Prefer mock tools/wrappers when integrations are unavailable. Keep mock/real interfaces identical so replacement is low-friction.
-- Pre-stage small varied case sets (normal, urgent, exception).
-- See `references/demo-design-principles.md` for UX/story principles.
-
-## References
-
-- `references/delivery-workflow.md` — expanded phase-by-phase procedure
-- `references/mapping-conventions.md` — IDs, naming, execution type labels
-- `references/demo-design-principles.md` — demo UX and story principles
-- `references/research-and-citation-rules.md` — source quality and citation format
-- `templates/` — planner-owned artifact templates. Copy templates into `builds/<demo-slug>/` before filling them. Discovery, data-fabric, case-management, agents, frontend, and script templates live in their respective sibling skills.
-- `examples/kyc-us-commercial-banking/` — filled example pack
-
-## Sibling skills (delegate to these)
-
-These sibling skills live in this plugin and can be used by the planner or sub-agents as local demo-builder guidance. Companion production skills such as `uipath-case-management` and `uipath-platform` come from the `uipath-marketplace` plugin and are invoked via the Skill tool by the architect in the main planner thread, not by sub-agents.
-
-- `demo-builder-discovery` — discovery, segmentation, source register, task matrix templates
-- `demo-builder-data-fabric` — case entity schema and example JSON
-- `demo-builder-agents` — Python (coded) and low-code agent builds, deploy to Studio Web or Orchestrator
-- `demo-builder-case-management` — research→case flow mapping and `sdd.md` synthesis for architect-owned `uipath-case-management` delegation
-- `demo-builder-frontend` — UiPath Coded Web App with Vite + React + UiPath TS SDK demo UI
-- `demo-builder-script` — demo script authoring (3-4 messages × 2-3 visuals)
-
-## Success criteria
-
-- `sdd.md` handed to `uipath-case-management` by the architect with approved `tasks.md` and generated `caseplan.json`.
-- Manual completion checklist written at `builds/<demo-slug>/manual-completion-checklist.md`.
-- Build manifest written at `builds/<demo-slug>/manifest.md` and updated at every phase boundary before final handoff.
-- Specs written for any proprietary workflows the demo requires (API / RPA / IDP) — omit types the demo doesn't use.
-- IDP extraction documents identified (only if the demo uses IDP).
-- AI agents fully built and tested with explicit design rationale, tool contracts (real or mock), and 1:1 `uip codedagent` scaffolds. Context Grounding (`index_name` + `folder_path`) and/or MCP URL integration captured when provided by the user.
-- `case-entity/fixture-consistency.md` confirms example records match deterministic agent outputs.
-- Front end matches requirements, runs locally, passes `npm run build`, and has clear `.env` instructions for local testing.
-- Frontend types/fixtures reconcile against `case-entity.schema.json`; schema gaps are routed back through `data-modeler`.
-- Suggested demo script with 3-4 key messages × 2-3 visuals each.
+- Flow project lives inside a solution.
+- Flow architecture and node contracts are written.
+- Required agents are built or discovered and mapped to Flow nodes.
+- Connector activities have connection prerequisites resolved or documented as blockers.
+- Flow tool/control nodes use registry-backed local node types.
+- No API workflow, RPA, Human Task, Case Management, Data Fabric, Coded App, frontend, or other non-local resource build is included unless explicitly requested.
+- `.flow` validates, tidies, and validates again.
+- Solution is uploaded to Studio Web with URL and SolutionId captured for developer editing.
+- Manual completion checklist captures all tenant-side work.
+- Demo script maps to actual Flow nodes, outputs, and visible demo proof.

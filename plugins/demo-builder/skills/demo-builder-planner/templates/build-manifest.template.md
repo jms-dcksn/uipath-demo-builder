@@ -5,7 +5,8 @@
 - Demo slug:
 - Customer/account:
 - Use case:
-- Case type:
+- Flow solution:
+- Flow project:
 - Build owner:
 - Last updated:
 
@@ -14,16 +15,13 @@
 | Phase | Owner Skill/Agent | Status | Primary Artifact(s) | Validation |
 |---|---|---|---|---|
 | Preflight | demo-builder-planner | PENDING | CLI version/login status | Pending |
-| Discovery | demo-builder-discovery | PENDING | `discovery/use-case-research.md`, `discovery/source-register.md`, `discovery/segment-map.md`, `discovery/task-automation-matrix.md` | Pending |
-| Initial data model | data-modeler | PENDING | `case-entity/case-entity.schema.json`, `case-entity/case-entity.example.json` | Pending |
-| Case Management design | case-designer | PENDING | `flow-model/case-management-design.md`, `flow-model/sdd.md` | Pending |
-| Caseplan generation | uipath-case-management | PENDING | `flow-model/tasks.md`, `flow-model/caseplan.json` | Pending |
-| Data model reconciliation | data-modeler | PENDING | `case-entity/data-fabric-modeling-notes.md` | Pending |
-| Agents | agent-builder | PENDING | `agents/<AG-id>/` | Pending |
-| Fixture consistency | demo-builder-planner | PENDING | `case-entity/fixture-consistency.md` | Pending |
-| Frontend | frontend-builder | PENDING | `frontend/` | Pending |
-| Frontend-schema reconcile | demo-builder-planner | PENDING | `case-entity/data-fabric-modeling-notes.md`, `frontend/src/types/` | Pending |
-| Manual checklist | demo-builder-planner | PENDING | `manual-completion-checklist.md` | Pending |
+| Discovery | demo-builder-discovery | PENDING | `discovery/use-case-research.md`, `discovery/source-register.md`, `discovery/process-map.md`, `discovery/task-automation-matrix.md` | Pending |
+| Flow architecture | demo-builder-flow | PENDING | `flow/flow-architecture.md`, `flow/node-contracts.md`, `flow/registry-discovery.md`, `flow/connector-bindings.md` | Pending |
+| Agents | agent-builder / demo-builder-agents | PENDING | `agents/<AG-id>/` | Pending |
+| Flow build | demo-builder-flow | PENDING | `flow/<Solution>/<Project>/<Project>.flow` | Pending |
+| Validate and tidy | demo-builder-flow | PENDING | validation/tidy output | Pending |
+| Studio Web upload | demo-builder-planner | PENDING | Studio Web URL, SolutionId, upload response | Pending |
+| Manual checklist | demo-builder-planner | PENDING | `handoff/manual-completion-checklist.md` | Pending |
 | Demo script | demo-builder-script | PENDING | `script/demo-script.md` | Pending |
 
 ## 3) Artifact Register
@@ -31,23 +29,37 @@
 | Artifact | Path | Produced By | Depends On | Status |
 |---|---|---|---|---|
 | Source register | `discovery/source-register.md` | demo-builder-discovery | User docs + web sources | PENDING |
-| Case entity schema | `case-entity/case-entity.schema.json` | data-modeler | Task matrix, case design | PENDING |
-| Case plan | `flow-model/caseplan.json` | uipath-case-management | `sdd.md`, user approval | PENDING |
+| Flow architecture | `flow/flow-architecture.md` | demo-builder-flow | Task matrix | PENDING |
+| Node contracts | `flow/node-contracts.md` | demo-builder-flow | Flow architecture | PENDING |
+| Connector bindings | `flow/connector-bindings.md` | demo-builder-flow | Integration Service discovery | PENDING |
+| Flow project | `flow/<Solution>/<Project>/<Project>.flow` | demo-builder-flow | Registry discovery | PENDING |
 | Agent project | `agents/<AG-id>/` | agent-builder | Agent build spec | PENDING |
-| Coded Web App | `frontend/` | frontend-builder | UI data contract | PENDING |
+| Studio Web upload response | `manifest.md` | demo-builder-planner | Validate and tidy | PENDING |
 
 ## 4) Validation Register
 
 | Check | Command or Review | Result | Notes |
 |---|---|---|---|
-| JSON schema valid | `json` parser or platform import check | Pending |  |
-| Case Management generated | `uip maestro case validate` via uipath-case-management | Pending |  |
-| Agent local run | `uip codedagent run <entrypoint> '<input-json>'` | Pending | One row per agent in notes |
-| Agent smoke eval | `uip codedagent eval <entrypoint> evaluations/eval-sets/smoke-test.json --no-report` | Pending | One row per agent in notes |
-| Frontend build | `npm run build` | Pending |  |
+| Flow validate before tidy | `uip maestro flow validate <file> --output json` | Pending |  |
+| Flow tidy | `uip maestro flow tidy <file> --output json` | Pending |  |
+| Flow validate after tidy | `uip maestro flow validate <file> --output json` | Pending |  |
+| Agent validation/local run | agent-specific command | Pending | One row per agent in notes |
+| Connector connection health | `uip is connections list/ping` | Pending | One row per connector |
+| Tool/control node registry check | `uip maestro flow registry get <nodeType> --output json` | Pending | One row per local node family in notes |
+| Studio Web upload | `uip solution upload <SolutionDir> --output json` | Pending | Record Studio Web URL, SolutionId, and uploaded projects |
 | Demo script dry run | Manual rehearsal | Pending |  |
 
-## 5) Open Issues
+## 5) Studio Web Handoff
+
+- Studio Web URL:
+- SolutionId:
+- Uploaded project names:
+- Uploaded project IDs:
+- Upload command:
+- Upload status:
+- Omitted expected projects:
+
+## 6) Open Issues
 
 | ID | Issue | Owner | Target Resolution | Status |
 |---|---|---|---|---|

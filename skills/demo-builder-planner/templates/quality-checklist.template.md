@@ -6,27 +6,25 @@ Use this after editing the skill set or before publishing the plugin.
 
 | Check | Pass/Fail | Notes |
 |---|---|---|
-| Skills describe Case Management as the only orchestration model |  | Search for stale procedural-orchestration language |
-| No skill tells the agent to write into source `templates/` |  | Filled artifacts belong under `builds/<demo-slug>/` |
-| Sub-agent path references match plugin layout (`agents/`) |  |  |
+| Skills describe Maestro Flow as the default orchestration model |  |  |
+| Skills emphasize local-execution node families: agents, connectors, Flow tools, and Flow control |  |  |
+| Active skills do not require deferred products |  | Search stale references |
+| Flow project is solution-contained |  |  |
+| Sub-agent path references match plugin layout |  |  |
 
 ## 2) Build Reliability
 
-| Component | A-Grade Criteria | Pass/Fail | Notes |
+| Component | Criteria | Pass/Fail | Notes |
 |---|---|---|---|
-| Planner | Manifest, phase order, reconciliation loop, manual checklist |  |  |
-| Discovery | Source register, segment map, task matrix, user checkpoint |  |  |
-| Data Fabric | Schema, 3 fixtures, reconciliation notes, JSON validation |  |  |
-| Case Management | Case design, `sdd.md`, user approval, `tasks.md`, `caseplan.json` |  |  |
-| Agents | One project per `AG-*`, current `uip codedagent` lifecycle, smoke eval |  |  |
-| Frontend | UiPath Coded Web App, SDK contract, local run, `npm run build` |  |  |
-| Script | Only implemented `VIS-*`, rehearsal checklist, fallback lines |  |  |
+| Planner | Manifest, phase order, resource blockers, checklist |  |  |
+| Discovery | Source register, process map, Flow task matrix, checkpoint |  |  |
+| Flow | Registry discovery, node contracts, connector bindings, validate/tidy |  |  |
+| Agents | One project per `AG-*`, Flow contract, validation status |  |  |
+| Script | Only actual Flow proof points, rehearsal checklist, fallback lines |  |  |
 
 ## 3) Consistency Search
 
-Run these before publishing, replacing placeholders with the stale terms you are checking:
-
 ```bash
-rg -n '<stale-scope-or-command-terms>' README.md skills agents commands
-rg -n '<source-template-write-target-terms>' skills agents commands
+rg -n '<stale product or workflow term>' README.md skills agents commands plugins/demo-builder
+rg -n '<deprecated command or companion skill>' README.md skills agents commands plugins/demo-builder
 ```

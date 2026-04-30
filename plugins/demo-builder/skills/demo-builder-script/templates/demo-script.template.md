@@ -1,6 +1,6 @@
 # Demo Script Template
 
-Use this to produce the final narrated run-of-show for the demo.
+Use this to produce the final narrated run-of-show for the Flow demo.
 
 ## 1) Demo Metadata
 
@@ -9,33 +9,34 @@ Use this to produce the final narrated run-of-show for the demo.
 - Author:
 - Date:
 - Target audience:
-- Duration target (minutes):
+- Duration target:
 
-## 2) Key Messages (3-4 Required)
+## 2) Key Messages
 
 | Message ID | Key Message | Business Proof Point | Related Requirement IDs |
 |---|---|---|---|
 | MSG-01 |  |  | BR-001 |
 
-## 3) Visual Inventory
+## 3) Proof Inventory
 
-| Visual ID | Visual Name | Location (UI/System) | What It Proves |
+| Visual/Proof ID | Name | Location | What It Proves |
 |---|---|---|---|
-| VIS-01 | Dashboard worklist | Frontend `/dashboard` | Priority and workload visibility |
+| VIS-01 | Flow topology | Studio Web Flow canvas | Agents, connectors, tools, and control nodes are orchestrated in one Flow |
+| VIS-02 | Agent output | Flow run output or logs | AI result drives routing |
 
-## 4) Message-To-Visual Alignment
+## 4) Message-To-Proof Alignment
 
-Each message must map to `2-3` visuals.
+Each message must map to 2-3 proof points.
 
-| Message ID | Visual IDs (2-3) | Why This Pairing Works |
+| Message ID | Proof IDs | Why This Pairing Works |
 |---|---|---|
 | MSG-01 | VIS-01, VIS-02 |  |
 
 ## 5) Run Of Show
 
-| Beat # | Message ID | Visual ID | Narration (What to Say) | Operator Action (What to Do) | Visible Outcome (What Audience Sees) |
+| Beat # | Message ID | Proof ID | Narration | Operator Action | Visible Outcome |
 |---|---|---|---|---|---|
-| 1 | MSG-01 | VIS-01 |  |  |  |
+| 1 | MSG-01 | VIS-01 |  | Open Flow | Audience sees trigger, agent, connector, tool, control, and End nodes |
 
 ## 6) Opening And Close
 
@@ -46,11 +47,12 @@ Each message must map to `2-3` visuals.
 
 | Risk During Live Demo | Fallback Line | Fallback Action |
 |---|---|---|
-| Data load delay | "The same state is pre-staged in this backup case." | Open backup instance |
+| Connector unavailable | "The Flow contract is already wired; this fixture shows the same output shape while the tenant connection is refreshed." | Open fixture output |
 
 ## 8) Rehearsal Checklist
 
-- All visual links/routes are verified.
-- All operator actions were dry-run in order.
+- Flow validates after tidy.
+- Operator actions were dry-run in order.
+- Any debug/run action has user approval.
 - Timing stays within target duration.
-- Script language matches actual build behavior (no future-state claims).
+- Script language matches actual build behavior.

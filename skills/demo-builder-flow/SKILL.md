@@ -1,0 +1,121 @@
+---
+name: demo-builder-flow
+description: "Design and build demo-grade UiPath Maestro Flow projects using local-execution node types: AI agents, connector activities/triggers, Flow tool nodes, Flow control nodes, and End outputs. Uses the installed uipath-maestro-flow skill for node-specific authoring rules."
+allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
+---
+
+# Demo Builder - Maestro Flow
+
+Owns Flow architecture and implementation for demo-builder. Defer node-specific `.flow` rules to `uipath-maestro-flow`; this skill coordinates the demo artifacts and build gates.
+
+Default scope: agents are the primary component. The rest of the Flow should use only local-execution node families: connectors, Flow tools, and Flow control nodes. The finished solution should be uploadable to Studio Web for developer editing. Do not introduce API workflow, RPA workflow, Human Task, Case Management, Data Fabric, Coded App, frontend, queue, agentic-process, Orchestrator deployment, or other resource-invocation nodes unless the user explicitly asks to leave this scope.
+
+## When To Use
+
+- Planner has discovery output and needs a Flow topology.
+- User wants a Maestro Flow demo with agents, connector activities, Flow tool nodes, or Flow control nodes.
+- Existing Flow needs demo-oriented extension.
+
+## Inputs
+
+- Use-case brief and research.
+- Process map.
+- Task automation matrix.
+- Known tenant folder, connector names, connection names, tool requirements, and agent names.
+- Agent build specs or existing agent resource names.
+- Happy path and exception fixture payloads.
+
+## Flow Architecture Workflow
+
+1. Copy templates into `builds/<demo-slug>/flow/`:
+   - `templates/flow-architecture.template.md`
+   - `templates/node-contracts.template.md`
+   - `templates/registry-discovery.template.md`
+   - `templates/connector-bindings.template.md`
+2. Map each task to a Flow node:
+   - `AG-*` for agent nodes.
+   - `CONN-*` for Integration Service connector activities.
+   - `TOOL-*` for Flow tool nodes such as script and transform.
+   - `CTRL-*` for Flow control nodes such as trigger, decision, switch, loop, merge, delay, end, terminate, and subflow.
+3. Define trigger, variables, End outputs, branch conditions, and exception path.
+4. Run resource discovery:
+   - Tenant registry search for named published agents.
+   - In-solution local registry for sibling agents.
+   - Connector registry search for connector activities/triggers.
+   - Registry `get` for every Flow tool/control node type.
+   - Scaffold agents only when no suitable resource exists and the user wants it created.
+5. For connectors, confirm connections before implementation.
+6. Write open prerequisites instead of guessing connection IDs, required fields, reference IDs, or folder keys.
+
+## Implementation Workflow
+
+Use the installed `uipath-maestro-flow` skill for exact node recipes.
+
+1. Create or select a solution.
+2. Create the Flow project inside the solution.
+3. Discover registry definitions for every node type.
+4. Add/configure nodes.
+5. Add workflow variables and End output mappings directly in the `.flow` file.
+6. Wire edges with explicit `targetPort`.
+7. Add `outputs` blocks to every data-producing node.
+8. Use `=js:` for `$vars`, `$metadata`, and `$self` references in value fields.
+9. Validate/tidy/validate.
+10. Hand the solution directory to the planner for Studio Web upload with `uip solution upload <SolutionDir> --output json`.
+
+## Connector Rules
+
+- Use connector activity nodes when a curated activity exists.
+- Use connector triggers when the demo should start from a supported external event.
+- Use connector-backed managed HTTP only when the user approves it as a connector workaround.
+- Do not use manual HTTP as a default local-execution demo node. If no connector exists, document the gap or ask the user whether to leave the local-only scope.
+- Before building a connector node:
+  - `uip is connections list <connector-key> --output json`
+  - choose a default enabled connection or ask the user
+  - `uip maestro flow registry get <nodeType> --connection-id <connection-id> --output json`
+  - resolve required fields and reference fields
+- If no connection exists, stop and document the prerequisite in `flow/connector-bindings.md`.
+
+## Flow Tool Rules
+
+- Prefer tool nodes for deterministic local work: payload normalization, shaping agent inputs, parsing agent output, static transforms, and fixture-backed enrichment.
+- Use `core.action.script` for small JavaScript transforms and parsing.
+- Use `core.action.transform*` only when the transform is static enough for the native transform node.
+- Do not call external services from script nodes.
+- Keep tool outputs small and shaped for downstream agents, connectors, control branches, or End output.
+
+## Flow Control Rules
+
+- Use control nodes for topology and runtime pathing: manual/scheduled trigger, decision, switch, loop, merge, delay, subflow, end, and terminate.
+- Model the exception path with control nodes and End outputs by default. Do not add Human Task/HITL nodes unless the user explicitly asks for Action Center.
+- Every reachable path must end in a mapped End node or terminate node.
+
+## Agent Rules
+
+- Published agents use tenant registry discovery.
+- Sibling standalone agents use `uip maestro flow registry list --local --output json`.
+- Inline agents use `uip agent init <FlowProjectDir> --inline-in-flow --output json` and `uipath.agent.autonomous`.
+- The words coded and low-code describe agent implementation style, not inline status.
+- Agent outputs are consumed from `$vars.<nodeId>.output.content` unless the node definition says otherwise.
+
+## Out-Of-Scope Resource Rules
+
+- API workflows, RPA workflows, Human Tasks, queues, other Flow resources, and agentic processes are not part of the default local-execution build.
+- When the user's use case mentions one of these resources, first try to satisfy the demo with an agent, connector, Flow tool, or Flow control node.
+- If the external resource is truly required, record it as an explicit prerequisite or ask the user to expand scope before wiring it.
+
+## Completion Criteria
+
+- `flow-architecture.md`, `node-contracts.md`, `registry-discovery.md`, and `connector-bindings.md` are complete.
+- All required agents/connectors are found, scaffolded, or documented as blockers.
+- All tool/control nodes are local registry-backed node types.
+- Flow project is solution-contained.
+- `.flow` validates, tidies, and validates again.
+- Solution directory is ready for `uip solution upload <SolutionDir> --output json`.
+- Manual checklist includes any tenant-side connection, Studio Web upload, optional Orchestrator deployment, or debug/run steps.
+
+## Templates
+
+- `templates/flow-architecture.template.md`
+- `templates/node-contracts.template.md`
+- `templates/registry-discovery.template.md`
+- `templates/connector-bindings.template.md`

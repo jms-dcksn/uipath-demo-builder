@@ -1,47 +1,44 @@
-# Component Specifications Template
+# Local Flow Node Specifications Template
 
-Use this for `RPA`, `API`, and `IDP` components that may be implemented in proprietary tooling.
+Use this to capture local Flow nodes and explicit out-of-scope asks. Default builds should not depend on API workflows, RPA workflows, Human Tasks, Case Management, Data Fabric, Coded Apps, frontends, queues, or other resource-invocation nodes.
 
-## 1) Component Index
+## 1) Node Index
 
-| Component ID | Component Type | Task IDs | Owner | Build Status |
+| Node ID | Node Family | Task IDs | Owner | Build Status |
 |---|---|---|---|---|
-| CMP-RPA-01 | RPA | T-010, T-011 |  | Planned |
+| TOOL-001 | Flow Tool | T-003 |  | Planned |
 
-## 2) Component Spec
+## 2) Node Spec
 
-Copy this section once per component.
+Copy this section once per node.
 
-### Component: `<Component ID>`
+### Node: `<Node ID>`
 
-- Type: `RPA | API | IDP`
+- Type: `Agent | Connector Activity | Flow Tool | Flow Control | Trigger`
 - Business purpose:
-- Trigger:
+- Flow node that invokes it:
 - Inputs:
 - Outputs:
 - Upstream dependencies:
 - Downstream dependencies:
 - Exception cases:
-- Retry/idempotency strategy:
-- Logging/audit requirements:
-- Security/credential requirements:
-- SLA target:
+- Auth/connection requirements:
+- Demo fallback:
 
-## 3) API Contract Stubs
+## 3) Flow Tool And Control Notes
 
-| Component ID | Endpoint/Operation | Method | Request Shape | Response Shape | Error Codes |
-|---|---|---|---|---|---|
-| CMP-API-02 | `/applications/{id}` | `PATCH` |  |  |  |
-
-## 4) RPA Interaction Notes
-
-| Component ID | App/System | UI Steps Summary | Selectors/Anchors Notes | Failure Recovery |
+| Node ID | Registry Node Type | Local Logic | Input Shape | Output Shape |
 |---|---|---|---|---|
-| CMP-RPA-01 | Legacy CRM | Login -> search -> update -> confirm | Stable anchor on case ID | Retry once then create exception task |
+| TOOL-001 | `core.action.script` |  |  |  |
 
-## 5) IDP Extraction Notes
+## 4) Connector Notes
 
-| Component ID | Document Type | Required Fields | Confidence Threshold | Escalation Rule |
+| Connector ID | Connector Key | Activity | Required Connection | Required Fields |
 |---|---|---|---|---|
-| CMP-IDP-03 | Application Form | ApplicantName, Amount, Date | 0.92 | Route low confidence to manual validation |
+| CONN-001 |  |  |  |  |
 
+## 5) Out-Of-Scope Requests
+
+| Request | Excluded Node/Product | Reason | Owner Decision |
+|---|---|---|---|
+|  | API workflow / RPA / Human Task / Case Management / Data Fabric / frontend | Outside local-execution Flow scope |  |

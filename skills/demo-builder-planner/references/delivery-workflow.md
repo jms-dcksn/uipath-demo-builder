@@ -70,9 +70,19 @@ Completion:
 - Connector nodes have connection-aware metadata.
 - Agent bindings are documented.
 - Tool/control nodes stay inside the local Flow execution palette.
+- Operator-facing fixture fields are declared as manual-trigger inputs with `direction: "in"` and `triggerNodeId`.
+- Agent/tool bindings consume manual-trigger fields through `$vars.<triggerNodeId>.output.<field>` or another documented source.
 - Variables and End outputs are mapped.
+- Flow write operations were performed sequentially against the `.flow` file.
 
-## Phase 5 - Validate And Tidy
+## Phase 5 - Input Contract, Validate And Tidy
+
+Before validation, inspect the `.flow` file and fixture payloads:
+
+- Every visible fixture field has a matching `variables.globals[]` input.
+- Every manual-start input has `triggerNodeId` set to the Start/manual trigger node.
+- Downstream bindings use the trigger output path or a documented non-trigger source.
+- Missing `triggerNodeId` is a blocker even when `flow validate` succeeds.
 
 Run validate, tidy, validate:
 
@@ -85,6 +95,7 @@ uip maestro flow validate <FlowProject>.flow --output json
 Completion:
 
 - Latest validation result is recorded.
+- Operator input contract check is recorded.
 - Tidy result is recorded.
 - Any remaining issue is a named blocker.
 
@@ -103,6 +114,7 @@ Completion:
 - Studio Web URL is captured and shared.
 - `SolutionId` is captured.
 - Uploaded project list includes the Flow and expected agent projects.
+- Manual-start input visibility is verified from the generated/uploaded schema when available, or marked as a manual Studio Web verification item.
 - Any omitted project is a named blocker.
 
 Use `uip solution pack`, `publish`, and `deploy` only when the user explicitly asks for Orchestrator deployment.
@@ -117,6 +129,8 @@ Include:
 - Published/local resource binding status.
 - Agent Studio Web upload status or local sibling status.
 - Studio Web upload URL, SolutionId, and uploaded projects.
+- Manual-start input fields and fixture-to-input mapping.
+- Studio Web input-form verification status.
 - Optional Orchestrator pack/publish/deploy steps only when requested.
 - Debug/run approval items.
 

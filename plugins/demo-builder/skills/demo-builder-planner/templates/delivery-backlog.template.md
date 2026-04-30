@@ -6,8 +6,8 @@
 |---|---|---|---|
 | M1 | Discovery complete | Source register, process map, and task matrix approved |  |
 | M2 | Flow architecture complete | Node contracts and resource discovery reviewed |  |
-| M3 | Flow assets complete | Flow, agents, connector prerequisites, and local tool/control nodes resolved or documented |  |
-| M4 | Studio Web handoff complete | Validation passed, solution uploaded, URL captured, and script dry-run completed |  |
+| M3 | Flow assets complete | Flow, agents, manual-start input contract, connector prerequisites, and local tool/control nodes resolved or documented |  |
+| M4 | Studio Web handoff complete | Validation passed, input surface verified or flagged, solution uploaded, URL captured, and script dry-run completed |  |
 
 ## 2) Work Items
 
@@ -15,7 +15,7 @@
 |---|---|---|---|---|---|
 | WI-001 | Discovery | Draft Flow-oriented task matrix |  |  | Planned |
 | WI-002 | Flow | Build and validate Maestro Flow | WI-001 |  | Planned |
-| WI-003 | Studio Web Upload | Upload solution for developer browser editing | WI-002 |  | Planned |
+| WI-003 | Studio Web Upload | Upload solution and verify manual-start input surface | WI-002 |  | Planned |
 | WI-004 | Demo Script | Create run-of-show with Flow proof points | WI-003 |  | Planned |
 
 ## 3) Ownership Model

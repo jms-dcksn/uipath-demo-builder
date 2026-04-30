@@ -108,13 +108,23 @@ Hard gates from `uipath-maestro-flow`:
 - Validate every node type through registry `search`, `list --local`, and `get`.
 - Connector activities require existing Integration Service connections and enriched metadata with `--connection-id`.
 - Every node type needs a copied registry definition.
+- Every external demo fixture field that the operator must provide is declared as a manual-trigger input with `direction: "in"` and `triggerNodeId` pointing to the Start/manual trigger node.
+- Agent/tool bindings consume manual-trigger fields through the trigger output path, such as `$vars.start.output.<field>`, or document a different source.
 - Every data-producing node needs an `outputs` block.
 - Every edge needs `targetPort`.
 - Use `=js:` for `$vars`, `$metadata`, and `$self` references in value fields.
 - Map every `out` variable on every reachable End node.
 - Do not run `flow debug` without explicit user consent.
+- Flow file mutations must be sequential. Do not run `uip maestro flow node add/configure/delete`, direct JSON writes, or `tidy` in parallel against the same `.flow` file.
 
-### Phase 5 - Validate And Tidy
+### Phase 5 - Input Contract, Validate And Tidy
+
+Before validation, perform a static operator input contract check:
+
+- Compare `fixtures/happy-path.json` and `fixtures/exception-path.json` keys against the operator input surface in `flow/node-contracts.md`.
+- Inspect `.flow` and confirm each visible manual-start input appears in `variables.globals[]` with `direction: "in"` and `triggerNodeId`.
+- Confirm downstream bindings use `$vars.<triggerNodeId>.output.<field>` or another documented source.
+- Record this check in `manifest.md`. Treat missing `triggerNodeId` as a handoff blocker, even if `flow validate` passes.
 
 Run:
 
@@ -141,6 +151,7 @@ Rules:
 - Use `uip solution upload`, not `uip solution pack`, `publish`, or `deploy`.
 - Parse and record the returned Studio Web URL, `SolutionId`, and uploaded projects in `manifest.md`.
 - Inspect the upload response and verify the Flow project and expected agent projects are present. If a local agent is omitted, mark the upload incomplete and surface the blocker.
+- If the uploaded/generated artifact exposes an entry point schema or Studio Web input form, verify the expected manual-start inputs are visible. If this cannot be inspected from CLI output, add a manual checklist item instead of assuming validation proved it.
 - If auth is expired, stop and ask the user to re-authenticate or run the relevant `uip login` command for the target tenant.
 
 ### Phase 7 - Manual Completion Checklist
@@ -151,6 +162,7 @@ Copy `templates/manual-completion-checklist.template.md` to `builds/<demo-slug>/
 - Published or local resource bindings.
 - Agent Studio Web upload status or local sibling status.
 - Studio Web URL, SolutionId, and uploaded project list.
+- Manual-start input fields, fixture-to-input mapping, and Studio Web input-form verification status.
 - Any optional Orchestrator pack/publish/deploy steps requested by the user.
 - Manual debug/run approval items.
 
@@ -201,6 +213,7 @@ Companion UiPath skills:
 - Connector activities have connection prerequisites resolved or documented as blockers.
 - Flow tool/control nodes use registry-backed local node types.
 - No API workflow, RPA, Human Task, Case Management, Data Fabric, Coded App, frontend, or other non-local resource build is included unless explicitly requested.
+- Manual-start inputs are fixture-backed, bound to the Start/manual trigger, and visible or explicitly marked for Studio Web verification.
 - `.flow` validates, tidies, and validates again.
 - Solution is uploaded to Studio Web with URL and SolutionId captured for developer editing.
 - Manual completion checklist captures all tenant-side work.

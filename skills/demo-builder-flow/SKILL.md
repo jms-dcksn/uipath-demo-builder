@@ -24,6 +24,7 @@ Default scope: agents are the primary component. The rest of the Flow should use
 - Known tenant folder, connector names, connection names, tool requirements, and agent names.
 - Agent build specs or existing agent resource names.
 - Happy path and exception fixture payloads.
+- Fixture field list and the fields the demo operator must enter when starting the Flow manually.
 
 ## Flow Architecture Workflow
 
@@ -37,15 +38,20 @@ Default scope: agents are the primary component. The rest of the Flow should use
    - `CONN-*` for Integration Service connector activities.
    - `TOOL-*` for Flow tool nodes such as script and transform.
    - `CTRL-*` for Flow control nodes such as trigger, decision, switch, loop, merge, delay, end, terminate, and subflow.
-3. Define trigger, variables, End outputs, branch conditions, and exception path.
-4. Run resource discovery:
+3. Define the operator input surface before internal wiring:
+   - Identify every external field from the happy path and exception fixtures.
+   - Decide which fields are visible manual-start inputs and which are supplied by defaults, upstream nodes, or fixture-backed tools.
+   - For manual-trigger demos, each visible input must map to a `variables.globals[]` item with `direction: "in"` and `triggerNodeId` set to the trigger node ID, normally `start`.
+   - Downstream nodes should reference visible trigger inputs through the trigger output path, such as `$vars.start.output.documentExcerpt`, not a bare `$vars.documentExcerpt`.
+4. Define remaining variables, End outputs, branch conditions, and exception path.
+5. Run resource discovery:
    - Tenant registry search for named published agents.
    - In-solution local registry for sibling agents.
    - Connector registry search for connector activities/triggers.
    - Registry `get` for every Flow tool/control node type.
    - Scaffold agents only when no suitable resource exists and the user wants it created.
-5. For connectors, confirm connections before implementation.
-6. Write open prerequisites instead of guessing connection IDs, required fields, reference IDs, or folder keys.
+6. For connectors, confirm connections before implementation.
+7. Write open prerequisites instead of guessing connection IDs, required fields, reference IDs, or folder keys.
 
 ## Implementation Workflow
 
@@ -54,13 +60,26 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 1. Create or select a solution.
 2. Create the Flow project inside the solution.
 3. Discover registry definitions for every node type.
-4. Add/configure nodes.
-5. Add workflow variables and End output mappings directly in the `.flow` file.
-6. Wire edges with explicit `targetPort`.
-7. Add `outputs` blocks to every data-producing node.
-8. Use `=js:` for `$vars`, `$metadata`, and `$self` references in value fields.
-9. Validate/tidy/validate.
-10. Hand the solution directory to the planner for Studio Web upload with `uip solution upload <SolutionDir> --output json`.
+4. Add the manual-trigger input contract before agent/tool wiring.
+5. Add/configure nodes.
+6. Add workflow variables and End output mappings directly in the `.flow` file.
+7. Wire edges with explicit `targetPort`.
+8. Add `outputs` blocks to every data-producing node.
+9. Use `=js:` for `$vars`, `$metadata`, and `$self` references in value fields.
+10. Validate the operator input surface with a static `.flow` review:
+    - Every visible fixture field has a matching `direction: "in"` global variable.
+    - Every visible manual input has `triggerNodeId` pointing to the Start/manual trigger node.
+    - Every downstream binding uses the trigger output path or another documented source.
+11. Validate/tidy/validate.
+12. Hand the solution directory to the planner for Studio Web upload with `uip solution upload <SolutionDir> --output json`.
+
+## Manual Trigger Input Rules
+
+- Treat the demo operator input surface as a first-class contract, not an implementation detail.
+- `variables.globals[]` with `direction: "in"` is not enough by itself for manual-start demos. Add `triggerNodeId` so Studio Web can associate the input with the Start/manual trigger entry point.
+- Keep fixture keys, trigger input IDs, agent input variables, Flow tool inputs, and End output examples coherent.
+- `uip maestro flow validate` is required, but it does not prove Studio Web exposes the manual-start input form correctly. Record the input-surface check separately in the manifest and handoff checklist.
+- If the current CLI or uploaded artifact provides an `entry-points.json` or equivalent generated schema, inspect it after build/upload and verify the expected input properties are present.
 
 ## Connector Rules
 
@@ -89,12 +108,19 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 - Model the exception path with control nodes and End outputs by default. Do not add Human Task/HITL nodes unless the user explicitly asks for Action Center.
 - Every reachable path must end in a mapped End node or terminate node.
 
+## Flow Mutation Rules
+
+- Registry reads, file reads, and planning checks may run in parallel.
+- Do not run Flow file mutations in parallel against the same `.flow` file. Run `uip maestro flow node add`, `node configure`, `node delete`, direct JSON edits, `tidy`, and other write operations sequentially.
+- After any CLI mutation, re-read the changed `.flow` before applying direct JSON edits so the next write is based on current state.
+
 ## Agent Rules
 
 - Published agents use tenant registry discovery.
 - Sibling standalone agents use `uip maestro flow registry list --local --output json`.
 - Inline agents use `uip agent init <FlowProjectDir> --inline-in-flow --output json` and `uipath.agent.autonomous`.
 - The words coded and low-code describe agent implementation style, not inline status.
+- For inline agents, inspect the current registry output or CLI-generated node shape before final JSON edits. Prefer current generated fields over older examples when `inputs.source`, prompts, input variables, or output variables drift.
 - Agent outputs are consumed from `$vars.<nodeId>.output.content` unless the node definition says otherwise.
 
 ## Out-Of-Scope Resource Rules
@@ -109,9 +135,10 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 - All required agents/connectors are found, scaffolded, or documented as blockers.
 - All tool/control nodes are local registry-backed node types.
 - Flow project is solution-contained.
+- Manual-trigger demo inputs are documented, fixture-backed, bound with `triggerNodeId`, and referenced through the trigger output path or another documented source.
 - `.flow` validates, tidies, and validates again.
 - Solution directory is ready for `uip solution upload <SolutionDir> --output json`.
-- Manual checklist includes any tenant-side connection, Studio Web upload, optional Orchestrator deployment, or debug/run steps.
+- Manual checklist includes tenant-side connections, Studio Web upload, manual-start input surface verification, optional Orchestrator deployment, or debug/run steps.
 
 ## Templates
 

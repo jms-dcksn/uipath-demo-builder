@@ -9,8 +9,11 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 | Solution created | solution name/path | Pending |  | Flow project must be inside solution |
 | Flow validates | validation result | Pending |  | `uip maestro flow validate` |
 | Flow tidied | tidy result | Pending |  | `uip maestro flow tidy` |
+| Operator input contract documented | `flow/node-contracts.md` input surface | Pending |  | Fixture fields map to manual-start inputs |
+| Manual-start inputs bound to trigger | `.flow` `variables.globals[].triggerNodeId` | Pending |  | Required for Studio Web manual input form |
 | Solution uploaded to Studio Web | Studio Web URL + SolutionId | Pending |  | `uip solution upload <SolutionDir> --output json` |
 | Uploaded projects verified | Flow + agent project list | Pending |  | Check upload response before handoff |
+| Studio Web input form verified | Expected manual-start fields visible | Pending |  | If CLI cannot verify, inspect Studio Web before demo |
 
 ## 2) Agents
 
@@ -41,6 +44,8 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 
 | Item | Status | Notes |
 |---|---|---|
+| Happy path fixture maps to manual-start inputs | Pending |  |
+| Exception path fixture maps to manual-start inputs | Pending |  |
 | Happy path fixture tested | Pending |  |
 | Exception path fixture tested | Pending |  |
 | Flow debug/run approved by user | Pending | Do not run debug without explicit consent |

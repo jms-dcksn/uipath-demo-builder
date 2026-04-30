@@ -29,16 +29,19 @@
 | AG-001 | Reason Over Request | Agent | `uipath.core.agent.<id>` or `uipath.agent.autonomous` | Classify, extract, summarize, or decide | TOOL-001 | CTRL-001 |
 | CTRL-001 | Route Result | Flow Control | `core.logic.decision` | Route happy vs exception path | AG-001 | CONN-001 or FLOW-END-01 |
 
-## 4) Trigger Contract
+## 4) Operator Input Surface
 
-| Field | Type | Required | Example | Notes |
-|---|---|---|---|---|
-| requestId | string | Yes | DEMO-001 | Demo fixture key |
+Every field the demo operator must provide must be visible on the Start/manual trigger input form unless a different source is documented.
+
+| Field | Fixture Key | Type | Required | Trigger Node ID | Flow Variable ID | Runtime Reference | Studio Web Visible? | Notes |
+|---|---|---|---|---|---|---|---|---|
+| documentExcerpt | documentExcerpt | string | Yes | start | documentExcerpt | `$vars.start.output.documentExcerpt` | Pending | Demo fixture input |
 
 ## 5) Variables And End Outputs
 
 | Variable | Direction | Type | Set By | Consumed By | Notes |
 |---|---|---|---|---|---|
+| documentExcerpt | in | string | FLOW-TRG-01 | TOOL-001 / AG-001 | Must include `triggerNodeId: "start"` for manual-trigger demos |
 | demoResult | out | object | FLOW-END-01 | Caller | Must be mapped on every reachable End node |
 
 ## 6) Branching Rules

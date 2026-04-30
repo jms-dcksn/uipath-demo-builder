@@ -20,6 +20,7 @@
 ### Scenario: `<Scenario ID>`
 
 - Preconditions:
+- Manual-start input fields:
 - Steps:
 - Expected Flow behavior:
 - Expected agent/connector/tool/control behavior:
@@ -36,5 +37,6 @@
 
 - Script contains 3-4 key messages.
 - Each key message maps to 2-3 proof points.
+- Demo operator action names the visible trigger input fields used for the run.
 - Every beat has narration, operator action, and visible outcome.
 - Closing statement ties to business impact.

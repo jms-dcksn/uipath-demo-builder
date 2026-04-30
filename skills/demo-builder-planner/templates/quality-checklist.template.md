@@ -10,6 +10,7 @@ Use this after editing the skill set or before publishing the plugin.
 | Skills emphasize local-execution node families: agents, connectors, Flow tools, and Flow control |  |  |
 | Active skills do not require deferred products |  | Search stale references |
 | Flow project is solution-contained |  |  |
+| Manual-trigger demo inputs are treated as a visible operator contract |  |  |
 | Sub-agent path references match plugin layout |  |  |
 
 ## 2) Build Reliability
@@ -18,7 +19,7 @@ Use this after editing the skill set or before publishing the plugin.
 |---|---|---|---|
 | Planner | Manifest, phase order, resource blockers, checklist |  |  |
 | Discovery | Source register, process map, Flow task matrix, checkpoint |  |  |
-| Flow | Registry discovery, node contracts, connector bindings, validate/tidy |  |  |
+| Flow | Registry discovery, operator input surface, node contracts, connector bindings, validate/tidy |  |  |
 | Agents | One project per `AG-*`, Flow contract, validation status |  |  |
 | Script | Only actual Flow proof points, rehearsal checklist, fallback lines |  |  |
 

@@ -19,6 +19,7 @@
 | Flow architecture | demo-builder-flow | PENDING | `flow/flow-architecture.md`, `flow/node-contracts.md`, `flow/registry-discovery.md`, `flow/connector-bindings.md` | Pending |
 | Agents | agent-builder / demo-builder-agents | PENDING | `agents/<AG-id>/` | Pending |
 | Flow build | demo-builder-flow | PENDING | `flow/<Solution>/<Project>/<Project>.flow` | Pending |
+| Input contract check | demo-builder-flow | PENDING | trigger input mapping + `.flow` review | Pending |
 | Validate and tidy | demo-builder-flow | PENDING | validation/tidy output | Pending |
 | Studio Web upload | demo-builder-planner | PENDING | Studio Web URL, SolutionId, upload response | Pending |
 | Manual checklist | demo-builder-planner | PENDING | `handoff/manual-completion-checklist.md` | Pending |
@@ -35,18 +36,21 @@
 | Flow project | `flow/<Solution>/<Project>/<Project>.flow` | demo-builder-flow | Registry discovery | PENDING |
 | Agent project | `agents/<AG-id>/` | agent-builder | Agent build spec | PENDING |
 | Studio Web upload response | `manifest.md` | demo-builder-planner | Validate and tidy | PENDING |
+| Operator input mapping | `flow/node-contracts.md` | demo-builder-flow | Fixtures + Flow architecture | PENDING |
 
 ## 4) Validation Register
 
 | Check | Command or Review | Result | Notes |
 |---|---|---|---|
 | Flow validate before tidy | `uip maestro flow validate <file> --output json` | Pending |  |
+| Manual trigger input contract | Static `.flow` review | Pending | Confirm `direction: "in"` globals include `triggerNodeId` and fixture fields are covered |
 | Flow tidy | `uip maestro flow tidy <file> --output json` | Pending |  |
 | Flow validate after tidy | `uip maestro flow validate <file> --output json` | Pending |  |
 | Agent validation/local run | agent-specific command | Pending | One row per agent in notes |
 | Connector connection health | `uip is connections list/ping` | Pending | One row per connector |
 | Tool/control node registry check | `uip maestro flow registry get <nodeType> --output json` | Pending | One row per local node family in notes |
 | Studio Web upload | `uip solution upload <SolutionDir> --output json` | Pending | Record Studio Web URL, SolutionId, and uploaded projects |
+| Studio Web input form | Generated schema or manual Studio Web inspection | Pending | Confirm expected manual-start fields are visible |
 | Demo script dry run | Manual rehearsal | Pending |  |
 
 ## 5) Studio Web Handoff
@@ -55,6 +59,9 @@
 - SolutionId:
 - Uploaded project names:
 - Uploaded project IDs:
+- Visible manual-start input fields:
+- Fixture-to-input mapping:
+- Input form verification:
 - Upload command:
 - Upload status:
 - Omitted expected projects:

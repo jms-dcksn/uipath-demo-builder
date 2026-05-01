@@ -1,7 +1,7 @@
 {
   "name": "demo-builder",
-  "version": "0.2.0",
-  "description": "UiPath Maestro Flow demo builder - skills for planning and building local-execution Flow demos with agents, mock API workflows, connector activities, tools, control nodes, and Studio Web upload.",
+  "version": "0.2.1",
+  "description": "UiPath Maestro Flow demo builder - skills for planning and building local-execution Flow demos with agents, project-backed mock API Workflows, connector activities, tools, control nodes, and Studio Web upload.",
   "author": {
     "name": "UiPath"
   },

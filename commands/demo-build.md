@@ -16,7 +16,7 @@ Start the demo-builder workflow now. The planner handles clarification before an
    - If it names only a customer/account, run the minimum-input branch: research the account, propose 2-3 Maestro Flow demo options, and wait for selection.
    - If it describes a use case, proceed to Flow-oriented discovery.
    - If empty, ask for a customer name or use-case brief and stop until answered.
-3. Follow the planner's local-execution Flow phases without skipping: preflight, discovery, mock API planning, Flow architecture, agents, API workflow build, Flow build, validation/tidy, Studio Web upload, manual checklist, and demo script.
+3. Follow the planner's local-execution Flow phases without skipping: preflight, discovery, mock API planning, Flow architecture, agents, project-backed API Workflow build, Flow invocation binding, Flow build, validation/tidy, Studio Web upload, manual checklist, and demo script.
 4. Dispatch `agent-builder` only when new agent projects are required. Fan out one agent-builder instance per `AG-*` role in a single parallel turn when supported.
 5. Keep all generated artifacts under `builds/<demo-slug>/`.
 

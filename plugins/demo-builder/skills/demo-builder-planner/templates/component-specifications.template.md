@@ -32,19 +32,25 @@ Copy this section once per node.
 |---|---|---|---|---|---|---|
 | API-001 |  |  | `apis/API-001/payload.json` | `apis/API-001/<WorkflowName>.json` | same payload source | Pending |
 
-## 4) Flow Tool And Control Notes
+## 4) API Workflow Project And Invocation Status
+
+| API ID | API Project Path | Project Build | Solution `Type: Api` Entry | Upload `projectType: Api` | Flow Invocation Mode | Placeholder Node |
+|---|---|---|---|---|---|---|
+| API-001 | `flow/<Solution>/<ApiProjectName>/` | Pending | Pending | Pending | `bound API node` / `script placeholder` / `not used` |  |
+
+## 5) Flow Tool And Control Notes
 
 | Node ID | Registry Node Type | Local Logic | Input Shape | Output Shape |
 |---|---|---|---|---|
 | TOOL-001 | `core.action.script` |  |  |  |
 
-## 5) Connector Notes
+## 6) Connector Notes
 
 | Connector ID | Connector Key | Activity | Required Connection | Required Fields |
 |---|---|---|---|---|
 | CONN-001 |  |  |  |  |
 
-## 6) Out-Of-Scope Requests
+## 7) Out-Of-Scope Requests
 
 | Request | Excluded Node/Product | Reason | Owner Decision |
 |---|---|---|---|

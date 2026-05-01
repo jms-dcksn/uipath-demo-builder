@@ -7,7 +7,7 @@ Discovery produces IDs that downstream Flow architecture must preserve.
 | `BR-*` | Business requirement |
 | `SEG-*` | Process segment |
 | `T-*` | Task |
-| `API-*` | Mock API workflow candidate |
+| `API-*` | Project-backed mock API Workflow plus current Flow invocation mode |
 | `AG-*` | Agent candidate |
 | `CONN-*` | Connector activity candidate |
 | `TOOL-*` | Flow tool node candidate |

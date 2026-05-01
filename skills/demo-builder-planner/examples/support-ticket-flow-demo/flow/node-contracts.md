@@ -8,9 +8,9 @@
 
 ## Mock API Workflow Contract
 
-| API ID | Flow Node ID | Workflow Name | Registry Node Type | Output Reference | Fallback |
+| API ID | Flow Node ID | Workflow Name | Registry Node Type | Output Reference | Flow Invocation Mode |
 |---|---|---|---|---|---|
-| API-001 | serviceNowEntitlementLookup | ServiceNowEntitlementLookup | `uipath.core.api-workflow.<servicenow-entitlement-resource>` | `$vars.serviceNowEntitlementLookup.output` | Fixture-backed Flow tool injection |
+| API-001 | serviceNowEntitlementLookup | ServiceNowEntitlementLookup | `uipath.core.api-workflow.<servicenow-entitlement-resource>` | `$vars.serviceNowEntitlementLookup.output` | Script placeholder until native binding is available |
 
 ## Payload Field Consumption
 

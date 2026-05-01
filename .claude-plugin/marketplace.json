@@ -10,8 +10,8 @@
     {
       "name": "demo-builder",
       "source": "./",
-      "description": "Build demo-grade local-execution Maestro Flow solutions with agents, mock API workflows, connector activities, tools, control nodes, and Studio Web upload.",
-      "version": "0.2.0",
+      "description": "Build demo-grade local-execution Maestro Flow solutions with agents, project-backed mock API Workflows, connector activities, tools, control nodes, and Studio Web upload.",
+      "version": "0.2.1",
       "category": "uipath",
       "keywords": [
         "uipath",

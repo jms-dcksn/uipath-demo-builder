@@ -19,7 +19,8 @@
 | Mock API planning | demo-builder-planner | PENDING | `discovery/system-interactions.md`, `discovery/mock-api-payload-research.md`, `discovery/payload-field-map.md` | Pending |
 | Flow architecture | demo-builder-flow | PENDING | `flow/flow-architecture.md`, `flow/node-contracts.md`, `flow/registry-discovery.md`, `flow/connector-bindings.md` | Pending |
 | Agents | agent-builder / demo-builder-agents | PENDING | `agents/<AG-id>/` | Pending |
-| API workflow build | demo-builder-api-workflows | PENDING | `apis/<API-id>/` | Pending |
+| API workflow artifact build | demo-builder-api-workflows | PENDING | `apis/<API-id>/`, `flow/<Solution>/<ApiProjectName>/` | Pending |
+| API workflow invocation binding | demo-builder-flow | PENDING | `flow/registry-discovery.md`, `flow/node-contracts.md` | Pending |
 | Flow build | demo-builder-flow | PENDING | `flow/<Solution>/<Project>/<Project>.flow` | Pending |
 | Input contract check | demo-builder-flow | PENDING | trigger input mapping + `.flow` review | Pending |
 | Validate and tidy | demo-builder-flow | PENDING | validation/tidy output | Pending |
@@ -41,6 +42,8 @@
 | API workflow contract | `apis/API-001/api-workflow-contract.md` | demo-builder-api-workflows | Payload field map | PENDING |
 | API workflow payload | `apis/API-001/payload.json` | demo-builder-api-workflows | Payload research | PENDING |
 | API workflow JSON | `apis/API-001/<WorkflowName>.json` | demo-builder-api-workflows | Payload JSON | PENDING |
+| API workflow project | `flow/<Solution>/<ApiProjectName>/project.uiproj` | demo-builder-api-workflows | Workflow JSON + output schema | PENDING |
+| API workflow entry point | `flow/<Solution>/<ApiProjectName>/entry-points.json` | demo-builder-api-workflows | Payload output schema | PENDING |
 | Flow project | `flow/<Solution>/<Project>/<Project>.flow` | demo-builder-flow | Registry discovery | PENDING |
 | Agent project | `agents/<AG-id>/` | agent-builder | Agent build spec | PENDING |
 | Studio Web upload response | `manifest.md` | demo-builder-planner | Validate and tidy | PENDING |
@@ -58,7 +61,11 @@
 | API payload JSON | Structured parser | Pending | One row per `API-*` |
 | API field map paths | Static JSON path review | Pending | Confirm every downstream path exists in payload |
 | API workflow local run | `uip api-workflow run <Workflow.json> --no-auth` | Pending | One row per mock API workflow |
-| API workflow project build | `uip api-workflow build <projectPath>` | Not applicable | Only for project-backed API workflows |
+| API workflow project scaffold | File review | Pending | Confirm `Workflow.json`, `project.uiproj`, `entry-points.json`, `bindings_v2.json`, `.local/ProjectSettings.json` |
+| API workflow project build | `uip api-workflow build <projectPath> --output json` | Pending | Required for every planned `API-*` |
+| API workflow solution registration | `.uipx` review | Pending | Confirm one `Type: Api` entry per planned `API-*` |
+| API workflow upload confirmation | Upload response review | Pending | Confirm one `projectType: Api` per planned `API-*` |
+| API workflow invocation mode | `flow/registry-discovery.md` review | Pending | `bound API node`, `script placeholder`, or `not used` |
 | Connector connection health | `uip is connections list/ping` | Pending | One row per connector |
 | Tool/control node registry check | `uip maestro flow registry get <nodeType> --output json` | Pending | One row per local node family in notes |
 | Studio Web upload | `uip solution upload <SolutionDir> --output json` | Pending | Record Studio Web URL, SolutionId, and uploaded projects |
@@ -73,7 +80,10 @@
 - Uploaded project IDs:
 - API workflow resources:
 - API workflow registry keys:
-- API workflow fallback status:
+- API workflow project paths:
+- API workflow solution manifest IDs:
+- API workflow upload `projectType` values:
+- API workflow invocation status:
 - Visible manual-start input fields:
 - Fixture-to-input mapping:
 - Input form verification:

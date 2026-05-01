@@ -8,7 +8,7 @@ Skills for building demo-grade UiPath Maestro Flow solutions from a use case, in
 |---|---|
 | `demo-builder-planner` | Entry point for Flow-first demo builds. Drives discovery, Flow architecture, agent work, validation, Studio Web upload, checklist, and script. |
 | `demo-builder-discovery` | Research, reference-doc intake, process segmentation, and Flow-oriented task matrix. |
-| `demo-builder-api-workflows` | Builds deterministic passthrough API workflow mocks with hardcoded payloads, matching output schemas, and local run validation. |
+| `demo-builder-api-workflows` | Builds project-backed deterministic passthrough API Workflow mocks with hardcoded payloads, matching output schemas, solution registration, and Studio Web upload verification. |
 | `demo-builder-flow` | Designs and builds Maestro Flow projects with agents, mock API workflow resources, connector activities, Flow tool nodes, and Flow control nodes. |
 | `demo-builder-agents` | Builds or documents UiPath AI agents used by the Flow, either coded or low-code. |
 | `demo-builder-script` | Creates the narrated run-of-show from the actual Flow and implemented artifacts. |
@@ -57,7 +57,8 @@ Install the UiPath skills from https://github.com/uipath/skills. This plugin rel
 - `uipath-maestro-flow` for `.flow` structure, registry discovery, node configuration, validation, and tidy.
 - `uipath-agents` for coded and low-code agent lifecycle.
 - `uipath-platform` for auth, Integration Service connections, Studio Web solution upload, and optional pack/publish/deploy when explicitly requested.
-- `uip api-workflow` from `@uipath/api-workflow-tool` for mock API workflow run/build/pack validation.
+- `uip api-workflow` from `@uipath/api-workflow-tool` for mock API Workflow local run and project build validation.
+- `uip solution project add` and `uip solution upload` for API Workflow solution registration and Studio Web confirmation.
 
 ## CLI Prerequisites
 
@@ -83,7 +84,7 @@ Fastest path:
 
 The command enters the planner and runs:
 
-`preflight -> discovery -> mock API planning -> Flow architecture -> agents -> API workflow build -> Flow build -> validate/tidy -> Studio Web upload -> checklist -> demo script`
+`preflight -> discovery -> mock API planning -> Flow architecture -> agents -> project-backed API Workflow build -> Flow invocation binding -> Flow build -> validate/tidy -> Studio Web upload -> checklist -> demo script`
 
 You can also start a conversation in your project directory and describe the demo. The planner activates on requests like "build a UiPath demo", "design a Maestro Flow demo", or "scope a Flow with agents and connectors".
 
@@ -116,7 +117,7 @@ Constraints: demo-ready in one week, show happy path and one exception path.
 
 - Demo-grade, not production. Build the smallest coherent happy path plus one exception path.
 - Default to local-execution Flow nodes: deterministic mock API workflows, connectors, Flow tools, Flow control nodes, and agents as the primary featured component.
-- Use mock API workflows only as deterministic passthrough system mocks with demo-safe hardcoded payloads.
+- Always build mock API workflows as project-backed Studio Web `Api` projects when `API-*` is in scope. Use script placeholders in the Flow only as temporary invocation stand-ins until native inline binding is available.
 - Do not plan live external API calls, RPA, Human Task, Case Management, Data Fabric, or frontend builds unless the user explicitly asks to leave the local Flow scope.
 - Prefer working Flow nodes over handoff-only specs.
 - Use real connector connections when available; stop and document the prerequisite when a connection is missing.

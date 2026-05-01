@@ -25,16 +25,23 @@
 | AG-001 |  | Agent | tenant then local |  |  |
 | CONN-001 |  | Connector Activity | connector registry + connection discovery |  |  |
 
-## 4) Missing Resources
+## 4) API Workflow Artifact And Invocation Status
+
+| API ID | API Project Exists | Solution Registered | Studio Web Uploaded | Flow-Bound Node | Invocation Placeholder |
+|---|---|---|---|---|---|
+| API-001 | Pending | Pending | Pending | Pending native `uipath.core.api-workflow.<resourceKey>` | Script placeholder if native binding is unavailable |
+
+## 5) Missing Resources
 
 | Resource ID | Missing Item | Recommended Action | Owner |
 |---|---|---|---|
-| API-001 | API workflow registry binding | Create/register API workflow or use documented fixture-backed fallback |  |
+| API-001 | API workflow registry binding | Keep the API Workflow project registered and use a documented script placeholder until native binding is available |  |
 | CONN-001 |  | Create/select an Integration Service connection or revise the demo path |  |
 
-## 5) Definition Notes
+## 6) Definition Notes
 
 - Every node type must have a copied registry definition.
 - API workflow definitions should show category `api-workflow`, service type `Orchestrator.ExecuteApiWorkflowAsync`, resource subtype `Api`, and orchestrator type `api`.
+- Script-backed API placeholders are invocation fallbacks only; they do not replace built and uploaded API Workflow projects.
 - Node instances must not carry `model` blocks.
 - Data-producing nodes need instance-level `outputs`.

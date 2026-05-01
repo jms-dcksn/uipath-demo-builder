@@ -18,7 +18,7 @@ Catalog likely system-of-record interactions for the demo slice.
 
 - Real integration required:
 - Mock passthrough acceptable:
-- Fixture-backed fallback:
+- Current Flow invocation placeholder acceptable:
 - Known tenant/resource prerequisites:
 
 ## 4) Downstream Consumers

@@ -8,7 +8,7 @@ allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 
 Owns Flow architecture and implementation for demo-builder. Defer node-specific `.flow` rules to `uipath-maestro-flow`; this skill coordinates the demo artifacts and build gates.
 
-Default scope: agents are the primary component. The rest of the Flow should use only local-execution node families plus deterministic mock API workflow resources: mock API workflow nodes, connectors, Flow tools, and Flow control nodes. The finished solution should be uploadable to Studio Web for developer editing. Do not introduce live external API calls, RPA workflow, Human Task, Case Management, Data Fabric, Coded App, frontend, queue, agentic-process, Orchestrator deployment, or other resource-invocation nodes unless the user explicitly asks to leave this scope.
+Default scope: agents are the primary component. The rest of the Flow should use only local-execution node families plus deterministic mock API workflow resources: mock API workflow nodes when available, temporary script-backed API placeholders, connectors, Flow tools, and Flow control nodes. The finished solution should be uploadable to Studio Web for developer editing. Do not introduce live external API calls, RPA workflow, Human Task, Case Management, Data Fabric, Coded App, frontend, queue, agentic-process, Orchestrator deployment, or other resource-invocation nodes unless the user explicitly asks to leave this scope.
 
 ## When To Use
 
@@ -24,6 +24,7 @@ Default scope: agents are the primary component. The rest of the Flow should use
 - Known tenant folder, connector names, connection names, tool requirements, and agent names.
 - Agent build specs or existing agent resource names.
 - Mock API workflow contracts, payload field maps, and registry discovery results.
+- API Workflow project build and solution registration status for every planned `API-*`.
 - Happy path and exception fixture payloads.
 - Fixture field list and the fields the demo operator must enter when starting the Flow manually.
 
@@ -54,7 +55,10 @@ Default scope: agents are the primary component. The rest of the Flow should use
    - Registry `get` for every Flow tool/control node type.
    - Scaffold agents only when no suitable resource exists and the user wants it created.
 6. For connectors, confirm connections before implementation.
-7. For API workflows, record the exact node type, registry key, resource subtype, orchestrator type, and output schema when available.
+7. For API workflows, record artifact status separately from invocation status:
+   - API project directory, `.uipx` `Type: "Api"` registration, and upload status.
+   - Exact node type, registry key, resource subtype, orchestrator type, and output schema when native binding is available.
+   - Script-backed placeholder node and matching output contract when native binding is not available.
 8. Write open prerequisites instead of guessing connection IDs, required fields, reference IDs, registry keys, or folder keys.
 
 ## Implementation Workflow
@@ -65,18 +69,20 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 2. Create the Flow project inside the solution.
 3. Discover registry definitions for every node type.
 4. Add the manual-trigger input contract before agent/tool wiring.
-5. Add/configure nodes, including `uipath.core.api-workflow.<resourceKey>` nodes for planned mock API workflows when registry discovery returns them.
-6. Add workflow variables and End output mappings directly in the `.flow` file.
-7. Wire edges with explicit `targetPort`.
-8. Add `outputs` blocks to every data-producing node.
-9. Use `=js:` for `$vars`, `$metadata`, and `$self` references in value fields.
-10. Validate the operator input and API payload surface with a static `.flow` review:
+5. Add/configure nodes, including `uipath.core.api-workflow.<resourceKey>` nodes for planned mock API workflows when registry discovery returns a reliable native binding.
+6. If native API Workflow binding is not available, add script-backed placeholder nodes that return the same output shape as the built API Workflow projects.
+7. Add workflow variables and End output mappings directly in the `.flow` file.
+8. Wire edges with explicit `targetPort`.
+9. Add `outputs` blocks to every data-producing node.
+10. Use `=js:` for `$vars`, `$metadata`, and `$self` references in value fields.
+11. Validate the operator input and API payload surface with a static `.flow` review:
     - Every visible fixture field has a matching `direction: "in"` global variable.
     - Every visible manual input has `triggerNodeId` pointing to the Start/manual trigger node.
     - Every downstream binding uses the trigger output path or another documented source.
     - Every downstream binding sourced from an API workflow points to a documented payload JSON path.
-11. Validate/tidy/validate.
-12. Hand the solution directory to the planner for Studio Web upload with `uip solution upload <SolutionDir> --output json`.
+    - Every script-backed API placeholder is labeled as an invocation fallback and matches the API Workflow output schema.
+12. Validate/tidy/validate.
+13. Hand the solution directory to the planner for Studio Web upload with `uip solution upload <SolutionDir> --output json`.
 
 ## Manual Trigger Input Rules
 
@@ -102,7 +108,8 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 ## Mock API Workflow Rules
 
 - Use mock API workflow nodes for deterministic system-of-record context when the planner has an `API-*` contract.
-- Node type must be `uipath.core.api-workflow.<resourceKey>`.
+- The API Workflow project is always required when an `API-*` contract exists.
+- Native node type must be `uipath.core.api-workflow.<resourceKey>`.
 - Node category must be `api-workflow`.
 - Model service type must be `Orchestrator.ExecuteApiWorkflowAsync`.
 - Binding resource subtype must be `Api`; binding orchestrator type must be `api`.
@@ -111,7 +118,8 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 - Every downstream AI agent input sourced from a mock API payload must point to a documented payload path.
 - Every condition branch sourced from a mock API payload must list the exact JSON path and expected values.
 - Do not let agents infer required structured fields from prose when those fields should come from the mock API output.
-- Use fixture-backed Flow tool injection only when the API workflow cannot be created, registered, or bound in time for the demo. Document the fallback in `flow/registry-discovery.md` and `handoff/manual-completion-checklist.md`.
+- Script-backed mock nodes are an invocation fallback only. They do not replace the requirement to build, register, and upload API Workflow projects when API Workflows are part of the demo scope.
+- Use script-backed placeholders when the API Workflow project exists but native Flow binding is not available yet. Document the placeholder in `flow/registry-discovery.md` and `handoff/manual-completion-checklist.md`, including the future replacement path to a native API Workflow node.
 
 ## Flow Tool Rules
 
@@ -152,7 +160,8 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 
 - `flow-architecture.md`, `node-contracts.md`, `registry-discovery.md`, and `connector-bindings.md` are complete.
 - All required agents/connectors are found, scaffolded, or documented as blockers.
-- API workflow nodes are bound to documented `API-*` contracts or clearly marked as fixture-backed fallbacks.
+- Every planned `API-*` has a built API Workflow project, `.uipx` `Type: "Api"` registration, and upload verification when Studio Web upload is in scope.
+- Flow invocation for every planned `API-*` is native API node, script placeholder, or not used, with the reason documented.
 - All tool/control nodes are local registry-backed node types.
 - Flow project is solution-contained.
 - Manual-trigger demo inputs are documented, fixture-backed, bound with `triggerNodeId`, and referenced through the trigger output path or another documented source.

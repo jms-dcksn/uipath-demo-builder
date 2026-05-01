@@ -8,7 +8,7 @@ Use stable IDs across artifacts.
 | `SEG-*` | Business process segment |
 | `T-*` | Task in the automation matrix |
 | `FLOW-*` | Flow-native node or step |
-| `API-*` | Mock API workflow |
+| `API-*` | Project-backed mock API Workflow plus current Flow invocation mode |
 | `AG-*` | Agent |
 | `CONN-*` | Connector activity |
 | `TOOL-*` | Flow tool node |

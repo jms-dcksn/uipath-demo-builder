@@ -1,6 +1,6 @@
 ---
 name: demo-builder-planner
-description: "Plan and orchestrate local-execution Maestro Flow demo builds from a use case, industry, or customer brief. Runs preflight -> discovery -> mock API planning -> Flow architecture -> agents -> API workflow build -> Maestro Flow build -> validate/tidy -> Studio Web upload -> manual checklist -> demo script. Use when the user asks to build, design, or scope a UiPath demo."
+description: "Plan and orchestrate local-execution Maestro Flow demo builds from a use case, industry, or customer brief. Runs preflight -> discovery -> mock API planning -> Flow architecture -> agents -> project-backed API Workflow build -> Flow invocation binding -> Maestro Flow build -> validate/tidy -> Studio Web upload -> manual checklist -> demo script. Use when the user asks to build, design, or scope a UiPath demo."
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion, Agent
 user-invocable: true
 ---
@@ -9,7 +9,7 @@ user-invocable: true
 
 Entry point for demo-grade UiPath Maestro Flow builds. The planner owns phase order, user checkpoints, and build-directory coherence. Demos should be simple, working, and useful for presales storytelling.
 
-Default scope: local-execution Flow nodes plus deterministic mock API workflows when they make system-of-record interactions credible. Build around agents as the featured reasoning component, plus mock API workflow resources, connector activities, Flow tool nodes, and Flow control nodes. The default handoff is Studio Web upload so developers can continue editing in the browser. Do not plan live external API calls, RPA process, Human Task, Case Management, Data Fabric, Coded App, frontend, or Orchestrator deployment unless the user explicitly asks to leave this local Flow scope.
+Default scope: local-execution Flow nodes plus deterministic mock API workflows when they make system-of-record interactions credible. Build around agents as the featured reasoning component, plus project-backed mock API Workflow projects, connector activities, Flow tool nodes, and Flow control nodes. The default handoff is Studio Web upload so developers can continue editing in the browser. Do not plan live external API calls, RPA process, Human Task, Case Management, Data Fabric, Coded App, frontend, or Orchestrator deployment unless the user explicitly asks to leave this local Flow scope.
 
 ## When To Use
 
@@ -83,7 +83,7 @@ Rules:
 - Use named systems and operation names, such as `ServiceNowEntitlementLookup`, `GuidewireClaimSummary`, `SAPPurchaseOrderStatus`, `EpicEligibilityCheck`, or `FiservCustomerProfile`.
 - Require field alignment before building agents or condition logic. Every field consumed downstream must be present in `discovery/payload-field-map.md`.
 - Checkpoint with the user when the system choice is material, such as Epic vs Cerner, Guidewire vs Duck Creek, Salesforce vs ServiceNow, or SAP vs Oracle.
-- Record every planned API workflow in `manifest.md`, including whether it will be a real API workflow resource node or a fixture-backed fallback.
+- Record every planned API workflow in `manifest.md` as both an artifact and an invocation decision. The artifact is always a project-backed Studio Web API Workflow; the Flow invocation can be a native API Workflow node when available or a script-backed placeholder with the same output contract while native inline binding is unavailable.
 
 ### Phase 3 - Flow Architecture
 
@@ -110,19 +110,35 @@ Rules:
 - Output contracts are Flow node contracts, not persisted entity fields.
 - Agent inputs sourced from mock API payloads must reference documented JSON paths, such as `$vars.<apiNodeId>.output.coverageStatus`.
 
-### Phase 5 - API Workflow Build
+### Phase 5 - API Workflow Artifact Build
 
 Invoke `demo-builder-api-workflows` for each planned `API-*` contract.
 
 Rules:
 
 - Use the passthrough Response-node pattern from `docs/API Workflow-Workflow.json`.
+- Create or select the solution directory before writing API Workflow project folders if it does not already exist.
 - Write `apis/<API-id>/payload.json`, `apis/<API-id>/api-workflow-contract.md`, and `apis/<API-id>/<WorkflowName>.json`.
 - Generate the workflow output schema from the same payload source used for the Response body.
 - Validate every mapped downstream JSON path exists in the payload.
 - Run `uip api-workflow run <Workflow.json> --no-auth` for each passthrough workflow when the API workflow tool is available.
-- Run `uip api-workflow build <projectPath>` and `uip api-workflow pack <projectPath> <destinationPath>` when a project-backed API workflow exists.
-- Record validation results, skipped reasons, and registry/solution binding status in `manifest.md`.
+- Create one API Workflow project folder under the solution for every planned `API-*`.
+- Each API project folder must include `Workflow.json`, `project.uiproj`, `entry-points.json`, `bindings_v2.json`, and `.local/ProjectSettings.json`.
+- Run `uip api-workflow build <projectPath> --output json` for every project-backed API Workflow.
+- Run `uip solution project add <projectPath> <SolutionFile> --output json` for every API Workflow project.
+- Inspect the `.uipx` and confirm one `Type: "Api"` project entry per planned `API-*`.
+- Record validation results, skipped reasons, project paths, solution manifest IDs, and Flow invocation readiness in `manifest.md`.
+
+### Phase 5b - Flow Invocation Binding Decision
+
+After project-backed API Workflows exist, decide how the Flow invokes each `API-*` contract.
+
+Rules:
+
+- Prefer a native `uipath.core.api-workflow.<resourceKey>` Flow node when registry discovery exposes a reliable bindable resource.
+- If native binding is not available yet, use a script-backed placeholder node that returns the same payload shape as the API Workflow output schema.
+- Script-backed placeholders are temporary invocation shims only. They do not satisfy API Workflow artifact build, solution registration, or upload verification.
+- Record each `API-*` invocation status as `bound API node`, `script placeholder`, or `not used`.
 
 ### Phase 6 - Flow Build
 
@@ -135,7 +151,7 @@ Hard gates from `uipath-maestro-flow`:
 - Do not add live external API calls, RPA workflow, Human Task, agentic-process, queue, other Flow resource, Coded App, Data Fabric, or Case Management nodes in the default build.
 - Discover tenant resources first, then in-solution local resources, then scaffold/create only when needed.
 - Validate every node type through registry `search`, `list --local`, and `get`.
-- Mock API workflows should use `uipath.core.api-workflow.<resourceKey>` node types when registry discovery returns a bindable resource. Fixture-backed Flow tool injection is only a fallback when the API workflow cannot be created, registered, or bound in time.
+- Mock API workflows should use `uipath.core.api-workflow.<resourceKey>` node types when registry discovery returns a bindable resource. Until native binding is available, script-backed Flow placeholders may invoke equivalent mock payloads, but the API Workflow projects must still be built and registered.
 - Connector activities require existing Integration Service connections and enriched metadata with `--connection-id`.
 - Every node type needs a copied registry definition.
 - Every external demo fixture field that the operator must provide is declared as a manual-trigger input with `direction: "in"` and `triggerNodeId` pointing to the Start/manual trigger node.
@@ -155,6 +171,7 @@ Before validation, perform a static operator input contract check:
 - Inspect `.flow` and confirm each visible manual-start input appears in `variables.globals[]` with `direction: "in"` and `triggerNodeId`.
 - Confirm downstream bindings use `$vars.<triggerNodeId>.output.<field>` or another documented source.
 - Confirm every downstream agent input, condition branch, connector input, and End output sourced from an API workflow points to a documented payload JSON path.
+- Confirm every planned `API-*` has a project build result, a solution `.uipx` `Type: "Api"` entry, and a Flow invocation status of `bound API node`, `script placeholder`, or `not used`.
 - Record this check in `manifest.md`. Treat missing `triggerNodeId` as a handoff blocker, even if `flow validate` passes.
 
 Run:
@@ -182,7 +199,9 @@ Rules:
 - Use `uip solution upload`, not `uip solution pack`, `publish`, or `deploy`.
 - Parse and record the returned Studio Web URL, `SolutionId`, and uploaded projects in `manifest.md`.
 - Inspect the upload response and verify the Flow project and expected agent projects are present. If a local agent is omitted, mark the upload incomplete and surface the blocker.
-- Verify expected API workflow projects/resources are present or document the fixture-backed fallback and manual binding step.
+- Compare expected projects against actual uploaded projects by name and `projectType`.
+- Verify one uploaded `projectType: "Api"` project per planned `API-*`. If any planned API Workflow is missing, mark upload incomplete.
+- Record Flow invocation status separately from upload status. A script placeholder is acceptable only as the current Flow invocation mode, not as a replacement for uploaded API Workflow projects.
 - If the uploaded/generated artifact exposes an entry point schema or Studio Web input form, verify the expected manual-start inputs are visible. If this cannot be inspected from CLI output, add a manual checklist item instead of assuming validation proved it.
 - If auth is expired, stop and ask the user to re-authenticate or run the relevant `uip login` command for the target tenant.
 
@@ -191,7 +210,7 @@ Rules:
 Copy `templates/manual-completion-checklist.template.md` to `builds/<demo-slug>/handoff/manual-completion-checklist.md` and fill tenant-side prerequisites:
 
 - Connector connections and folder keys.
-- API workflow resources, registry keys, validation status, and fallback status.
+- API workflow project paths, solution manifest IDs, upload `projectType` values, registry keys, validation status, and Flow invocation status.
 - Published or local resource bindings.
 - Agent Studio Web upload status or local sibling status.
 - Studio Web URL, SolutionId, and uploaded project list.
@@ -214,7 +233,14 @@ builds/<demo-slug>/
 │   ├── node-contracts.md
 │   ├── registry-discovery.md
 │   ├── connector-bindings.md
-│   └── <SolutionName>/<FlowProject>/<FlowProject>.flow
+│   └── <SolutionName>/
+│       ├── <FlowProject>/<FlowProject>.flow
+│       └── <ApiProjectName>/
+│           ├── Workflow.json
+│           ├── project.uiproj
+│           ├── entry-points.json
+│           ├── bindings_v2.json
+│           └── .local/ProjectSettings.json
 ├── apis/
 │   └── API-001/
 │       ├── api-workflow-contract.md
@@ -233,7 +259,7 @@ builds/<demo-slug>/
 ## Sibling Skills
 
 - `demo-builder-discovery` - research, segmentation, and Flow-oriented task matrix.
-- `demo-builder-api-workflows` - deterministic passthrough API workflow mock build and validation.
+- `demo-builder-api-workflows` - project-backed deterministic passthrough API Workflow mock build, solution registration, and validation.
 - `demo-builder-flow` - Flow architecture, registry discovery, connector binding plan, implementation, validate/tidy.
 - `demo-builder-agents` - coded/low-code/inline agent build guidance.
 - `demo-builder-script` - final run-of-show.
@@ -248,7 +274,8 @@ Companion UiPath skills:
 
 - Flow project lives inside a solution.
 - Flow architecture and node contracts are written.
-- Planned mock API workflows have payloads, contracts, output schemas, run validation, and either bindable API workflow resource nodes or documented fixture fallbacks.
+- Planned mock API workflows have payloads, contracts, output schemas, run validation, project-backed API Workflow folders, successful project builds, `.uipx` `Type: "Api"` registration, and upload confirmation as `projectType: "Api"`.
+- Flow invocation for each planned `API-*` is explicitly marked as native API node, script placeholder, or not used.
 - Required agents are built or discovered and mapped to Flow nodes.
 - Connector activities have connection prerequisites resolved or documented as blockers.
 - Flow tool/control nodes use registry-backed local node types.

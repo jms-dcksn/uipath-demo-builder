@@ -41,4 +41,5 @@
 - Connector-backed managed HTTP requires explicit user approval as a connector workaround.
 - Manual HTTP is out of the default local-execution scope.
 - Mock API workflows are deterministic passthrough resources, not connector substitutes for live writes.
-- If a mock API workflow cannot be bound, document the fixture-backed Flow tool fallback in `flow/registry-discovery.md`.
+- If a mock API Workflow project cannot be bound as a native Flow node yet, document the script-backed placeholder in `flow/registry-discovery.md`.
+- Script placeholders are invocation stand-ins only; they do not replace API Workflow project build, solution registration, or Studio Web upload verification.

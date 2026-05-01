@@ -13,7 +13,8 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 | Manual-start inputs bound to trigger | `.flow` `variables.globals[].triggerNodeId` | Pending |  | Required for Studio Web manual input form |
 | Solution uploaded to Studio Web | Studio Web URL + SolutionId | Pending |  | `uip solution upload <SolutionDir> --output json` |
 | Uploaded projects verified | Flow + agent project list | Pending |  | Check upload response before handoff |
-| API workflow resources verified | API workflow project/resource list | Pending |  | Confirm mock API workflows are uploaded or fallback is documented |
+| API workflow projects verified | API workflow project/resource list | Pending |  | Confirm mock API workflows are uploaded as `projectType: Api` |
+| API workflow invocation status documented | `flow/registry-discovery.md` | Pending |  | Native API node, script placeholder, or not used |
 | Studio Web input form verified | Expected manual-start fields visible | Pending |  | If CLI cannot verify, inspect Studio Web before demo |
 
 ## 2) Agents
@@ -30,9 +31,9 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 
 ## 4) Mock API Workflows
 
-| API ID | Named System | Workflow Name | Local Run | Registry Node Type | Binding Status | Fallback |
-|---|---|---|---|---|---|---|
-| API-001 |  |  | Pending | `uipath.core.api-workflow.<resourceKey>` | Pending | Fixture-backed Flow tool if not bindable |
+| API ID | Named System | API Project Path | Local Run | Project Build | Solution Registered | Upload `projectType` | Flow Invocation |
+|---|---|---|---|---|---|---|---|
+| API-001 |  | `flow/<Solution>/<ApiProjectName>/` | Pending | Pending | Pending `Type: Api` | Pending `Api` | `bound API node` / `script placeholder` / `not used` |
 
 ## 5) Flow Tools And Controls
 
@@ -55,6 +56,9 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 | Exception path fixture maps to manual-start inputs | Pending |  |
 | API payload fields map to downstream consumers | Pending |  |
 | Mock API workflow local run completed or skipped with reason | Pending |  |
+| API Workflow project build completed | Pending |  |
+| API Workflow uploaded as `projectType: Api` | Pending |  |
+| Script placeholders clearly labeled as temporary invocation stand-ins | Pending |  |
 | Happy path fixture tested | Pending |  |
 | Exception path fixture tested | Pending |  |
 | Flow debug/run approved by user | Pending | Do not run debug without explicit consent |

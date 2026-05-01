@@ -65,7 +65,8 @@ Rules:
 7. Copy `templates/task-automation-matrix.template.md` to `builds/<demo-slug>/discovery/task-automation-matrix.md`.
 8. Mark each task with one execution type: `AI Agent`, `Mock API Workflow`, `Connector Activity`, `Flow Tool`, `Flow Control`, or `Trigger`.
 9. Use `API-*` component IDs for mock API workflow tasks.
-10. Checkpoint with the user when the resource mix, connector availability, named system selection, or non-local resource assumptions are material to the build.
+10. For each `API-*`, fill `Deliverable Artifact` separately from execution type. Use `Studio Web API Workflow project` for the required artifact, plus `Flow API Workflow node` or `Script placeholder invoking equivalent mock payload` for the current Flow invocation path.
+11. Checkpoint with the user when the resource mix, connector availability, named system selection, or non-local resource assumptions are material to the build.
 
 ## Completion Criteria
 
@@ -78,6 +79,7 @@ Rules:
 - System interaction research is written or explicitly marked as not needed.
 - Every selected mock payload field has a documented JSON path and downstream consumer.
 - Every `API-*`, `AG-*`, `CONN-*`, `TOOL-*`, and `CTRL-*` candidate has enough detail for Flow architecture.
+- Every `API-*` distinguishes the required project-backed API Workflow artifact from the current Flow invocation mechanism.
 
 ## Hand-Off
 

@@ -8,6 +8,8 @@
 - Operation name: `checkEntitlement`
 - Business purpose: return deterministic support entitlement context for ticket triage.
 - Mock status: deterministic passthrough.
+- API project directory: `flow/<SolutionName>/ServiceNowEntitlementLookupApi/`.
+- Upload `projectType`: `Api`.
 
 ## Response Payload Summary
 
@@ -19,7 +21,7 @@
 | `$.entitlement.summary` | `Premium support entitlement is active for the reported product.` | Narrative | AG-001 / CONN-001 |
 | `$.caseContext.recommendedRoute` | `priority-support` | Decision | FLOW-END-01 |
 
-## Flow Binding
+## Flow Invocation
 
 | Flow Field | Value |
 |---|---|
@@ -29,8 +31,8 @@
 | Model service type | `Orchestrator.ExecuteApiWorkflowAsync` |
 | Binding resource subtype | `Api` |
 | Binding orchestrator type | `api` |
-| Output variable | `$vars.serviceNowEntitlementLookup.output` |
-| Fallback if not bindable | Fixture-backed Flow tool injection |
+| Output variable when natively bound | `$vars.serviceNowEntitlementLookup.output` |
+| Current invocation mode | `script placeholder` until native API Workflow node binding is available |
 
 ## Validation
 
@@ -39,3 +41,6 @@
 | Payload JSON valid | Example artifact only |
 | Field map paths exist | Example artifact only |
 | Local API workflow run | Pending in real build |
+| Project build | Pending in real build |
+| Solution registration | Pending in real build |
+| Upload confirmation | Pending in real build |

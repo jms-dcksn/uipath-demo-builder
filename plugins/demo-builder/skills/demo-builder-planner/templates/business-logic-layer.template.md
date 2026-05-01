@@ -11,7 +11,7 @@
 | Flow Area | Responsibility | Input Signals | Output Artifacts |
 |---|---|---|---|
 | Intake | Normalize trigger payload | request payload, metadata | structured context |
-| System context | Retrieve deterministic mock system payload | account/customer/case identifier | API workflow payload |
+| System context | Retrieve deterministic mock system payload | account/customer/case identifier | API Workflow project payload, invoked by native node or script placeholder |
 
 ## 3) Segment To Node Mapping
 
@@ -38,7 +38,9 @@
 ## 6) Local Execution Scope
 
 - Agent nodes:
-- Mock API workflow nodes:
+- Mock API Workflow projects:
+- Current Flow invocation path:
+- Temporary script placeholder path:
 - Connector nodes:
 - Flow tool nodes:
 - Flow control nodes:
@@ -47,7 +49,7 @@
 ## 7) Exception Handling
 
 - Connector failure path:
-- Mock API workflow fallback path:
+- Native API Workflow binding fallback path:
 - Agent failure path:
 - Tool/control failure path:
 - End output on exception:

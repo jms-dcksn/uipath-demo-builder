@@ -25,6 +25,7 @@ Do not multiplex multiple role/system prompts through one shared runtime.
 - Flow node ID:
 - Objective:
 - Inputs from Flow:
+- Mock API payload inputs, if any:
 - Outputs back to Flow:
 - Prompt strategy:
 - Tools:
@@ -43,6 +44,7 @@ Do not multiplex multiple role/system prompts through one shared runtime.
 
 | Flow Mapping | Value |
 |---|---|
+| Agent input source | Include `$vars.<apiNodeId>.output.<field>` paths when consuming `API-*` payloads |
 | Agent node output source | `$vars.<nodeId>.output.content` |
 | Parsed output shape |  |
 | Downstream node(s) |  |

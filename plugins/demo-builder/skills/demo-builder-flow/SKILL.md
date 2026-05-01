@@ -1,6 +1,6 @@
 ---
 name: demo-builder-flow
-description: "Design and build demo-grade UiPath Maestro Flow projects using local-execution node types: AI agents, connector activities/triggers, Flow tool nodes, Flow control nodes, and End outputs. Uses the installed uipath-maestro-flow skill for node-specific authoring rules."
+description: "Design and build demo-grade UiPath Maestro Flow projects using local-execution node types: AI agents, mock API workflow resources, connector activities/triggers, Flow tool nodes, Flow control nodes, and End outputs. Uses the installed uipath-maestro-flow skill for node-specific authoring rules."
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
@@ -8,12 +8,12 @@ allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 
 Owns Flow architecture and implementation for demo-builder. Defer node-specific `.flow` rules to `uipath-maestro-flow`; this skill coordinates the demo artifacts and build gates.
 
-Default scope: agents are the primary component. The rest of the Flow should use only local-execution node families: connectors, Flow tools, and Flow control nodes. The finished solution should be uploadable to Studio Web for developer editing. Do not introduce API workflow, RPA workflow, Human Task, Case Management, Data Fabric, Coded App, frontend, queue, agentic-process, Orchestrator deployment, or other resource-invocation nodes unless the user explicitly asks to leave this scope.
+Default scope: agents are the primary component. The rest of the Flow should use only local-execution node families plus deterministic mock API workflow resources: mock API workflow nodes, connectors, Flow tools, and Flow control nodes. The finished solution should be uploadable to Studio Web for developer editing. Do not introduce live external API calls, RPA workflow, Human Task, Case Management, Data Fabric, Coded App, frontend, queue, agentic-process, Orchestrator deployment, or other resource-invocation nodes unless the user explicitly asks to leave this scope.
 
 ## When To Use
 
 - Planner has discovery output and needs a Flow topology.
-- User wants a Maestro Flow demo with agents, connector activities, Flow tool nodes, or Flow control nodes.
+- User wants a Maestro Flow demo with agents, mock API workflows, connector activities, Flow tool nodes, or Flow control nodes.
 - Existing Flow needs demo-oriented extension.
 
 ## Inputs
@@ -23,6 +23,7 @@ Default scope: agents are the primary component. The rest of the Flow should use
 - Task automation matrix.
 - Known tenant folder, connector names, connection names, tool requirements, and agent names.
 - Agent build specs or existing agent resource names.
+- Mock API workflow contracts, payload field maps, and registry discovery results.
 - Happy path and exception fixture payloads.
 - Fixture field list and the fields the demo operator must enter when starting the Flow manually.
 
@@ -35,6 +36,7 @@ Default scope: agents are the primary component. The rest of the Flow should use
    - `templates/connector-bindings.template.md`
 2. Map each task to a Flow node:
    - `AG-*` for agent nodes.
+   - `API-*` for deterministic mock API workflow resource nodes.
    - `CONN-*` for Integration Service connector activities.
    - `TOOL-*` for Flow tool nodes such as script and transform.
    - `CTRL-*` for Flow control nodes such as trigger, decision, switch, loop, merge, delay, end, terminate, and subflow.
@@ -47,11 +49,13 @@ Default scope: agents are the primary component. The rest of the Flow should use
 5. Run resource discovery:
    - Tenant registry search for named published agents.
    - In-solution local registry for sibling agents.
+   - In-solution or tenant registry discovery for planned mock API workflows.
    - Connector registry search for connector activities/triggers.
    - Registry `get` for every Flow tool/control node type.
    - Scaffold agents only when no suitable resource exists and the user wants it created.
 6. For connectors, confirm connections before implementation.
-7. Write open prerequisites instead of guessing connection IDs, required fields, reference IDs, or folder keys.
+7. For API workflows, record the exact node type, registry key, resource subtype, orchestrator type, and output schema when available.
+8. Write open prerequisites instead of guessing connection IDs, required fields, reference IDs, registry keys, or folder keys.
 
 ## Implementation Workflow
 
@@ -61,15 +65,16 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 2. Create the Flow project inside the solution.
 3. Discover registry definitions for every node type.
 4. Add the manual-trigger input contract before agent/tool wiring.
-5. Add/configure nodes.
+5. Add/configure nodes, including `uipath.core.api-workflow.<resourceKey>` nodes for planned mock API workflows when registry discovery returns them.
 6. Add workflow variables and End output mappings directly in the `.flow` file.
 7. Wire edges with explicit `targetPort`.
 8. Add `outputs` blocks to every data-producing node.
 9. Use `=js:` for `$vars`, `$metadata`, and `$self` references in value fields.
-10. Validate the operator input surface with a static `.flow` review:
+10. Validate the operator input and API payload surface with a static `.flow` review:
     - Every visible fixture field has a matching `direction: "in"` global variable.
     - Every visible manual input has `triggerNodeId` pointing to the Start/manual trigger node.
     - Every downstream binding uses the trigger output path or another documented source.
+    - Every downstream binding sourced from an API workflow points to a documented payload JSON path.
 11. Validate/tidy/validate.
 12. Hand the solution directory to the planner for Studio Web upload with `uip solution upload <SolutionDir> --output json`.
 
@@ -93,6 +98,20 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
   - `uip maestro flow registry get <nodeType> --connection-id <connection-id> --output json`
   - resolve required fields and reference fields
 - If no connection exists, stop and document the prerequisite in `flow/connector-bindings.md`.
+
+## Mock API Workflow Rules
+
+- Use mock API workflow nodes for deterministic system-of-record context when the planner has an `API-*` contract.
+- Node type must be `uipath.core.api-workflow.<resourceKey>`.
+- Node category must be `api-workflow`.
+- Model service type must be `Orchestrator.ExecuteApiWorkflowAsync`.
+- Binding resource subtype must be `Api`; binding orchestrator type must be `api`.
+- API workflow output variable shape is `$vars.<apiNodeId>.output`.
+- Typical edge path is manual trigger -> API workflow -> AI agent or decision/control node -> End.
+- Every downstream AI agent input sourced from a mock API payload must point to a documented payload path.
+- Every condition branch sourced from a mock API payload must list the exact JSON path and expected values.
+- Do not let agents infer required structured fields from prose when those fields should come from the mock API output.
+- Use fixture-backed Flow tool injection only when the API workflow cannot be created, registered, or bound in time for the demo. Document the fallback in `flow/registry-discovery.md` and `handoff/manual-completion-checklist.md`.
 
 ## Flow Tool Rules
 
@@ -125,7 +144,7 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 
 ## Out-Of-Scope Resource Rules
 
-- API workflows, RPA workflows, Human Tasks, queues, other Flow resources, and agentic processes are not part of the default local-execution build.
+- Live external API calls, RPA workflows, Human Tasks, queues, other Flow resources, and agentic processes are not part of the default local-execution build.
 - When the user's use case mentions one of these resources, first try to satisfy the demo with an agent, connector, Flow tool, or Flow control node.
 - If the external resource is truly required, record it as an explicit prerequisite or ask the user to expand scope before wiring it.
 
@@ -133,6 +152,7 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 
 - `flow-architecture.md`, `node-contracts.md`, `registry-discovery.md`, and `connector-bindings.md` are complete.
 - All required agents/connectors are found, scaffolded, or documented as blockers.
+- API workflow nodes are bound to documented `API-*` contracts or clearly marked as fixture-backed fallbacks.
 - All tool/control nodes are local registry-backed node types.
 - Flow project is solution-contained.
 - Manual-trigger demo inputs are documented, fixture-backed, bound with `triggerNodeId`, and referenced through the trigger output path or another documented source.

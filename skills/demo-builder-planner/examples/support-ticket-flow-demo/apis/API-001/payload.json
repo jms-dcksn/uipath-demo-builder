@@ -1,0 +1,19 @@
+{
+  "account": {
+    "accountId": "ACC-100245",
+    "accountName": "Northstar Components",
+    "customerTier": "premium"
+  },
+  "entitlement": {
+    "status": "active",
+    "supportLevel": "24x7",
+    "slaHours": 4,
+    "summary": "Premium support entitlement is active for the reported product."
+  },
+  "caseContext": {
+    "caseId": "CASE-2026-0142",
+    "openCaseCount": 1,
+    "recentInteraction": "Customer reported intermittent login failures after a role update.",
+    "recommendedRoute": "priority-support"
+  }
+}

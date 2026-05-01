@@ -8,7 +8,7 @@ allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 
 Build or document the AI agents invoked by the Flow. Keep each agent small, role-specific, and aligned to its Flow node contract.
 
-Agents are the one primary non-control component in this demo-builder. Use them for reasoning, classification, extraction, summarization, drafting, and judgment. Keep deterministic enrichment and routing in connector, Flow tool, or Flow control nodes.
+Agents are the primary reasoning component in this demo-builder. Use them for reasoning, classification, extraction, summarization, drafting, and judgment. Keep deterministic system context in mock API workflows and deterministic enrichment/routing in connector, Flow tool, or Flow control nodes.
 
 ## When To Use
 
@@ -35,6 +35,7 @@ Ask up front when not already specified:
 - If an MCP URL is provided, integrate streamable HTTP MCP tools for that agent only.
 - Keep real and mock tool interfaces identical.
 - Agent output contracts must be shaped for downstream Flow node wiring.
+- Agent inputs sourced from `API-*` mock payloads must reference documented JSON paths from `discovery/payload-field-map.md`.
 - Do not use an agent to hide work that should be visible as connector, Flow tool, or Flow control nodes in the demo.
 
 ## Coded Path

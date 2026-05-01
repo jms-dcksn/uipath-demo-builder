@@ -28,6 +28,8 @@
 - Core activities:
 - Decision points:
 - Output/outcomes:
+- Likely source systems:
+- Likely system interactions:
 
 ## 5) Common Process Patterns
 
@@ -53,4 +55,4 @@
 - Why this slice is demo-worthy:
 - Boundaries:
 - Success metric:
-
+- Mock API workflow opportunities:

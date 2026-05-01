@@ -13,7 +13,8 @@
 |---|---|---|---|---|
 | SCN-001 | Happy path | SEG-01 -> SEG-03 | Valid trigger payload | End output returns approved demo result |
 | SCN-002 | Exception path | SEG-01 -> SEG-02 | High-risk or incomplete payload | Flow routes to exception branch and returns a clear exception result |
-| SCN-003 | Demo script validation | Cross-segment | Script walkthrough rehearsal | Messages and proof points align with actual Flow |
+| SCN-003 | Mock API path | System context segment | API workflow returns deterministic payload | Agent and branch logic use documented payload fields |
+| SCN-004 | Demo script validation | Cross-segment | Script walkthrough rehearsal | Messages and proof points align with actual Flow |
 
 ## 3) Detailed Scenario Template
 
@@ -24,6 +25,7 @@
 - Steps:
 - Expected Flow behavior:
 - Expected agent/connector/tool/control behavior:
+- Expected mock API workflow behavior:
 - Expected End output:
 - Expected audit or visible proof:
 
@@ -38,5 +40,6 @@
 - Script contains 3-4 key messages.
 - Each key message maps to 2-3 proof points.
 - Demo operator action names the visible trigger input fields used for the run.
+- Mock API workflow proof points map to documented payload fields.
 - Every beat has narration, operator action, and visible outcome.
 - Closing statement ties to business impact.

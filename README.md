@@ -1,6 +1,6 @@
 # UiPath Demo Builder Skills
 
-Skills for building demo-grade UiPath Maestro Flow solutions from a use case, industry, and requirements. The plugin is optimized for presales demos: simple local-execution flows that feature agents, connector activities, Flow tool nodes, and Flow control nodes, then upload the solution to Studio Web so developers can keep editing in the browser.
+Skills for building demo-grade UiPath Maestro Flow solutions from a use case, industry, and requirements. The plugin is optimized for presales demos: simple local-execution flows that feature agents, deterministic mock API workflows, connector activities, Flow tool nodes, and Flow control nodes, then upload the solution to Studio Web so developers can keep editing in the browser.
 
 ## What's Included
 
@@ -8,7 +8,8 @@ Skills for building demo-grade UiPath Maestro Flow solutions from a use case, in
 |---|---|
 | `demo-builder-planner` | Entry point for Flow-first demo builds. Drives discovery, Flow architecture, agent work, validation, Studio Web upload, checklist, and script. |
 | `demo-builder-discovery` | Research, reference-doc intake, process segmentation, and Flow-oriented task matrix. |
-| `demo-builder-flow` | Designs and builds Maestro Flow projects with agents, connector activities, Flow tool nodes, and Flow control nodes. |
+| `demo-builder-api-workflows` | Builds deterministic passthrough API workflow mocks with hardcoded payloads, matching output schemas, and local run validation. |
+| `demo-builder-flow` | Designs and builds Maestro Flow projects with agents, mock API workflow resources, connector activities, Flow tool nodes, and Flow control nodes. |
 | `demo-builder-agents` | Builds or documents UiPath AI agents used by the Flow, either coded or low-code. |
 | `demo-builder-script` | Creates the narrated run-of-show from the actual Flow and implemented artifacts. |
 
@@ -56,6 +57,7 @@ Install the UiPath skills from https://github.com/uipath/skills. This plugin rel
 - `uipath-maestro-flow` for `.flow` structure, registry discovery, node configuration, validation, and tidy.
 - `uipath-agents` for coded and low-code agent lifecycle.
 - `uipath-platform` for auth, Integration Service connections, Studio Web solution upload, and optional pack/publish/deploy when explicitly requested.
+- `uip api-workflow` from `@uipath/api-workflow-tool` for mock API workflow run/build/pack validation.
 
 ## CLI Prerequisites
 
@@ -63,9 +65,11 @@ Install the UiPath skills from https://github.com/uipath/skills. This plugin rel
 npm install -g @uipath/cli   # if `which uip` comes back empty
 uip --version
 uip maestro flow --help
+uip api-workflow --help      # if mock API workflows are in scope
 ```
 
 If `uip maestro flow` is missing, use `uip tools list`, `uip tools search`, and `uip tools install/update` to install or update the Maestro tool.
+If `uip api-workflow` is missing, use `uip tools search api` and `uip tools install @uipath/api-workflow-tool`.
 
 ## How To Use
 
@@ -79,7 +83,7 @@ Fastest path:
 
 The command enters the planner and runs:
 
-`preflight -> discovery -> Flow architecture -> agents -> Flow build -> validate/tidy -> Studio Web upload -> checklist -> demo script`
+`preflight -> discovery -> mock API planning -> Flow architecture -> agents -> API workflow build -> Flow build -> validate/tidy -> Studio Web upload -> checklist -> demo script`
 
 You can also start a conversation in your project directory and describe the demo. The planner activates on requests like "build a UiPath demo", "design a Maestro Flow demo", or "scope a Flow with agents and connectors".
 
@@ -111,8 +115,9 @@ Constraints: demo-ready in one week, show happy path and one exception path.
 ## Demo Principles
 
 - Demo-grade, not production. Build the smallest coherent happy path plus one exception path.
-- Default to local-execution Flow nodes: connectors, Flow tools, Flow control nodes, and agents as the primary featured component.
-- Do not plan API workflow, RPA, Human Task, Case Management, Data Fabric, or frontend builds unless the user explicitly asks to leave the local Flow scope.
+- Default to local-execution Flow nodes: deterministic mock API workflows, connectors, Flow tools, Flow control nodes, and agents as the primary featured component.
+- Use mock API workflows only as deterministic passthrough system mocks with demo-safe hardcoded payloads.
+- Do not plan live external API calls, RPA, Human Task, Case Management, Data Fabric, or frontend builds unless the user explicitly asks to leave the local Flow scope.
 - Prefer working Flow nodes over handoff-only specs.
 - Use real connector connections when available; stop and document the prerequisite when a connection is missing.
 - Discover published resources first, then in-solution siblings, then scaffold only when no suitable resource exists.

@@ -30,5 +30,5 @@ Define the top-level business flow as 3-4 logical segments that can be represent
 
 - Segment to highlight first:
 - Segment with strongest agent story:
-- Segment with strongest connector/tool/control story:
+- Segment with strongest mock API/connector/tool/control story:
 - Segment with exception branch:

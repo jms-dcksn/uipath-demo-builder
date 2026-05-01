@@ -13,6 +13,7 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 | Manual-start inputs bound to trigger | `.flow` `variables.globals[].triggerNodeId` | Pending |  | Required for Studio Web manual input form |
 | Solution uploaded to Studio Web | Studio Web URL + SolutionId | Pending |  | `uip solution upload <SolutionDir> --output json` |
 | Uploaded projects verified | Flow + agent project list | Pending |  | Check upload response before handoff |
+| API workflow resources verified | API workflow project/resource list | Pending |  | Confirm mock API workflows are uploaded or fallback is documented |
 | Studio Web input form verified | Expected manual-start fields visible | Pending |  | If CLI cannot verify, inspect Studio Web before demo |
 
 ## 2) Agents
@@ -27,32 +28,40 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 |---|---|---|---|---|---|
 | CONN-001 |  |  |  | Pending | Create/select connection if missing |
 
-## 4) Flow Tools And Controls
+## 4) Mock API Workflows
+
+| API ID | Named System | Workflow Name | Local Run | Registry Node Type | Binding Status | Fallback |
+|---|---|---|---|---|---|---|
+| API-001 |  |  | Pending | `uipath.core.api-workflow.<resourceKey>` | Pending | Fixture-backed Flow tool if not bindable |
+
+## 5) Flow Tools And Controls
 
 | Node ID | Node Family | Registry Node Type | Status | Manual Action |
 |---|---|---|---|---|
 | TOOL-001 | Flow Tool |  | Pending | None unless registry definition is unavailable |
 | CTRL-001 | Flow Control |  | Pending | None unless registry definition is unavailable |
 
-## 5) Out-Of-Scope Requests
+## 6) Out-Of-Scope Requests
 
 | Request | Why It Is Out Of Default Scope | Owner Decision |
 |---|---|---|
-|  | API workflow / RPA / Human Task / Case Management / Data Fabric / frontend |  |
+|  | Live API call / RPA / Human Task / Case Management / Data Fabric / frontend |  |
 
-## 6) Demo Readiness
+## 7) Demo Readiness
 
 | Item | Status | Notes |
 |---|---|---|
 | Happy path fixture maps to manual-start inputs | Pending |  |
 | Exception path fixture maps to manual-start inputs | Pending |  |
+| API payload fields map to downstream consumers | Pending |  |
+| Mock API workflow local run completed or skipped with reason | Pending |  |
 | Happy path fixture tested | Pending |  |
 | Exception path fixture tested | Pending |  |
 | Flow debug/run approved by user | Pending | Do not run debug without explicit consent |
 | Demo script dry run completed | Pending |  |
 | Fallback narration prepared | Pending |  |
 
-## 7) Optional Orchestrator Deployment
+## 8) Optional Orchestrator Deployment
 
 Only fill this section when the user explicitly asks to deploy beyond Studio Web.
 

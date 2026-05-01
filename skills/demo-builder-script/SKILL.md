@@ -1,6 +1,6 @@
 ---
 name: demo-builder-script
-description: "Author the narrated run-of-show for a local-execution Maestro Flow demo. Produces 3-4 key messages mapped to actual Flow nodes, runtime outcomes, agent/connector/tool/control proof points, and visible operator actions."
+description: "Author the narrated run-of-show for a local-execution Maestro Flow demo. Produces 3-4 key messages mapped to actual Flow nodes, runtime outcomes, mock API workflow, agent/connector/tool/control proof points, and visible operator actions."
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
@@ -27,7 +27,7 @@ Final deliverable: a concise narrated run-of-show. Script only what exists or is
 1. Copy `templates/demo-script.template.md` to `builds/<demo-slug>/script/demo-script.md`.
 2. Read `manifest.md`, `flow/flow-architecture.md`, `flow/node-contracts.md`, and `handoff/manual-completion-checklist.md`.
 3. Use only implemented or explicitly demo-ready artifacts.
-4. Map messages to Flow proof points: trigger, agent result, connector activity, Flow tool output, control branch, End output, or Studio Web Flow visualization.
+4. Map messages to Flow proof points: trigger, mock API workflow payload, agent result, connector activity, Flow tool output, control branch, End output, or Studio Web Flow visualization.
 5. Add rehearsal checks for any manual checklist item that could affect the live demo.
 
 ## Quality Checks

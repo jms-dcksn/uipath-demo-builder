@@ -1,0 +1,123 @@
+{
+  "document": {
+    "dsl": "1.0.0",
+    "name": "ServiceNowEntitlementLookup",
+    "tags": {
+      "projectId": "mock-project-id",
+      "solutionId": "mock-solution-id"
+    },
+    "version": "0.0.1",
+    "namespace": "default",
+    "metadata": {
+      "variables": []
+    }
+  },
+  "output": {
+    "schema": {
+      "format": "json",
+      "document": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "object",
+            "properties": {
+              "accountId": {
+                "type": "string"
+              },
+              "accountName": {
+                "type": "string"
+              },
+              "customerTier": {
+                "type": "string"
+              }
+            }
+          },
+          "entitlement": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "supportLevel": {
+                "type": "string"
+              },
+              "slaHours": {
+                "type": "number"
+              },
+              "summary": {
+                "type": "string"
+              }
+            }
+          },
+          "caseContext": {
+            "type": "object",
+            "properties": {
+              "caseId": {
+                "type": "string"
+              },
+              "openCaseCount": {
+                "type": "number"
+              },
+              "recentInteraction": {
+                "type": "string"
+              },
+              "recommendedRoute": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "title": "Outputs"
+      }
+    }
+  },
+  "do": [
+    {
+      "Sequence_1": {
+        "do": [
+          {
+            "WorkflowStart": {
+              "set": "${Object.entries($workflow.definition?.document?.metadata?.variables?.schema?.document?.properties || {}).reduce((acc, [name, def]) => ({ ...acc, [name]: def?.default }), {}) }",
+              "output": {
+                "as": "${$input}"
+              },
+              "export": {
+                "as": "{ ...$context, variables: { ...$context.variables, ...$output } }"
+              },
+              "metadata": {
+                "activityType": "Assign",
+                "displayName": "Workflow start",
+                "fullName": "Assign",
+                "isTransparent": true
+              }
+            }
+          },
+          {
+            "Response_1": {
+              "response": "${{\n  \"account\": {\n    \"accountId\": \"ACC-100245\",\n    \"accountName\": \"Northstar Components\",\n    \"customerTier\": \"premium\"\n  },\n  \"entitlement\": {\n    \"status\": \"active\",\n    \"supportLevel\": \"24x7\",\n    \"slaHours\": 4,\n    \"summary\": \"Premium support entitlement is active for the reported product.\"\n  },\n  \"caseContext\": {\n    \"caseId\": \"CASE-2026-0142\",\n    \"openCaseCount\": 1,\n    \"recentInteraction\": \"Customer reported intermittent login failures after a role update.\",\n    \"recommendedRoute\": \"priority-support\"\n  }\n}}",
+              "markJobAsFailed": false,
+              "then": "end",
+              "export": {
+                "as": "{ ...$context, outputs: { ...$context?.outputs, \"Response_1\": $output } }"
+              },
+              "metadata": {
+                "activityType": "Response",
+                "displayName": "Response",
+                "fullName": "Response"
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "activityType": "Sequence",
+          "displayName": "Sequence",
+          "fullName": "Sequence"
+        }
+      }
+    }
+  ],
+  "evaluate": {
+    "mode": "strict",
+    "language": "javascript"
+  }
+}

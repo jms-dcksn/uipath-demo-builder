@@ -11,15 +11,17 @@
 | Flow Area | Responsibility | Input Signals | Output Artifacts |
 |---|---|---|---|
 | Intake | Normalize trigger payload | request payload, metadata | structured context |
+| System context | Retrieve deterministic mock system payload | account/customer/case identifier | API workflow payload |
 
 ## 3) Segment To Node Mapping
 
 | Segment ID | Task ID | Task Name | Execution Type | Flow Node / Resource ID | Owner |
 |---|---|---|---|---|---|
 | SEG-01 | T-001 | Normalize payload | Flow Tool | TOOL-001 | Flow |
-| SEG-01 | T-002 | Classify request | AI Agent | AG-001 | Agent |
-| SEG-02 | T-003 | Notify team | Connector Activity | CONN-001 | Integration |
-| SEG-03 | T-004 | Route result | Flow Control | CTRL-001 | Flow |
+| SEG-01 | T-002 | Lookup system context | Mock API Workflow | API-001 | API workflow |
+| SEG-01 | T-003 | Classify request | AI Agent | AG-001 | Agent |
+| SEG-02 | T-004 | Notify team | Connector Activity | CONN-001 | Integration |
+| SEG-03 | T-005 | Route result | Flow Control | CTRL-001 | Flow |
 
 ## 4) State And Variables
 
@@ -31,11 +33,12 @@
 
 | Rule ID | Description | Inputs | Logic | Fallback |
 |---|---|---|---|---|
-| CTRL-001 | Exception routing | Agent result | high severity -> exception result | Return clear exception output |
+| CTRL-001 | Exception routing | Agent result + documented API payload field | high severity or inactive entitlement -> exception result | Return clear exception output |
 
 ## 6) Local Execution Scope
 
 - Agent nodes:
+- Mock API workflow nodes:
 - Connector nodes:
 - Flow tool nodes:
 - Flow control nodes:
@@ -44,6 +47,7 @@
 ## 7) Exception Handling
 
 - Connector failure path:
+- Mock API workflow fallback path:
 - Agent failure path:
 - Tool/control failure path:
 - End output on exception:

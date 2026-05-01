@@ -7,6 +7,7 @@ Discovery produces IDs that downstream Flow architecture must preserve.
 | `BR-*` | Business requirement |
 | `SEG-*` | Process segment |
 | `T-*` | Task |
+| `API-*` | Mock API workflow candidate |
 | `AG-*` | Agent candidate |
 | `CONN-*` | Connector activity candidate |
 | `TOOL-*` | Flow tool node candidate |
@@ -18,9 +19,10 @@ Discovery produces IDs that downstream Flow architecture must preserve.
 Use exactly one execution type per task:
 
 - `AI Agent`
+- `Mock API Workflow`
 - `Connector Activity`
 - `Flow Tool`
 - `Flow Control`
 - `Trigger`
 
-Every `AG-*`, `CONN-*`, `TOOL-*`, and `CTRL-*` must include enough naming detail for registry discovery.
+Every `API-*`, `AG-*`, `CONN-*`, `TOOL-*`, and `CTRL-*` must include enough naming detail for registry discovery.

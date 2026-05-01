@@ -1,6 +1,6 @@
 ---
 name: demo-builder-discovery
-description: "Interactive discovery and segmentation for local-execution UiPath Maestro Flow demo builds. Clarifies ambiguous requests, researches the operation, reads project docs, decomposes the demo slice, and builds a Flow-oriented task matrix for agents, connector activities, Flow tool nodes, Flow control nodes, and triggers."
+description: "Interactive discovery and segmentation for local-execution UiPath Maestro Flow demo builds. Clarifies ambiguous requests, researches the operation, reads project docs, decomposes the demo slice, researches mock system payloads, and builds a Flow-oriented task matrix for agents, mock API workflows, connector activities, Flow tool nodes, Flow control nodes, and triggers."
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion
 ---
 
@@ -13,8 +13,9 @@ Turns a use case or customer brief into a small Flow-buildable demo slice.
 Before deep work, state the practical scope:
 
 - Will build: discovery artifacts, Flow architecture inputs, task matrix, local Flow node assumptions, and demo-ready happy/exception paths.
-- Will not build by default: API workflows, RPA workflows, Human Tasks, Case Management, Data Fabric, Coded Apps, frontends, or tenant resources that require unavailable credentials.
-- Demo-grade only: use deterministic fixtures and mock-shaped adapters when live integrations are not ready.
+- Will build when system interactions are part of the demo: deterministic mock API workflow candidates, payload research, and field maps.
+- Will not build by default: live external API calls, RPA workflows, Human Tasks, Case Management, Data Fabric, Coded Apps, frontends, or tenant resources that require unavailable credentials.
+- Demo-grade only: use deterministic fixtures, mock API workflow payloads, and mock-shaped adapters when live integrations are not ready.
 
 ## Clarify Before Research
 
@@ -27,6 +28,7 @@ Ask before researching when the prompt leaves material gaps:
 5. Must-show capabilities.
 6. Happy path and one exception path.
 7. Agent style preference: existing, coded, low-code, or inline Flow agent.
+8. Whether named system choices are fixed or demo-builder may select credible mocks, such as Salesforce vs ServiceNow or Guidewire vs Duck Creek.
 
 ## Reference Documentation Intake
 
@@ -36,6 +38,19 @@ Ask before researching when the prompt leaves material gaps:
 4. Cite user-provided docs as `[DOC-###]`; cite web sources as `[SRC-###]`.
 5. User-provided docs outrank web sources when they conflict.
 
+## Mock API Payload Research
+
+When the demo includes system-of-record or third-party system interactions, payload research is mandatory before Flow architecture.
+
+Rules:
+
+- Prefer user-provided API docs, sample payloads, screenshots, connector notes, and SOPs over web research.
+- Use public API docs, sample payloads, connector docs, domain implementation guides, or credible vendor examples when user docs are unavailable.
+- Select named systems instead of generic categories, such as Salesforce, ServiceNow, SAP, Epic, Guidewire, Fiserv, Workday, or Oracle.
+- Keep mock payloads small enough to explain in a demo while including identity fields, decision fields, and narrative fields.
+- Never use real customer data, patient data, account numbers, credentials, endpoints, or secrets.
+- Mark every selected payload field as `demo-visible`, `agent-input`, `condition-input`, `connector-input`, or `end-output`.
+
 ## Workflow
 
 1. Scope and clarify.
@@ -43,9 +58,14 @@ Ask before researching when the prompt leaves material gaps:
 3. Copy `templates/use-case-research.template.md` to `builds/<demo-slug>/discovery/use-case-research.md`.
 4. Copy `templates/source-register.template.md` to `builds/<demo-slug>/discovery/source-register.md`.
 5. Copy `templates/segment-map.template.md` to `builds/<demo-slug>/discovery/process-map.md` and describe 3-4 logical process segments.
-6. Copy `templates/task-automation-matrix.template.md` to `builds/<demo-slug>/discovery/task-automation-matrix.md`.
-7. Mark each task with one execution type: `AI Agent`, `Connector Activity`, `Flow Tool`, `Flow Control`, or `Trigger`.
-8. Checkpoint with the user when the resource mix, connector availability, or non-local resource assumptions are material to the build.
+6. If system interactions exist, copy and fill:
+   - `templates/system-interactions.template.md` to `builds/<demo-slug>/discovery/system-interactions.md`.
+   - `templates/mock-api-payload-research.template.md` to `builds/<demo-slug>/discovery/mock-api-payload-research.md`.
+   - `templates/payload-field-map.template.md` to `builds/<demo-slug>/discovery/payload-field-map.md`.
+7. Copy `templates/task-automation-matrix.template.md` to `builds/<demo-slug>/discovery/task-automation-matrix.md`.
+8. Mark each task with one execution type: `AI Agent`, `Mock API Workflow`, `Connector Activity`, `Flow Tool`, `Flow Control`, or `Trigger`.
+9. Use `API-*` component IDs for mock API workflow tasks.
+10. Checkpoint with the user when the resource mix, connector availability, named system selection, or non-local resource assumptions are material to the build.
 
 ## Completion Criteria
 
@@ -55,11 +75,13 @@ Ask before researching when the prompt leaves material gaps:
 - Source register written.
 - Process map covers 3-4 segments with entry and exit outcomes.
 - Task matrix covers happy path plus one exception path.
-- Every `AG-*`, `CONN-*`, `TOOL-*`, and `CTRL-*` candidate has enough detail for Flow architecture.
+- System interaction research is written or explicitly marked as not needed.
+- Every selected mock payload field has a documented JSON path and downstream consumer.
+- Every `API-*`, `AG-*`, `CONN-*`, `TOOL-*`, and `CTRL-*` candidate has enough detail for Flow architecture.
 
 ## Hand-Off
 
-Return to the planner, which invokes `demo-builder-flow` for Flow architecture and resource discovery.
+Return to the planner, which invokes `demo-builder-api-workflows` for mock API contracts and `demo-builder-flow` for Flow architecture and resource discovery.
 
 ## References
 
@@ -72,3 +94,6 @@ Return to the planner, which invokes `demo-builder-flow` for Flow architecture a
 - `templates/source-register.template.md`
 - `templates/segment-map.template.md`
 - `templates/task-automation-matrix.template.md`
+- `templates/system-interactions.template.md`
+- `templates/mock-api-payload-research.template.md`
+- `templates/payload-field-map.template.md`

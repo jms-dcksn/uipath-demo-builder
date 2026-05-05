@@ -23,7 +23,7 @@ Map each segment to Flow-buildable tasks and resources.
 
 - `AI Agent` when reasoning, summarization, classification, or judgment is needed.
 - `Mock API Workflow` when the demo needs deterministic system-of-record context from a named system. Use `API-*` component IDs and always build a Studio Web API Workflow project.
-- `Connector Activity` when UiPath Integration Service has a curated connector activity.
+- `Connector Activity` when the task is a visible live external-system read/write and UiPath Integration Service has a curated connector activity with a usable connection.
 - `Flow Tool` when deterministic local work is enough, such as script parsing, payload shaping, static transforms, or fixture-backed enrichment.
 - `Flow Control` when routing, branching, looping, merging, delay, subflow, end, or termination is needed.
 - `Trigger` for the Flow entry event.
@@ -34,10 +34,19 @@ Map each segment to Flow-buildable tasks and resources.
 - Native Flow invocation when available: `Flow API Workflow node`.
 - Current placeholder invocation: `Script placeholder invoking equivalent mock payload`.
 - Do not describe a script placeholder as the API Workflow artifact. It is only the Flow invocation stand-in until native API Workflow nodes can call the API Workflow project inline.
+- Connector artifact: `Integration Service connector activity`.
+- Do not use a connector activity as deterministic mock system context. Use `Mock API Workflow` for repeatable demo data and `Connector Activity` for live Integration Service actions.
 
-## 5) Task-Level Demo Targets
+## 5) Connector Activity Details
+
+| Connector ID | Service | Connector Key | Activity Intent | Required Connection / Folder | User-Visible Output | Blocker Status |
+|---|---|---|---|---|---|---|
+| CONN-001 |  |  | Send status update | Existing enabled connection in target folder | Send confirmation | Pending discovery |
+
+## 6) Task-Level Demo Targets
 
 | Task ID | Demo Proof | Latency Target | Audit/Trace Need |
 |---|---|---|---|
 | T-002 | Mock system payload visible in Flow context | 10 sec | Capture payload field paths |
 | T-003 | Agent output visible in Flow result | 30 sec | Capture reason |
+| T-005 | Connector action visible in Flow output or target system | 10 sec | Capture connection and operation metadata |

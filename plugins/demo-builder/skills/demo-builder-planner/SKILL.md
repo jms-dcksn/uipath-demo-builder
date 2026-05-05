@@ -73,6 +73,8 @@ The matrix must identify Flow-buildable work using only these execution types:
 
 Checkpoint with the user before architecture when the resource mix, named system selection, connector assumptions, or API mock assumptions are unclear. If discovery reveals live external APIs, RPA, Human Task, Case Management, Data Fabric, Coded App, or frontend needs, either reframe them as deterministic mock API workflow, connector/tool/control/agent behavior or record them as out-of-scope prerequisites.
 
+For every planned `CONN-*`, discovery must capture the connector service, activity intent, required connection or folder, expected user-visible output, and whether the connector is a live action or only a prerequisite.
+
 ### Phase 2 - Mock API Planning
 
 Use discovery outputs to decide which `API-*` tasks become deterministic passthrough mock API workflows.
@@ -153,6 +155,7 @@ Hard gates from `uipath-maestro-flow`:
 - Validate every node type through registry `search`, `list --local`, and `get`.
 - Mock API workflows should use `uipath.core.api-workflow.<resourceKey>` node types when registry discovery returns a bindable resource. Until native binding is available, script-backed Flow placeholders may invoke equivalent mock payloads, but the API Workflow projects must still be built and registered.
 - Connector activities require existing Integration Service connections and enriched metadata with `--connection-id`.
+- Connector activities can block Flow implementation when no enabled connection exists or required/reference fields cannot be resolved.
 - Every node type needs a copied registry definition.
 - Every external demo fixture field that the operator must provide is declared as a manual-trigger input with `direction: "in"` and `triggerNodeId` pointing to the Start/manual trigger node.
 - Agent/tool bindings consume manual-trigger fields through the trigger output path, such as `$vars.start.output.<field>`, or document a different source.
@@ -171,6 +174,7 @@ Before validation, perform a static operator input contract check:
 - Inspect `.flow` and confirm each visible manual-start input appears in `variables.globals[]` with `direction: "in"` and `triggerNodeId`.
 - Confirm downstream bindings use `$vars.<triggerNodeId>.output.<field>` or another documented source.
 - Confirm every downstream agent input, condition branch, connector input, and End output sourced from an API workflow points to a documented payload JSON path.
+- Confirm every planned `CONN-*` has a selected or blocked connection, folder key, enriched registry metadata, required field values, reference field resolution status, and connector parameter mappings recorded in `flow/connector-bindings.md`.
 - Confirm every planned `API-*` has a project build result, a solution `.uipx` `Type: "Api"` entry, and a Flow invocation status of `bound API node`, `script placeholder`, or `not used`.
 - Record this check in `manifest.md`. Treat missing `triggerNodeId` as a handoff blocker, even if `flow validate` passes.
 
@@ -202,6 +206,7 @@ Rules:
 - Compare expected projects against actual uploaded projects by name and `projectType`.
 - Verify one uploaded `projectType: "Api"` project per planned `API-*`. If any planned API Workflow is missing, mark upload incomplete.
 - Record Flow invocation status separately from upload status. A script placeholder is acceptable only as the current Flow invocation mode, not as a replacement for uploaded API Workflow projects.
+- Record connector readiness separately from upload status. A successful Studio Web upload does not prove that a live connector activity has a valid connection, reference IDs, or required field values.
 - If the uploaded/generated artifact exposes an entry point schema or Studio Web input form, verify the expected manual-start inputs are visible. If this cannot be inspected from CLI output, add a manual checklist item instead of assuming validation proved it.
 - If auth is expired, stop and ask the user to re-authenticate or run the relevant `uip login` command for the target tenant.
 
@@ -210,6 +215,7 @@ Rules:
 Copy `templates/manual-completion-checklist.template.md` to `builds/<demo-slug>/handoff/manual-completion-checklist.md` and fill tenant-side prerequisites:
 
 - Connector connections and folder keys.
+- Connector keys, activity node types, operation metadata, required fields, reference lookups, parameter mappings, and unresolved prerequisites.
 - API workflow project paths, solution manifest IDs, upload `projectType` values, registry keys, validation status, and Flow invocation status.
 - Published or local resource bindings.
 - Agent Studio Web upload status or local sibling status.
@@ -277,7 +283,7 @@ Companion UiPath skills:
 - Planned mock API workflows have payloads, contracts, output schemas, run validation, project-backed API Workflow folders, successful project builds, `.uipx` `Type: "Api"` registration, and upload confirmation as `projectType: "Api"`.
 - Flow invocation for each planned `API-*` is explicitly marked as native API node, script placeholder, or not used.
 - Required agents are built or discovered and mapped to Flow nodes.
-- Connector activities have connection prerequisites resolved or documented as blockers.
+- Connector activities have connection prerequisites, required fields, and reference fields resolved or documented as blockers.
 - Flow tool/control nodes use registry-backed local node types.
 - No live external API call, RPA, Human Task, Case Management, Data Fabric, Coded App, frontend, or other non-local resource build is included unless explicitly requested.
 - Manual-start inputs are fixture-backed, bound to the Start/manual trigger, and visible or explicitly marked for Studio Web verification.

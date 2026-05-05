@@ -42,9 +42,9 @@ Every JSON path must exist in `discovery/payload-field-map.md`.
 
 ## 7) Connector Contracts
 
-| Connector ID | Flow Node ID | Connector Key | Activity | Inputs | Outputs | Error Handling |
-|---|---|---|---|---|---|---|
-| CONN-001 |  |  |  |  | `$vars.<nodeId>.output` | route to exception |
+| Connector ID | Flow Node ID | Node Type | Connector Key | Activity / Operation | Connection ID | Folder Key | Input Mapping | Output Reference | Downstream Consumer | Error Handling |
+|---|---|---|---|---|---|---|---|---|---|---|
+| CONN-001 |  | `uipath.connector.<connector-key>.<activity>` |  |  |  |  | body/query/path parameters from `flow/connector-bindings.md` | `$vars.<nodeId>.output` |  | route to exception |
 
 ## 8) Flow Tool Contracts
 
@@ -67,6 +67,7 @@ Use `=js:` for every `$vars`, `$metadata`, or `$self` reference inside value fie
 | End output | `=js:$vars.<nodeId>.output` | Return final result |
 | Manual-trigger input | `=js:$vars.start.output.<field>` | Pass operator-provided input to tool, agent, or connector |
 | API payload field | `=js:$vars.<apiNodeId>.output.entitlement.status` | Pass documented mock API field to agent, condition, connector, or End output |
+| Connector parameter | `=js:$vars.<sourceNodeId>.output.<field>` | Pass upstream values into connector body, query, or path parameters |
 
 ## 11) End Outputs
 

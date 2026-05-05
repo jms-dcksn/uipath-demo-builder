@@ -25,9 +25,13 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 
 ## 3) Connectors
 
-| Connector ID | Connector Key | Connection ID | Folder Key | State | Manual Action |
-|---|---|---|---|---|---|
-| CONN-001 |  |  |  | Pending | Create/select connection if missing |
+| Connector ID | Node Type | Connector Key | Activity | Connection ID | Folder Key | Ping / Health | Manual Action |
+|---|---|---|---|---|---|---|---|
+| CONN-001 |  |  |  |  |  | Pending | Create/select connection if missing |
+
+| Connector ID | Operation | Method | Endpoint | Required Fields | Reference Fields | Parameter Mapping Status |
+|---|---|---|---|---|---|---|
+| CONN-001 |  |  |  | Pending | Pending | Pending |
 
 ## 4) Mock API Workflows
 
@@ -59,6 +63,7 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 | API Workflow project build completed | Pending |  |
 | API Workflow uploaded as `projectType: Api` | Pending |  |
 | Script placeholders clearly labeled as temporary invocation stand-ins | Pending |  |
+| Connector connection and field readiness documented | Pending | A successful Studio Web upload does not prove live connector runtime readiness |
 | Happy path fixture tested | Pending |  |
 | Exception path fixture tested | Pending |  |
 | Flow debug/run approved by user | Pending | Do not run debug without explicit consent |

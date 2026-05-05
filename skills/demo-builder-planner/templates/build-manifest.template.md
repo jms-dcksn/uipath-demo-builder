@@ -18,6 +18,7 @@
 | Discovery | demo-builder-discovery | PENDING | `discovery/use-case-research.md`, `discovery/source-register.md`, `discovery/process-map.md`, `discovery/task-automation-matrix.md` | Pending |
 | Mock API planning | demo-builder-planner | PENDING | `discovery/system-interactions.md`, `discovery/mock-api-payload-research.md`, `discovery/payload-field-map.md` | Pending |
 | Flow architecture | demo-builder-flow | PENDING | `flow/flow-architecture.md`, `flow/node-contracts.md`, `flow/registry-discovery.md`, `flow/connector-bindings.md` | Pending |
+| Connector readiness | demo-builder-flow | PENDING | `flow/connector-bindings.md`, `flow/node-contracts.md` | Pending |
 | Agents | agent-builder / demo-builder-agents | PENDING | `agents/<AG-id>/` | Pending |
 | API workflow artifact build | demo-builder-api-workflows | PENDING | `apis/<API-id>/`, `flow/<Solution>/<ApiProjectName>/` | Pending |
 | API workflow invocation binding | demo-builder-flow | PENDING | `flow/registry-discovery.md`, `flow/node-contracts.md` | Pending |
@@ -39,6 +40,7 @@
 | Flow architecture | `flow/flow-architecture.md` | demo-builder-flow | Task matrix | PENDING |
 | Node contracts | `flow/node-contracts.md` | demo-builder-flow | Flow architecture | PENDING |
 | Connector bindings | `flow/connector-bindings.md` | demo-builder-flow | Integration Service discovery | PENDING |
+| Connector node contracts | `flow/node-contracts.md` | demo-builder-flow | Connector bindings | PENDING |
 | API workflow contract | `apis/API-001/api-workflow-contract.md` | demo-builder-api-workflows | Payload field map | PENDING |
 | API workflow payload | `apis/API-001/payload.json` | demo-builder-api-workflows | Payload research | PENDING |
 | API workflow JSON | `apis/API-001/<WorkflowName>.json` | demo-builder-api-workflows | Payload JSON | PENDING |
@@ -66,7 +68,10 @@
 | API workflow solution registration | `.uipx` review | Pending | Confirm one `Type: Api` entry per planned `API-*` |
 | API workflow upload confirmation | Upload response review | Pending | Confirm one `projectType: Api` per planned `API-*` |
 | API workflow invocation mode | `flow/registry-discovery.md` review | Pending | `bound API node`, `script placeholder`, or `not used` |
-| Connector connection health | `uip is connections list/ping` | Pending | One row per connector |
+| Connector connection health | `uip is connections list --folder-key/ping` | Pending | One row per connector; record selected connection and folder key |
+| Connector enriched metadata | `uip maestro flow registry get <nodeType> --connection-id <connection-id> --output json` | Pending | One row per connector activity |
+| Connector required/reference fields | `flow/connector-bindings.md` review | Pending | Confirm required values and reference IDs are resolved or blocked |
+| Connector parameter expressions | `flow/node-contracts.md` + `.flow` review | Pending | Confirm `$vars`, `$metadata`, and `$self` references use `=js:` |
 | Tool/control node registry check | `uip maestro flow registry get <nodeType> --output json` | Pending | One row per local node family in notes |
 | Studio Web upload | `uip solution upload <SolutionDir> --output json` | Pending | Record Studio Web URL, SolutionId, and uploaded projects |
 | Studio Web input form | Generated schema or manual Studio Web inspection | Pending | Confirm expected manual-start fields are visible |
@@ -84,6 +89,13 @@
 - API workflow solution manifest IDs:
 - API workflow upload `projectType` values:
 - API workflow invocation status:
+- Connector keys:
+- Connector activity node types:
+- Connector connection IDs:
+- Connector folder keys:
+- Connector operations:
+- Connector method/endpoint values:
+- Connector unresolved prerequisites:
 - Visible manual-start input fields:
 - Fixture-to-input mapping:
 - Input form verification:

@@ -14,6 +14,7 @@ Before deep work, state the practical scope:
 
 - Will build: discovery artifacts, Flow architecture inputs, task matrix, local Flow node assumptions, and demo-ready happy/exception paths.
 - Will build when system interactions are part of the demo: deterministic mock API workflow candidates, payload research, and field maps.
+- Will build when live Integration Service actions are part of the demo: connector activity candidates, connection prerequisites, and user-visible outputs.
 - Will not build by default: live external API calls, RPA workflows, Human Tasks, Case Management, Data Fabric, Coded Apps, frontends, or tenant resources that require unavailable credentials.
 - Demo-grade only: use deterministic fixtures, mock API workflow payloads, and mock-shaped adapters when live integrations are not ready.
 
@@ -51,6 +52,14 @@ Rules:
 - Never use real customer data, patient data, account numbers, credentials, endpoints, or secrets.
 - Mark every selected payload field as `demo-visible`, `agent-input`, `condition-input`, `connector-input`, or `end-output`.
 
+## Connector Activity Routing
+
+When a task needs a visible live system action, prefer `Connector Activity` if UiPath Integration Service has a curated activity and the demo can use an existing connection. Capture the service, connector key if known, activity intent, required folder or connection, and expected user-visible output.
+
+Use `Mock API Workflow` instead when the task is deterministic system context, repeatable demo data, or a system-of-record lookup that should not depend on live tenant state. Use `Flow Tool` when local shaping, parsing, normalization, or fixture-backed enrichment is enough.
+
+Checkpoint with the user when a named connector, folder, connection, or live write is material to the demo and cannot be inferred from local docs or current tenant discovery. Missing connector connections and unresolved required fields are blockers for connector implementation, not values to guess.
+
 ## Workflow
 
 1. Scope and clarify.
@@ -64,9 +73,10 @@ Rules:
    - `templates/payload-field-map.template.md` to `builds/<demo-slug>/discovery/payload-field-map.md`.
 7. Copy `templates/task-automation-matrix.template.md` to `builds/<demo-slug>/discovery/task-automation-matrix.md`.
 8. Mark each task with one execution type: `AI Agent`, `Mock API Workflow`, `Connector Activity`, `Flow Tool`, `Flow Control`, or `Trigger`.
-9. Use `API-*` component IDs for mock API workflow tasks.
+9. Use `API-*` component IDs for mock API workflow tasks and `CONN-*` component IDs for connector activity tasks.
 10. For each `API-*`, fill `Deliverable Artifact` separately from execution type. Use `Studio Web API Workflow project` for the required artifact, plus `Flow API Workflow node` or `Script placeholder invoking equivalent mock payload` for the current Flow invocation path.
-11. Checkpoint with the user when the resource mix, connector availability, named system selection, or non-local resource assumptions are material to the build.
+11. For each `CONN-*`, fill the connector service, activity intent, connection requirement, expected output, and blocker status.
+12. Checkpoint with the user when the resource mix, connector availability, named system selection, or non-local resource assumptions are material to the build.
 
 ## Completion Criteria
 
@@ -80,6 +90,7 @@ Rules:
 - Every selected mock payload field has a documented JSON path and downstream consumer.
 - Every `API-*`, `AG-*`, `CONN-*`, `TOOL-*`, and `CTRL-*` candidate has enough detail for Flow architecture.
 - Every `API-*` distinguishes the required project-backed API Workflow artifact from the current Flow invocation mechanism.
+- Every `CONN-*` distinguishes the live connector action from deterministic mock/API context and records connection prerequisites or blockers.
 
 ## Hand-Off
 

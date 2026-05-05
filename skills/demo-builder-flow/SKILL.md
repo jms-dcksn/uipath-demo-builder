@@ -94,15 +94,19 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 
 ## Connector Rules
 
+Use `uipath-maestro-flow/references/author/references/plugins/connector/impl.md` as the source of truth for connector mechanics. This skill only records demo-builder decisions, node contracts, and readiness gates.
+
 - Use connector activity nodes when a curated activity exists.
 - Use connector triggers when the demo should start from a supported external event.
 - Use connector-backed managed HTTP only when the user approves it as a connector workaround.
 - Do not use manual HTTP as a default local-execution demo node. If no connector exists, document the gap or ask the user whether to leave the local-only scope.
 - Before building a connector node:
-  - `uip is connections list <connector-key> --output json`
+  - `uip is connections list <connector-key> --folder-key <folder-key> --output json` when the folder key is known, or record the folder-selection blocker
   - choose a default enabled connection or ask the user
   - `uip maestro flow registry get <nodeType> --connection-id <connection-id> --output json`
   - resolve required fields and reference fields
+- Record node type, connector key, connection ID, folder key, operation, method, endpoint, parameter mappings, output path, downstream consumers, and blockers in `flow/connector-bindings.md` and `flow/node-contracts.md`.
+- Use `=js:` for every `$vars`, `$metadata`, or `$self` reference inside connector body, query, and path parameter values.
 - If no connection exists, stop and document the prerequisite in `flow/connector-bindings.md`.
 
 ## Mock API Workflow Rules
@@ -160,6 +164,7 @@ Use the installed `uipath-maestro-flow` skill for exact node recipes.
 
 - `flow-architecture.md`, `node-contracts.md`, `registry-discovery.md`, and `connector-bindings.md` are complete.
 - All required agents/connectors are found, scaffolded, or documented as blockers.
+- Every planned connector has connection readiness, required fields, reference fields, and parameter mappings resolved or documented as blockers.
 - Every planned `API-*` has a built API Workflow project, `.uipx` `Type: "Api"` registration, and upload verification when Studio Web upload is in scope.
 - Flow invocation for every planned `API-*` is native API node, script placeholder, or not used, with the reason documented.
 - All tool/control nodes are local registry-backed node types.

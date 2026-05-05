@@ -7,12 +7,14 @@
 | `uip maestro flow registry search "<name>" --output json` |  |  |  |
 | `uip maestro flow registry list --local --output json` |  |  |  |
 | `uip api-workflow run <Workflow.json> --no-auth` |  |  | Mock API validation |
+| `uip maestro flow registry get <connectorNodeType> --connection-id <connection-id> --output json` |  |  | Connector enriched metadata |
 
 ## 2) Node Type Inventory
 
 | Planned Node | Registry Node Type | Source | Definition Status | Ports Confirmed | Notes |
 |---|---|---|---|---|---|
 | API-001 | `uipath.core.api-workflow.<resourceKey>` | in-solution / tenant | Pending | Pending | Category `api-workflow`; binding subtype `Api` |
+| CONN-001 | `uipath.connector.<connector-key>.<activity>` | connector registry | Pending | Pending | Requires connection-aware metadata |
 | AG-001 | `uipath.core.agent.<id>` | tenant / local | Pending | Pending |  |
 | TOOL-001 | `core.action.script` | local registry | Pending | Pending |  |
 | CTRL-001 | `core.logic.decision` | local registry | Pending | Pending |  |
@@ -42,6 +44,7 @@
 
 - Every node type must have a copied registry definition.
 - API workflow definitions should show category `api-workflow`, service type `Orchestrator.ExecuteApiWorkflowAsync`, resource subtype `Api`, and orchestrator type `api`.
+- Connector definitions and configuration mechanics should follow `uipath-maestro-flow/references/author/references/plugins/connector/impl.md`; this file records discovery evidence and readiness only.
 - Script-backed API placeholders are invocation fallbacks only; they do not replace built and uploaded API Workflow projects.
 - Node instances must not carry `model` blocks.
 - Data-producing nodes need instance-level `outputs`.

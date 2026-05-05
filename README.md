@@ -121,6 +121,7 @@ Constraints: demo-ready in one week, show happy path and one exception path.
 - Do not plan live external API calls, RPA, Human Task, Case Management, Data Fabric, or frontend builds unless the user explicitly asks to leave the local Flow scope.
 - Prefer working Flow nodes over handoff-only specs.
 - Use real connector connections when available; stop and document the prerequisite when a connection is missing.
+- Prefer connector activities for curated live Integration Service actions when a usable connection exists; otherwise document the connection prerequisite or choose a deterministic mock/API workflow path.
 - Discover published resources first, then in-solution siblings, then scaffold only when no suitable resource exists.
 - One agent project per `AG-*` role unless the user explicitly chooses an inline Flow agent.
 - Validate and tidy every edited Flow before handoff.

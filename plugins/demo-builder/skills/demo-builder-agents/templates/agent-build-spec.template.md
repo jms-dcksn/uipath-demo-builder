@@ -28,17 +28,29 @@ Do not multiplex multiple role/system prompts through one shared runtime.
 - Mock API payload inputs, if any:
 - Outputs back to Flow:
 - Prompt strategy:
+- Context Grounding:
+  - Choice: `not used | existing index | new index required`
+  - Index name:
+  - Folder path:
+  - Retriever tool name:
+  - Tenant/folder scope:
+  - Source documents or topics:
+  - Readiness: `ready | manual setup needed | mocked for demo | blocked`
+- Additional tool:
+  - Choice: `UiPath GenAI Activity web search | connector activity | MCP | deterministic mock/stub | none`
+  - Purpose:
+  - Readiness:
 - Tools:
-- Context Grounding config, if provided: `index_name`, `folder_path`, retriever tool name.
 - MCP config, if provided: `streamable_http_url`, auth method, enabled tool names.
 - Mock/fallback tool strategy:
 - Human escalation condition:
 
 ## 4) Tool Contract
 
-| Tool Name | Type (`UiPath`/`API`/`Retriever`/`MCP`/`Mock`) | Input Contract | Output Contract | Runtime Source |
-|---|---|---|---|---|
-| `mock_policy_check` | Mock | `payload: str` | pass/fail + reason | Local deterministic stub |
+| Tool Name | Type (`Context Grounding`/`UiPath GenAI`/`Connector`/`MCP`/`Mock`) | Input Contract | Output Contract | Runtime Source | Readiness |
+|---|---|---|---|---|---|
+| `context_grounding_search` | Context Grounding | query + optional filters | relevant chunks / citations | `index_name` in `folder_path` | Pending |
+| `mock_policy_check` | Mock | `payload: str` | pass/fail + reason | Local deterministic stub | Ready |
 
 ## 5) Flow Contract
 
@@ -46,6 +58,8 @@ Do not multiplex multiple role/system prompts through one shared runtime.
 |---|---|
 | Agent input source | Include `$vars.<apiNodeId>.output.<field>` paths when consuming `API-*` payloads |
 | Agent node output source | `$vars.<nodeId>.output.content` |
+| Context Grounding dependency | `index_name` + `folder_path`, or explicit not-used decision |
+| Additional tool dependency | GenAI Activity web search / connector / MCP / mock / none |
 | Parsed output shape |  |
 | Downstream node(s) |  |
 | Exception path |  |

@@ -23,6 +23,7 @@ Default scope: agents are the primary component. The rest of the Flow should use
 - Task automation matrix.
 - Known tenant folder, connector names, connection names, tool requirements, and agent names.
 - Agent build specs or existing agent resource names.
+- Agent tool plans, including Context Grounding index/folder readiness and any selected GenAI Activity web search, connector, MCP, or mock tool.
 - Mock API workflow contracts, payload field maps, and registry discovery results.
 - API Workflow project build and solution registration status for every planned `API-*`.
 - Happy path and exception fixture payloads.
@@ -50,6 +51,7 @@ Default scope: agents are the primary component. The rest of the Flow should use
 5. Run resource discovery:
    - Tenant registry search for named published agents.
    - In-solution local registry for sibling agents.
+   - Agent tool prerequisite review for Context Grounding indexes, additional tools, and any manual setup blockers.
    - In-solution or tenant registry discovery for planned mock API workflows.
    - Connector registry search for connector activities/triggers.
    - Registry `get` for every Flow tool/control node type.
@@ -153,6 +155,8 @@ Use `uipath-maestro-flow/references/author/references/plugins/connector/impl.md`
 - The words coded and low-code describe agent implementation style, not inline status.
 - For inline agents, inspect the current registry output or CLI-generated node shape before final JSON edits. Prefer current generated fields over older examples when `inputs.source`, prompts, input variables, or output variables drift.
 - Agent outputs are consumed from `$vars.<nodeId>.output.content` unless the node definition says otherwise.
+- Context Grounding dependencies must come from the `AG-*` tool plan. Do not invent `index_name`, `folder_path`, or source document sets during Flow wiring.
+- If an agent needs Context Grounding but the index or folder is not ready, document the blocker in `flow/node-contracts.md` and the handoff checklist before building the node.
 
 ## Out-Of-Scope Resource Rules
 
@@ -164,6 +168,7 @@ Use `uipath-maestro-flow/references/author/references/plugins/connector/impl.md`
 
 - `flow-architecture.md`, `node-contracts.md`, `registry-discovery.md`, and `connector-bindings.md` are complete.
 - All required agents/connectors are found, scaffolded, or documented as blockers.
+- Every agent has a documented Context Grounding and additional-tool readiness status.
 - Every planned connector has connection readiness, required fields, reference fields, and parameter mappings resolved or documented as blockers.
 - Every planned `API-*` has a built API Workflow project, `.uipx` `Type: "Api"` registration, and upload verification when Studio Web upload is in scope.
 - Flow invocation for every planned `API-*` is native API node, script placeholder, or not used, with the reason documented.

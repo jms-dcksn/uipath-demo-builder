@@ -24,6 +24,7 @@ Ask up front when not already specified:
 2. For new standalone agents: coded or low-code.
 3. For coded agents: LangChain default unless the user asks for another supported framework.
 4. Runtime target: local sibling in solution or inline Flow agent by default; individual agent push/deploy only when the user explicitly asks. The planner uploads the full solution to Studio Web.
+5. Tool plan: Context Grounding status, additional tool preference, and readiness for every `AG-*`.
 
 ## Rules
 
@@ -31,8 +32,10 @@ Ask up front when not already specified:
 - Do not multiplex multiple role prompts inside one runtime.
 - Coded path defaults to `uipath-langchain` and `create_agent`.
 - Use `uv` for Python package management.
-- If Context Grounding is provided, include both `index_name` and `folder_path`.
+- Treat Context Grounding as an explicit agent tool contract. If used, include both `index_name` and `folder_path`; if a new index is required, record the user-owned manual creation prerequisite before build planning.
+- Do not guess Context Grounding index names, folder paths, or source document sets.
 - If an MCP URL is provided, integrate streamable HTTP MCP tools for that agent only.
+- Prefer one clear additional tool per agent unless the user explicitly asks for more: UiPath GenAI Activity web search, Integration Service connector activity, MCP, deterministic mock/stub, or none.
 - Keep real and mock tool interfaces identical.
 - Agent output contracts must be shaped for downstream Flow node wiring.
 - Agent inputs sourced from `API-*` mock payloads must reference documented JSON paths from `discovery/payload-field-map.md`.
@@ -59,8 +62,10 @@ Ask up front when not already specified:
 
 1. Use `uip agent init <agent-name>` for standalone low-code agents.
 2. Edit `agent.json` for prompt, model, input schema, output schema, tools, context, and escalation.
-3. Validate with `uip agent validate <agent-project> --output json`.
-4. Keep the output contract simple enough for Flow consumption.
+3. Configure Context Grounding only when `index_name` and `folder_path` are known or the manual setup blocker is documented.
+4. Configure only the selected additional tool and keep its input/output contract aligned with the Flow node contract.
+5. Validate with `uip agent validate <agent-project> --output json`.
+6. Keep the output contract simple enough for Flow consumption.
 
 ## Inline Agent Path
 
@@ -70,16 +75,18 @@ Ask up front when not already specified:
    ```
 2. Record the returned project ID.
 3. Configure the inline `agent.json`.
-4. Validate:
+4. Configure Context Grounding and additional tools from the documented `AG-*` tool plan. Stop and record a prerequisite when a required index, folder, connection, or endpoint is unknown.
+5. Validate:
    ```bash
    uip agent validate <FlowProjectDir>/<projectId> --inline-in-flow --output json
    ```
-5. Hand the project ID to `demo-builder-flow` for the `uipath.agent.autonomous` node.
+6. Hand the project ID to `demo-builder-flow` for the `uipath.agent.autonomous` node.
 
 ## Completion Criteria
 
 - One build spec exists per `AG-*`.
 - Every built agent has a clear Flow node input and output contract.
+- Every built or existing agent has a documented tool contract, including Context Grounding readiness or an explicit not-used decision.
 - Existing agents have registry discovery notes instead of duplicate scaffolds.
 - New coded agents have a smoke eval artifact.
 - Validation/local run status is recorded with skipped reasons when not run.

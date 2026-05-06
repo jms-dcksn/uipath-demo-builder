@@ -19,9 +19,15 @@ Tenant-side and operator steps that cannot be completed from local artifacts.
 
 ## 2) Agents
 
-| Agent ID | Source | Project Path / Registry Name | Local Run | Validation | Studio Web Upload Status | Notes |
+| Agent ID | Source | Project Path / Registry Name | Context Grounding | Additional Tool | Local Run | Validation | Studio Web Upload Status | Notes |
+|---|---|---|---|---|---|---|---|---|
+| AG-001 | coded / low-code / inline / existing |  | none / existing index / new index required | GenAI Activity web search / connector / MCP / mock / none | Pending | Pending | Pending |  |
+
+## 2a) Context Grounding And Agent Tools
+
+| Agent ID | Index Name | Folder Path | Source Documents / Topics | Manual Index Creation Status | Additional Tool Readiness | Demo Fallback |
 |---|---|---|---|---|---|---|
-| AG-001 | coded / low-code / inline / existing |  | Pending | Pending | Pending |  |
+| AG-001 |  |  |  | Not needed / pending / complete / blocked | Ready / manual setup / mocked / blocked | Deterministic mock/stub or not needed |
 
 ## 3) Connectors
 

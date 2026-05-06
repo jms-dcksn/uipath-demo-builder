@@ -75,6 +75,8 @@ Checkpoint with the user before architecture when the resource mix, named system
 
 For every planned `CONN-*`, discovery must capture the connector service, activity intent, required connection or folder, expected user-visible output, and whether the connector is a live action or only a prerequisite.
 
+For every planned `AG-*`, discovery must capture the agent mode, Context Grounding choice, index name and folder path when applicable, source-document prerequisite when a new index is required, additional tool preference, and readiness or blocker status. Do not proceed to Flow architecture with an unresolved Context Grounding index unless the blocker or deterministic mock fallback is explicit.
+
 ### Phase 2 - Mock API Planning
 
 Use discovery outputs to decide which `API-*` tasks become deterministic passthrough mock API workflows.
@@ -111,6 +113,7 @@ Rules:
 - Inline agents use `uip agent init <FlowProjectDir> --inline-in-flow`.
 - Output contracts are Flow node contracts, not persisted entity fields.
 - Agent inputs sourced from mock API payloads must reference documented JSON paths, such as `$vars.<apiNodeId>.output.coverageStatus`.
+- Agent tool contracts must include Context Grounding readiness or an explicit not-used decision, plus any selected GenAI Activity web search, connector, MCP, or mock/stub tool.
 
 ### Phase 5 - API Workflow Artifact Build
 
@@ -175,6 +178,7 @@ Before validation, perform a static operator input contract check:
 - Confirm downstream bindings use `$vars.<triggerNodeId>.output.<field>` or another documented source.
 - Confirm every downstream agent input, condition branch, connector input, and End output sourced from an API workflow points to a documented payload JSON path.
 - Confirm every planned `CONN-*` has a selected or blocked connection, folder key, enriched registry metadata, required field values, reference field resolution status, and connector parameter mappings recorded in `flow/connector-bindings.md`.
+- Confirm every planned `AG-*` has Context Grounding readiness or an explicit not-used decision, and that any selected additional tool is ready, mocked, or documented as a manual prerequisite.
 - Confirm every planned `API-*` has a project build result, a solution `.uipx` `Type: "Api"` entry, and a Flow invocation status of `bound API node`, `script placeholder`, or `not used`.
 - Record this check in `manifest.md`. Treat missing `triggerNodeId` as a handoff blocker, even if `flow validate` passes.
 
@@ -216,6 +220,7 @@ Copy `templates/manual-completion-checklist.template.md` to `builds/<demo-slug>/
 
 - Connector connections and folder keys.
 - Connector keys, activity node types, operation metadata, required fields, reference lookups, parameter mappings, and unresolved prerequisites.
+- Context Grounding index names, folder paths, source-document prerequisites, manual index creation status, and per-agent additional tool readiness.
 - API workflow project paths, solution manifest IDs, upload `projectType` values, registry keys, validation status, and Flow invocation status.
 - Published or local resource bindings.
 - Agent Studio Web upload status or local sibling status.

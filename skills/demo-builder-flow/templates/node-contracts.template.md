@@ -15,9 +15,9 @@
 
 ## 3) Agent Contracts
 
-| Agent ID | Flow Node ID | Agent Source | Input Mapping | Output Mapping | Notes |
-|---|---|---|---|---|---|
-| AG-001 |  | existing / coded / low-code / inline | Include documented API paths, not prose-only fields | `$vars.<nodeId>.output.content` |  |
+| Agent ID | Flow Node ID | Agent Source | Input Mapping | Context Grounding | Additional Tool | Tool Readiness | Output Mapping | Notes |
+|---|---|---|---|---|---|---|---|---|
+| AG-001 |  | existing / coded / low-code / inline | Include documented API paths, not prose-only fields | none / existing index / new index required with `index_name` + `folder_path` | GenAI Activity web search / connector / MCP / mock / none | ready / manual setup / mocked / blocked | `$vars.<nodeId>.output.content` |  |
 
 ## 4) Mock API Workflow Contracts
 

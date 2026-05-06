@@ -30,6 +30,7 @@ Ask before researching when the prompt leaves material gaps:
 6. Happy path and one exception path.
 7. Agent style preference: existing, coded, low-code, or inline Flow agent.
 8. Whether named system choices are fixed or demo-builder may select credible mocks, such as Salesforce vs ServiceNow or Guidewire vs Duck Creek.
+9. Per-agent tool preferences, especially Context Grounding indexes, source documents, web search, connector activity, MCP, or deterministic mock tools.
 
 ## Reference Documentation Intake
 
@@ -60,6 +61,18 @@ Use `Mock API Workflow` instead when the task is deterministic system context, r
 
 Checkpoint with the user when a named connector, folder, connection, or live write is material to the demo and cannot be inferred from local docs or current tenant discovery. Missing connector connections and unresolved required fields are blockers for connector implementation, not values to guess.
 
+## Agent Tool Discovery
+
+Use `references/agent-tool-discovery.md` when any `AG-*` component is planned. For every agent, capture its knowledge source and tool readiness before Flow architecture:
+
+- Context Grounding choice: not used, existing index, or new manually created index required.
+- Existing index details: `index_name`, `folder_path`, tenant/folder scope, and user confirmation that the index contains the needed content.
+- New index prerequisites: source document set, target folder path, desired index name, manual creation owner/status, and whether a deterministic mock/stub should be used until the index exists.
+- Additional tool preference: UiPath GenAI Activity web search, Integration Service connector activity, MCP, deterministic mock/stub, or none.
+- Readiness status: ready, needs manual setup, intentionally mocked, or blocked.
+
+Do not assume the `uip` CLI can create a Context Grounding index programmatically. Treat new-index creation as a tenant-side prerequisite unless current CLI behavior proves otherwise during the build.
+
 ## Workflow
 
 1. Scope and clarify.
@@ -76,7 +89,8 @@ Checkpoint with the user when a named connector, folder, connection, or live wri
 9. Use `API-*` component IDs for mock API workflow tasks and `CONN-*` component IDs for connector activity tasks.
 10. For each `API-*`, fill `Deliverable Artifact` separately from execution type. Use `Studio Web API Workflow project` for the required artifact, plus `Flow API Workflow node` or `Script placeholder invoking equivalent mock payload` for the current Flow invocation path.
 11. For each `CONN-*`, fill the connector service, activity intent, connection requirement, expected output, and blocker status.
-12. Checkpoint with the user when the resource mix, connector availability, named system selection, or non-local resource assumptions are material to the build.
+12. For each `AG-*`, fill the agent mode, Context Grounding choice, index/folder readiness, additional tool preference, and blocker status.
+13. Checkpoint with the user when the resource mix, agent tool readiness, Context Grounding index setup, connector availability, named system selection, or non-local resource assumptions are material to the build.
 
 ## Completion Criteria
 
@@ -89,6 +103,7 @@ Checkpoint with the user when a named connector, folder, connection, or live wri
 - System interaction research is written or explicitly marked as not needed.
 - Every selected mock payload field has a documented JSON path and downstream consumer.
 - Every `API-*`, `AG-*`, `CONN-*`, `TOOL-*`, and `CTRL-*` candidate has enough detail for Flow architecture.
+- Every `AG-*` has a documented tool and knowledge-source plan, including Context Grounding readiness or an explicit not-used decision.
 - Every `API-*` distinguishes the required project-backed API Workflow artifact from the current Flow invocation mechanism.
 - Every `CONN-*` distinguishes the live connector action from deterministic mock/API context and records connection prerequisites or blockers.
 
@@ -100,6 +115,7 @@ Return to the planner, which invokes `demo-builder-api-workflows` for mock API c
 
 - `references/research-and-citation-rules.md`
 - `references/mapping-conventions.md`
+- `references/agent-tool-discovery.md`
 
 ## Templates
 

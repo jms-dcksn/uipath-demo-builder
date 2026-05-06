@@ -18,6 +18,7 @@
 - Mock API Workflow projects shown:
 - Script API placeholders shown:
 - Agents shown:
+- Agent knowledge/tools shown:
 - Connector activities shown:
 - Flow tools shown:
 - Flow control nodes shown:
@@ -70,19 +71,20 @@ Every row must point to a field documented in `discovery/payload-field-map.md`.
 
 ## 9) Resource Plan
 
-| Node ID | Node Family | Name | Discovery Method | Status | Notes |
-|---|---|---|---|---|---|
-| API-001 | API Workflow |  | project build + solution registration + in-solution or tenant registry | Planned | Mock passthrough API project; script placeholder if native binding is unavailable |
-| AG-001 | Agent |  | tenant registry / local registry / scaffold | Planned |  |
-| CONN-001 | Connector |  | Integration Service connection | Planned |  |
-| TOOL-001 | Flow Tool |  | registry get | Planned |  |
-| CTRL-001 | Flow Control |  | registry get | Planned |  |
+| Node ID | Node Family | Name | Discovery Method | Tool / Knowledge Readiness | Status | Notes |
+|---|---|---|---|---|---|---|
+| API-001 | API Workflow |  | project build + solution registration + in-solution or tenant registry | N/A | Planned | Mock passthrough API project; script placeholder if native binding is unavailable |
+| AG-001 | Agent |  | tenant registry / local registry / scaffold | Context Grounding and additional tool readiness from discovery | Planned |  |
+| CONN-001 | Connector |  | Integration Service connection | Connection and reference fields pending | Planned |  |
+| TOOL-001 | Flow Tool |  | registry get | N/A | Planned |  |
+| CTRL-001 | Flow Control |  | registry get | N/A | Planned |  |
 
 ## 10) Build Notes
 
 - Solution-first scaffold check:
 - API workflow project registration notes:
 - API workflow invocation placeholder notes:
+- Agent Context Grounding/tool readiness notes:
 - Required definitions copied:
 - Connector binding notes:
 - Tool/control node notes:
@@ -93,4 +95,4 @@ Every row must point to a field documented in `discovery/payload-field-map.md`.
 
 | ID | Prerequisite | Owner | Needed Before | Status |
 |---|---|---|---|---|
-| PRE-001 |  |  | Flow build | Open |
+| PRE-001 | Context Grounding index name and folder path, if selected for any `AG-*` | User | Agent build / Flow wiring | Open |

@@ -19,7 +19,7 @@
 | Mock API planning | demo-builder-planner | PENDING | `discovery/system-interactions.md`, `discovery/mock-api-payload-research.md`, `discovery/payload-field-map.md` | Pending |
 | Flow architecture | demo-builder-flow | PENDING | `flow/flow-architecture.md`, `flow/node-contracts.md`, `flow/registry-discovery.md`, `flow/connector-bindings.md` | Pending |
 | Connector readiness | demo-builder-flow | PENDING | `flow/connector-bindings.md`, `flow/node-contracts.md` | Pending |
-| Agents | agent-builder / demo-builder-agents | PENDING | `agents/<AG-id>/` | Pending |
+| Agents | agent-builder / demo-builder-agents | PENDING | `agents/<AG-id>/` + per-agent tool plan | Pending |
 | API workflow artifact build | demo-builder-api-workflows | PENDING | `apis/<API-id>/`, `flow/<Solution>/<ApiProjectName>/` | Pending |
 | API workflow invocation binding | demo-builder-flow | PENDING | `flow/registry-discovery.md`, `flow/node-contracts.md` | Pending |
 | Flow build | demo-builder-flow | PENDING | `flow/<Solution>/<Project>/<Project>.flow` | Pending |
@@ -41,6 +41,7 @@
 | Node contracts | `flow/node-contracts.md` | demo-builder-flow | Flow architecture | PENDING |
 | Connector bindings | `flow/connector-bindings.md` | demo-builder-flow | Integration Service discovery | PENDING |
 | Connector node contracts | `flow/node-contracts.md` | demo-builder-flow | Connector bindings | PENDING |
+| Agent tool readiness | `discovery/task-automation-matrix.md`, `agents/<AG-id>/agent-build-spec.md`, `flow/node-contracts.md` | demo-builder-discovery / demo-builder-agents | User preferences + tenant prerequisites | PENDING |
 | API workflow contract | `apis/API-001/api-workflow-contract.md` | demo-builder-api-workflows | Payload field map | PENDING |
 | API workflow payload | `apis/API-001/payload.json` | demo-builder-api-workflows | Payload research | PENDING |
 | API workflow JSON | `apis/API-001/<WorkflowName>.json` | demo-builder-api-workflows | Payload JSON | PENDING |
@@ -60,6 +61,7 @@
 | Flow tidy | `uip maestro flow tidy <file> --output json` | Pending |  |
 | Flow validate after tidy | `uip maestro flow validate <file> --output json` | Pending |  |
 | Agent validation/local run | agent-specific command | Pending | One row per agent in notes |
+| Agent Context Grounding and tool readiness | `task-automation-matrix.md` + `agent-build-spec.md` review | Pending | Confirm index/folder details, manual setup status, and additional tool readiness |
 | API payload JSON | Structured parser | Pending | One row per `API-*` |
 | API field map paths | Static JSON path review | Pending | Confirm every downstream path exists in payload |
 | API workflow local run | `uip api-workflow run <Workflow.json> --no-auth` | Pending | One row per mock API workflow |
@@ -89,6 +91,10 @@
 - API workflow solution manifest IDs:
 - API workflow upload `projectType` values:
 - API workflow invocation status:
+- Agent Context Grounding indexes:
+- Agent Context Grounding folder paths:
+- Agent source-document prerequisites:
+- Agent additional tool readiness:
 - Connector keys:
 - Connector activity node types:
 - Connector connection IDs:

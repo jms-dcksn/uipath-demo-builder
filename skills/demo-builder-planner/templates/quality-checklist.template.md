@@ -8,7 +8,7 @@ Use this after editing the skill set or before publishing the plugin.
 |---|---|---|
 | Skills describe Case Management as the only orchestration model |  | Search for stale procedural-orchestration language |
 | No skill tells the agent to write into source `templates/` |  | Filled artifacts belong under `builds/<demo-slug>/` |
-| Sub-agent path references match plugin layout (`agents/`) |  |  |
+| Subagent path references match plugin layout (`agents/`) |  |  |
 
 ## 2) Build Reliability
 

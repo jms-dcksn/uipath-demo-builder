@@ -4,11 +4,11 @@ The `SKILL.md` summary is the phase outline. This doc expands each phase with in
 
 ## Build directory
 
-Every phase reads and writes under `builds/<demo-slug>/` per the layout in `SKILL.md` -> "Build directory convention". Sub-agents (`data-modeler`, `case-designer`, `agent-builder`, `frontend-builder`) must be given this path on dispatch. Do not let sub-agents re-derive upstream artifacts. If a prior phase's output is missing, the architect backfills it before dispatching.
+Every phase reads and writes under `builds/<demo-slug>/` per the layout in `SKILL.md` -> "Build directory convention". Subagents (`data-modeler`, `case-designer`, `agent-builder`, `frontend-builder`) must be given this path on dispatch. Do not let subagents re-derive upstream artifacts. If a prior phase's output is missing, the coordinator backfills it before dispatching.
 
-At build start, copy `templates/build-manifest.template.md` to `builds/<demo-slug>/manifest.md`. Exit step for every phase: append to `manifest.md` the phase status (`DONE`/`SKIPPED`/`FAILED`), artifact paths produced, and any open issues. Use the Edit tool, never overwrite — multiple writers preserve order.
+At build start, copy `templates/build-manifest.template.md` to `builds/<demo-slug>/manifest.md`. Exit step for every phase: append to `manifest.md` the phase status (`DONE`/`SKIPPED`/`FAILED`), artifact paths produced, and any open issues. Append in place; never overwrite — multiple writers preserve order.
 
-## Phase 0 — Preflight (architect, < 30s)
+## Phase 0 — Preflight (coordinator, < 30s)
 
 Run and record on `manifest.md`:
 - `uip --version`
@@ -28,7 +28,7 @@ If the user provided ideal inputs, delegate directly to **`demo-builder-discover
 If the user provided only an account name:
 1. Research the account (industry, lines of business, known automation initiatives, recent news).
 2. Draft 2-3 candidate use cases, each with: title, one-paragraph business goal, industry/domain, likely automation mix, demo hook.
-3. Present via `AskUserQuestion` — let the user pick one or supply their own.
+3. Present via Codex's user-input prompt when available — let the user pick one or supply their own.
 4. Then have `demo-builder-discovery` fill its `use-case-brief.template.md` and continue.
 
 Completion criteria for this phase:
@@ -41,33 +41,33 @@ Exit step: append `DONE`/`SKIPPED`/`FAILED` to `manifest.md`, with discovery art
 
 ## Phase 2 — Initial case data model
 
-Dispatch the **`data-modeler`** sub-agent. It invokes `demo-builder-data-fabric` and writes to `builds/<demo-slug>/case-entity/`. This is the initial schema based on discovery output.
+Dispatch the **`data-modeler`** subagent. It invokes `demo-builder-data-fabric` and writes to `builds/<demo-slug>/case-entity/`. This is the initial schema based on discovery output.
 
 Exit step: append `DONE`/`SKIPPED`/`FAILED` to `manifest.md`, with schema/example paths, field count, validation result, and open schema questions.
 
-## Phase 3a — Case Management design (sub-agent)
+## Phase 3a — Case Management design (subagent)
 
-Dispatch the **`case-designer`** sub-agent. It invokes `demo-builder-case-management`, maps segments/tasks to stages and case tasks, **authors a stub contract for every non-agent component** (Trigger, RPA, API, IDP, Intermediate Event) with hardcoded demo I/O for happy + exception paths, and synthesizes a minimal `sdd.md`. Artifacts land in `builds/<demo-slug>/flow-model/`.
+Dispatch the **`case-designer`** subagent. It invokes `demo-builder-case-management`, maps segments/tasks to stages and case tasks, **authors a stub contract for every non-agent component** (Trigger, RPA, API, IDP, Intermediate Event) with hardcoded demo I/O for happy + exception paths, and synthesizes a minimal `sdd.md`. Artifacts land in `builds/<demo-slug>/flow-model/`.
 
-The sub-agent returns `sdd.md` and `case-management-design.md`. It MUST NOT author `caseplan.json` directly. If `sdd.md` cannot be completed, it returns an error to the architect and writes no `flow-model/caseplan.json`.
+The subagent returns `sdd.md` and `case-management-design.md`. It MUST NOT author `caseplan.json` directly. If `sdd.md` cannot be completed, it returns an error to the coordinator and writes no `flow-model/caseplan.json`.
 
-**Critical**: the sub-agent's report contains a handoff stub list. The architect MUST:
+**Critical**: the subagent's report contains a handoff stub list. The coordinator MUST:
 - Surface the list to the user for review (what they will eventually build for real).
 - Pass the stub I/O shapes to `agent-builder` and `frontend-builder` as the canonical interfaces. Agents consume stub outputs via tool wrappers with identical shapes; the frontend renders stub outputs as normal case entity fields.
 
 Exit step: append `DONE`/`SKIPPED`/`FAILED` to `manifest.md`, with design and `sdd.md` paths, user approval state, missing entity fields, and open issues.
 
-## Phase 3b — caseplan.json generation (architect, main thread)
+## Phase 3b — caseplan.json generation (coordinator, main thread)
 
-Architect invokes `uipath-case-management` skill via the Skill tool, passing `builds/<demo-slug>/flow-model/sdd.md` as input. Skill produces `tasks.md` (requires user approval), then `caseplan.json`.
+Coordinator invokes the `uipath-case-management` Codex skill, passing `builds/<demo-slug>/flow-model/sdd.md` as input. The skill produces `tasks.md` (requires user approval), then `caseplan.json`.
 
-Only the architect has the Skill tool needed for this delegation. Do not ask `case-designer` or any sub-agent to invoke `uipath-case-management`.
+Only the coordinator's main Codex context should perform this delegation. Do not ask `case-designer` or any subagent to invoke `uipath-case-management`.
 
 Exit step: append `DONE`/`SKIPPED`/`FAILED` to `manifest.md`, with `tasks.md` and `caseplan.json` paths, approval status, unresolved skeleton task markers, validation result, and open issues.
 
 ## Phase 4 — Case data model reconciliation
 
-Re-dispatch the **`data-modeler`** sub-agent in reconciliation mode. It compares the Phase 3 case design and stub contracts against `case-entity.schema.json`.
+Re-dispatch the **`data-modeler`** subagent in reconciliation mode. It compares the Phase 3 case design and stub contracts against `case-entity.schema.json`.
 
 Rules:
 - Every persisted output from a trigger, RPA/API/IDP stub, human task, or agent must map to an existing case entity field.
@@ -84,13 +84,13 @@ Before dispatching:
 - [ ] Confirm each has a 1:1 mapping to a planned project directory.
 
 Dispatch:
-- [ ] Send ONE assistant message containing N parallel `Agent` tool calls (one per `AG-*`). Sequential dispatch is a build error.
+- [ ] Use Codex subagent support to launch N parallel `agent-builder` subagents in one dispatch (one per `AG-*`). Sequential dispatch is a build error.
 - [ ] If you find yourself about to send a second turn before all `AG-*` are dispatched: STOP. Re-issue as a single parallel turn.
 
 After dispatch:
 - [ ] Each report read once. Mismatches between agent outputs and example records -> Phase 5.5 fixture consistency check.
 
-For each `AG-*` identified in the task matrix, dispatch an **`agent-builder`** sub-agent. The agents are independent by design. Each instance:
+For each `AG-*` identified in the task matrix, dispatch an **`agent-builder`** subagent. The agents are independent by design. Each instance:
 1. Writes a design brief (role, boundaries, prompt strategy, tool policy, escalation path, output contract) to `builds/<demo-slug>/agents/<AG-id>/agent-build-spec.md`. Template lives in `demo-builder-agents/templates/agent-build-spec.template.md`.
 2. Invokes `demo-builder-agents` to scaffold and build under `builds/<demo-slug>/agents/<AG-id>/`. The skill asks coded vs low-code and Studio Web vs Orchestrator deploy.
 
@@ -104,7 +104,7 @@ Rules:
 
 Exit step: append `DONE`/`SKIPPED`/`FAILED` to `manifest.md`, with one row per `AG-*`, project path, local run status, `uip codedagent eval` status or skipped reason, and open issues.
 
-## Phase 5.5 — Fixture consistency check (architect)
+## Phase 5.5 — Fixture consistency check (coordinator)
 
 For each example record in `case-entity/case-entity.example.json`:
 1. Compute the deterministic output of every `AG-*` against that record's inputs (read each agent's policy catalog or fixture map).
@@ -117,7 +117,7 @@ Exit step: append `DONE`/`SKIPPED`/`FAILED` to `manifest.md`, with fixture consi
 
 ## Phase 6 — Frontend
 
-Dispatch the **`frontend-builder`** sub-agent. It invokes `demo-builder-frontend` and produces a UiPath Coded Web App using Vite + React + TypeScript and the UiPath TypeScript SDK, with dashboard + case detail pages and an explicit UI data contract, under `builds/<demo-slug>/frontend/`.
+Dispatch the **`frontend-builder`** subagent. It invokes `demo-builder-frontend` and produces a UiPath Coded Web App using Vite + React + TypeScript and the UiPath TypeScript SDK, with dashboard + case detail pages and an explicit UI data contract, under `builds/<demo-slug>/frontend/`.
 
 Exit step: append `DONE`/`SKIPPED`/`FAILED` to `manifest.md`, with frontend path, route summary, `npm run build` status, visual verification status, and open issues.
 

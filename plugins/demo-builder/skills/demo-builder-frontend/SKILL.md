@@ -1,7 +1,6 @@
 ---
 name: demo-builder-frontend
 description: "Build a UiPath Coded Web App frontend for a UiPath demo using Vite + React + TypeScript and the UiPath TypeScript SDK. Defines multi-page app with full-width header, collapsible sidebar, dashboard worklist, case detail page, explicit UI-to-entity data contract, Coded Web App config, OAuth/env setup, local run, and production build. Typically invoked by demo-builder-planner after case entity and Case Management design are defined."
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
 # Demo Builder — Frontend

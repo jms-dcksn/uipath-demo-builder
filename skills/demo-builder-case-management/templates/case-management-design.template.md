@@ -108,7 +108,7 @@ flowchart LR
 
 ## 9) Handoff Summary (auto-generated from sections 2 + 5 + 6)
 
-List of items the user must eventually build for real. The `case-designer` sub-agent returns this list in its report.
+List of items the user must eventually build for real. The `case-designer` subagent returns this list in its report.
 
 - `CMP-TRG-01` — <one line>
 - `CMP-IDP-01` — <one line>

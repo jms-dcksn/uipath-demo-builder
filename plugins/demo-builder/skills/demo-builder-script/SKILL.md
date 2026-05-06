@@ -1,7 +1,6 @@
 ---
 name: demo-builder-script
 description: "Author the narrated demo script (run-of-show) for a UiPath demo. Produces 3-4 key messages each mapped to 2-3 visuals, with narrator line + operator action + visible outcome per beat, opening value statement, closing business impact, and contingency lines. Use when the demo implementation is complete and the user needs a script. Typically invoked last by demo-builder-planner."
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
 # Demo Builder — Demo Script

@@ -1,8 +1,6 @@
 ---
 name: demo-builder-planner
 description: "Plan and orchestrate Case-Management-first UiPath Agentic Orchestration demo builds from a use case, industry, and requirements. Runs preflight -> discovery -> segmentation -> case data model -> Case Management design -> caseplan generation -> agents -> fixture check -> UiPath Coded Web App frontend -> demo script -> manual completion checklist. Use when the user asks to build, design, or scope a UiPath demo, or provides only a customer/account name and wants demo options."
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion
-user-invocable: true
 ---
 
 # Demo Builder — Planner
@@ -25,15 +23,15 @@ Orchestrator skill for building UiPath Agentic Orchestration demos. Optimized fo
 
 **Ideal:** use case title + one-paragraph business goal, industry/domain, demo requirements/constraints, known systems/APIs/documents.
 
-**Minimum:** customer/account name. If that's all you have: research the account, draft ideal inputs above, present 2-3 use-case options via `AskUserQuestion`, and have the user pick one before continuing.
+**Minimum:** customer/account name. If that's all you have: research the account, draft ideal inputs above, present 2-3 use-case options with Codex's user-input prompt when available, and have the user pick one before continuing.
 
 ## Delivery workflow
 
 Follow these phases in order. Each phase references a sibling skill, a companion `uipath-*` skill, or a template in `references/`. Case Management is the only orchestration model for this skill set.
 
-Exit step for every phase: append to `manifest.md` the phase status (`DONE`/`SKIPPED`/`FAILED`), artifact paths produced, and any open issues. Use the Edit tool, never overwrite — multiple writers preserve order.
+Exit step for every phase: append to `manifest.md` the phase status (`DONE`/`SKIPPED`/`FAILED`), artifact paths produced, and any open issues. Append in place; never overwrite — multiple writers preserve order.
 
-### Phase 0 — Preflight (architect, < 30s)
+### Phase 0 — Preflight (coordinator, < 30s)
 
 Run and record on `manifest.md`:
 
@@ -53,13 +51,13 @@ Delegate to `demo-builder-discovery` for research, segmentation, and the task-to
 
 Dispatch `data-modeler` to define the initial Data Fabric case entity schema and example records.
 
-### Phase 3a — Case Management design (sub-agent)
+### Phase 3a — Case Management design (subagent)
 
-Dispatch `case-designer` to produce `flow-model/case-management-design.md` and `flow-model/sdd.md`. The sub-agent stops at `sdd.md` and must not write `caseplan.json`.
+Dispatch `case-designer` to produce `flow-model/case-management-design.md` and `flow-model/sdd.md`. The subagent stops at `sdd.md` and must not write `caseplan.json`.
 
-### Phase 3b — caseplan.json generation (architect, main thread)
+### Phase 3b — caseplan.json generation (coordinator, main thread)
 
-Invoke the installed `uipath-case-management` skill via the Skill tool, passing `builds/<demo-slug>/flow-model/sdd.md` as input. That skill produces `tasks.md` (requires user approval), then `caseplan.json`.
+Invoke the installed `uipath-case-management` Codex skill, passing `builds/<demo-slug>/flow-model/sdd.md` as input. That skill produces `tasks.md` (requires user approval), then `caseplan.json`.
 
 ### Phase 4 — Reconcile case data model
 
@@ -72,13 +70,13 @@ Before dispatching:
 - [ ] Confirm each has a 1:1 mapping to a planned project directory.
 
 Dispatch:
-- [ ] Send ONE assistant message containing N parallel `Agent` tool calls (one per `AG-*`). Sequential dispatch is a build error.
+- [ ] Use Codex subagent support to launch N parallel `agent-builder` subagents in one dispatch (one per `AG-*`). Sequential dispatch is a build error.
 - [ ] If you find yourself about to send a second turn before all `AG-*` are dispatched: STOP. Re-issue as a single parallel turn.
 
 After dispatch:
 - [ ] Each report read once. Mismatches between agent outputs and example records -> Phase 5.5 fixture consistency check.
 
-### Phase 5.5 — Fixture consistency check (architect)
+### Phase 5.5 — Fixture consistency check (coordinator)
 
 For each example record in `case-entity/case-entity.example.json`, compute the deterministic output of every `AG-*` against that record's inputs, compare against persisted agent-output fields, and patch the example record to match the agent unless the agent contract is wrong. Output a one-page report in `case-entity/fixture-consistency.md` before Phase 6.
 
@@ -113,7 +111,7 @@ See `references/delivery-workflow.md` for the full expanded procedure, completio
 
 ## Build directory convention
 
-All phase artifacts go in `builds/<demo-slug>/`. Sub-agents read from and write to this directory — never re-derive upstream artifacts. Canonical layout:
+All phase artifacts go in `builds/<demo-slug>/`. Subagents read from and write to this directory — never re-derive upstream artifacts. Canonical layout:
 
 ```
 builds/<demo-slug>/
@@ -128,26 +126,26 @@ builds/<demo-slug>/
 └── script/              # demo-script.md
 ```
 
-The architect (planner) establishes `<demo-slug>` before Phase 0 and passes the build directory path when dispatching any sub-agent.
+The coordinator (planner) establishes `<demo-slug>` before Phase 0 and passes the build directory path when dispatching any subagent.
 
-## Sub-agent dispatch
+## Subagent dispatch
 
-When delegating build phases, dispatch to the following sub-agents (defined in `agents/`) instead of invoking sibling skills inline. This isolates context and enables parallelism:
+When delegating build phases, dispatch to the following subagents (defined in `agents/`) instead of invoking sibling skills inline. This isolates context and enables parallelism:
 
-| Phase | Sub-agent | Notes |
+| Phase | Subagent | Notes |
 |---|---|---|
 | 2 — Case data model | `data-modeler` | Initial schema |
 | 3a — Case Management design | `case-designer` | Depends on Phase 2 output; returns `case-management-design.md` and `sdd.md` only |
-| 3b — caseplan.json generation | none | Architect invokes `uipath-case-management` via the Skill tool with `flow-model/sdd.md` |
+| 3b — caseplan.json generation | none | Coordinator invokes `uipath-case-management` as a Codex skill with `flow-model/sdd.md` |
 | 4 — Data model reconciliation | `data-modeler` | Re-run after Phase 3 if case/stub/agent outputs need schema changes |
-| 5 — Agents | `agent-builder` | **Spawn one instance per `AG-*` in a single assistant turn (multiple Agent tool calls in one message) for true parallel execution.** Sequential dispatch defeats the point — agents are independent. |
-| 5.5 — Fixture consistency | none | Architect compares agent deterministic outputs against `case-entity.example.json` and writes `case-entity/fixture-consistency.md` |
+| 5 — Agents | `agent-builder` | **Spawn one instance per `AG-*` in a single Codex subagent dispatch for true parallel execution.** Sequential dispatch defeats the point — agents are independent. |
+| 5.5 — Fixture consistency | none | Coordinator compares agent deterministic outputs against `case-entity.example.json` and writes `case-entity/fixture-consistency.md` |
 | 6 — Frontend | `frontend-builder` | Depends on Phases 2-5 outputs |
-| 6.5 — Frontend-schema reconcile | `data-modeler` if needed | Architect diffs frontend types/fixtures against schema, then re-dispatches only on schema gaps |
+| 6.5 — Frontend-schema reconcile | `data-modeler` if needed | Coordinator diffs frontend types/fixtures against schema, then re-dispatches only on schema gaps |
 
-Discovery, manual completion checklist, and demo script stay in the main architect thread — invoke `demo-builder-discovery` and `demo-builder-script` skills directly.
+Discovery, manual completion checklist, and demo script stay in the main coordinator thread — invoke `demo-builder-discovery` and `demo-builder-script` skills directly.
 
-Each sub-agent returns a short report; the architect reviews it against the build-directory artifacts before advancing phases.
+Each subagent returns a short report; the coordinator reviews it against the build-directory artifacts before advancing phases.
 
 ## Traceability IDs
 
@@ -175,18 +173,18 @@ Every `BR-*` must trace to a field and a flow step. Every `SEG-*` contains `T-*`
 
 ## Sibling skills (delegate to these)
 
-These sibling skills live in this plugin and can be used by the planner or sub-agents as local demo-builder guidance. Companion production skills such as `uipath-case-management` and `uipath-platform` come from the `uipath-marketplace` plugin and are invoked via the Skill tool by the architect in the main planner thread, not by sub-agents.
+These sibling skills live in this Codex plugin and can be used by the planner or subagents as local demo-builder guidance. Companion production skills such as `uipath-case-management` and `uipath-platform` come from the UiPath Codex plugin marketplace package and are invoked as Codex skills by the coordinator in the main coordinator thread, not by subagents.
 
 - `demo-builder-discovery` — discovery, segmentation, source register, task matrix templates
 - `demo-builder-data-fabric` — case entity schema and example JSON
 - `demo-builder-agents` — Python (coded) and low-code agent builds, deploy to Studio Web or Orchestrator
-- `demo-builder-case-management` — research→case flow mapping and `sdd.md` synthesis for architect-owned `uipath-case-management` delegation
+- `demo-builder-case-management` — research→case flow mapping and `sdd.md` synthesis for coordinator-owned `uipath-case-management` delegation
 - `demo-builder-frontend` — UiPath Coded Web App with Vite + React + UiPath TS SDK demo UI
 - `demo-builder-script` — demo script authoring (3-4 messages × 2-3 visuals)
 
 ## Success criteria
 
-- `sdd.md` handed to `uipath-case-management` by the architect with approved `tasks.md` and generated `caseplan.json`.
+- `sdd.md` handed to `uipath-case-management` by the coordinator with approved `tasks.md` and generated `caseplan.json`.
 - Manual completion checklist written at `builds/<demo-slug>/manual-completion-checklist.md`.
 - Build manifest written at `builds/<demo-slug>/manifest.md` and updated at every phase boundary before final handoff.
 - Specs written for any proprietary workflows the demo requires (API / RPA / IDP) — omit types the demo doesn't use.

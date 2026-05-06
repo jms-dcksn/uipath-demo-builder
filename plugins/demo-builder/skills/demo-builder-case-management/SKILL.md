@@ -1,12 +1,11 @@
 ---
 name: demo-builder-case-management
-description: "Design a demo-grade UiPath Case Management flow from research + task matrix: map segments to stages, tasks from the automation matrix to case tasks (with skeleton tasks + mock agents where integrations are unavailable), produce a Mermaid stage diagram for user review, then synthesize a minimal sdd.md for architect-owned delegation to `uipath-case-management`. Use when planner has chosen Case Management as the orchestration model. Typically invoked by demo-builder-planner."
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
+description: "Design a demo-grade UiPath Case Management flow from research + task matrix: map segments to stages, tasks from the automation matrix to case tasks (with skeleton tasks + mock agents where integrations are unavailable), produce a Mermaid stage diagram for user review, then synthesize a minimal sdd.md for coordinator-owned delegation to `uipath-case-management`. Use when planner has chosen Case Management as the orchestration model. Typically invoked by demo-builder-planner."
 ---
 
 # Demo Builder — Case Management
 
-Turn discovery output (segments + task matrix) into a **demo-grade** Case Management design and produce the `sdd.md` handoff for the architect. **This skill does not generate `caseplan.json` itself** — the architect invokes the production `uipath-case-management` skill from the planner thread.
+Turn discovery output (segments + task matrix) into a **demo-grade** Case Management design and produce the `sdd.md` handoff for the coordinator. **This skill does not generate `caseplan.json` itself** — the coordinator invokes the production `uipath-case-management` skill from the planner thread.
 
 ## When to use
 
@@ -40,14 +39,14 @@ Turn discovery output (segments + task matrix) into a **demo-grade** Case Manage
    - §7 Transitions (including the one exception-path edge)
    - §8 Mermaid diagram: agents solid, stubs dashed, trigger + events distinct
    - §9 Handoff summary — bullet list of every `CMP-*` the user must build for real later
-2. Present the **Mermaid stage diagram + the handoff summary + the stub I/O table** to the user via `AskUserQuestion` for review. Do NOT proceed until the user approves. The stub I/O is the contract the frontend and agents will code against — catching it wrong here is expensive.
+2. Present the **Mermaid stage diagram + the handoff summary + the stub I/O table** to the user for review, using Codex's user-input prompt when available. Do NOT proceed until the user approves. The stub I/O is the contract the frontend and agents will code against — catching it wrong here is expensive.
 3. After approval, copy `templates/sdd.template.md` to `builds/<demo-slug>/flow-model/sdd.md` and synthesize a **minimal `sdd.md`** for the installed `uipath-case-management` skill:
    - Trigger (from §2) — declared I/O; the Trigger node is auto-created by the production skill
    - Stages + edges (from §3, §7)
    - Tasks per stage with type + display name (from §4). For each stub task, include declared inputs/outputs from §5 so the production skill can wire them where resolvable; leave `task-type-id` and `connection-id` unresolved.
    - Any task-entry conditions for the exception path
-4. Return `sdd.md` to the architect. The architect (planner thread) owns delegation to `uipath-case-management`. Do not invoke that skill from inside this skill.
-5. **Record manual deploy assumptions** — include Case Management publish/deploy items and any unresolved skeleton tasks in the handoff summary so the architect can add them to `builds/<demo-slug>/manual-completion-checklist.md` after `caseplan.json` generation.
+4. Return `sdd.md` to the coordinator. The coordinator (planner thread) owns delegation to `uipath-case-management`. Do not invoke that skill from inside this skill.
+5. **Record manual deploy assumptions** — include Case Management publish/deploy items and any unresolved skeleton tasks in the handoff summary so the coordinator can add them to `builds/<demo-slug>/manual-completion-checklist.md` after `caseplan.json` generation.
 
 ## Demo rules
 
@@ -63,7 +62,7 @@ Turn discovery output (segments + task matrix) into a **demo-grade** Case Manage
 - Every non-agent / non-human task has a stub row with concrete I/O schema and hardcoded demo values for happy + exception.
 - Stub output fields that persist map to case entity fields.
 - Mermaid stage diagram + handoff summary reviewed and approved by the user.
-- `sdd.md` written and handed back to the architect for delegation.
+- `sdd.md` written and handed back to the coordinator for delegation.
 - Manual completion checklist inputs identified for skeleton-task and publish/deploy follow-up.
 
 ## Templates
@@ -77,5 +76,5 @@ Turn discovery output (segments + task matrix) into a **demo-grade** Case Manage
 
 ## See also
 
-- Installed `uipath-case-management` skill — owns `sdd.md` → `tasks.md` → `caseplan.json` generation, skeleton task semantics, registry discovery, validation. The architect invokes it from the planner thread; do not duplicate its 24 critical rules here.
+- Installed `uipath-case-management` skill — owns `sdd.md` → `tasks.md` → `caseplan.json` generation, skeleton task semantics, registry discovery, validation. The coordinator invokes it from the planner thread; do not duplicate its 24 critical rules here.
 - Installed `uipath-platform` skill — Studio Web solution publish.

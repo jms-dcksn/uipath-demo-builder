@@ -1,7 +1,6 @@
 ---
 name: demo-builder-agents
 description: "Build demo-grade UiPath AI agents for a demo (coded or low-code). Scaffolds each AG-* agent with the `uip` CLI (`uip codedagent new` / `uip agent init`), writes a design brief (role, boundaries, prompt, tools, escalation, output contract), defaults the coded path to `uipath-langchain` + `create_agent` + `ContextGroundingRetriever`, supports optional streamable HTTP MCP tools, and keeps interfaces identical between real and mock tools. Use when the demo needs one or more AI agents. Typically invoked by demo-builder-planner after orchestration and data model are defined."
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
 # Demo Builder — Agents
@@ -15,15 +14,15 @@ Build the AI agents that power the demo. **Demo-grade** — optimize for a consi
 
 ## CLI prerequisite
 
-```bash
-which uip > /dev/null 2>&1 && echo "uip found" || echo "uip NOT found — run: npm install -g @uipath/cli"
+```powershell
+if (Get-Command uip -ErrorAction SilentlyContinue) { "uip found" } else { "uip NOT found - run: npm install -g @uipath/cli" }
 ```
 
 If missing, install via `npm install -g @uipath/cli` (ask user to install Node.js first if `npm` is missing).
 
 ## Branching questions
 
-Ask the user up front via `AskUserQuestion`:
+Ask the user up front, using Codex's user-input prompt when available:
 
 1. **Agent mode** — *coded* (Python, `uipath-langchain` + `create_agent`, full control) or *low-code* (`agent.json` via Agent Builder, no Python).
    - Default for this skill: **coded**. Only switch to low-code if the user asks or if the demo story is "configure without writing code."

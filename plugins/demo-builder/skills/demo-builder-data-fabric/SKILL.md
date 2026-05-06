@@ -1,7 +1,6 @@
 ---
 name: demo-builder-data-fabric
 description: "Define and reconcile the case entity model for a UiPath Case Management demo in Data Fabric. Maps business requirements, case stages, stub outputs, agent outputs, and UI fields to entity fields; produces a UiPath Data Fabric entity-definition JSON; and generates realistic normal/urgent/exception records aligned to the schema. Typically invoked by demo-builder-planner before and after Case Management design."
-allowed-tools: Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion
 ---
 
 # Demo Builder — Data Fabric

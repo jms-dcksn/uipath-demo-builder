@@ -1,150 +1,78 @@
-# UiPath Demo Builder Skills
+# UiPath Demo Builder Planner
 
-Skills for building demo-grade UiPath Maestro Flow solutions from a use case, industry, and requirements. The plugin is optimized for presales demos: simple local-execution flows that feature agents, deterministic mock API workflows, connector activities, Flow tool nodes, and Flow control nodes, then upload the solution to Studio Web so developers can keep editing in the browser.
+`demo-builder-planner` is a Codex skill for planning demo-grade UiPath Maestro Flow builds. It turns a customer name, use case, or short brief into a build-ready demo plan with a happy path, an exception path, Flow architecture, agent guidance, API Workflow guidance, fixtures, and validation checks.
 
-## What's Included
-
-| Skill | Purpose |
-|---|---|
-| `demo-builder-planner` | Entry point for Flow-first demo builds. Drives discovery, Flow architecture, agent work, validation, Studio Web upload, checklist, and script. |
-| `demo-builder-discovery` | Research, reference-doc intake, process segmentation, and Flow-oriented task matrix. |
-| `demo-builder-api-workflows` | Builds project-backed deterministic passthrough API Workflow mocks with hardcoded payloads, matching output schemas, solution registration, and Studio Web upload verification. |
-| `demo-builder-flow` | Designs and builds Maestro Flow projects with agents, mock API workflow resources, connector activities, Flow tool nodes, and Flow control nodes. |
-| `demo-builder-agents` | Builds or documents UiPath AI agents used by the Flow, either coded or low-code. |
-| `demo-builder-script` | Creates the narrated run-of-show from the actual Flow and implemented artifacts. |
+The skill plans the demo. It does not build or upload UiPath artifacts by itself. The resulting plan is meant to be handed to Codex with the core UiPath skills installed.
 
 ## Install
 
-### Claude Code Plugin
+Choose one option.
 
-In Claude Code, add this repo as a marketplace and install the plugin:
+### Option 1: Ask Codex To Install It
 
-```text
-/plugin marketplace add https://github.com/jms-dcksn/uipath-demo-builder.git
-/plugin install demo-builder@uipath-demo-builder
-```
-
-To update:
+Open Codex and paste:
 
 ```text
-/plugin update demo-builder
+Install the Codex skill at https://github.com/jms-dcksn/uipath-demo-builder/tree/main/skills/demo-builder-planner
 ```
 
-### Codex Plugin Marketplace
+Restart Codex after the install finishes.
 
-This repo includes Codex marketplace metadata at `.agents/plugins/marketplace.json`. Add the repo as a Codex marketplace:
+### Option 2: Install From Terminal
+
+Run:
 
 ```bash
-codex plugin marketplace add https://github.com/jms-dcksn/uipath-demo-builder.git
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --repo jms-dcksn/uipath-demo-builder --path skills/demo-builder-planner
 ```
 
-For local testing from this checkout:
+Restart Codex after the install finishes.
 
-```bash
-codex plugin marketplace add .
-```
-
-When skills change upstream, refresh the Codex marketplace cache and restart Codex App or start a new Codex session:
-
-```bash
-codex plugin marketplace upgrade uipath-demo-builder
-```
+To update later, delete the old installed skill folder and run the same install option again.
 
 ## Companion Skills
 
-Install the UiPath skills from https://github.com/uipath/skills. This plugin relies on them for product-specific behavior:
+Install the core UiPath skills too. This planner depends on them for product-specific build guidance:
 
-- `uipath-maestro-flow` for `.flow` structure, registry discovery, node configuration, validation, and tidy.
-- `uipath-agents` for coded and low-code agent lifecycle.
-- `uipath-platform` for auth, Integration Service connections, Studio Web solution upload, and optional pack/publish/deploy when explicitly requested.
-- `uip api-workflow` from `@uipath/api-workflow-tool` for mock API Workflow local run and project build validation.
-- `uip solution project add` and `uip solution upload` for API Workflow solution registration and Studio Web confirmation.
-
-## CLI Prerequisites
-
-```bash
-npm install -g @uipath/cli   # if `which uip` comes back empty
-uip --version
-uip maestro flow --help
-uip api-workflow --help      # if mock API workflows are in scope
-```
-
-If `uip maestro flow` is missing, use `uip tools list`, `uip tools search`, and `uip tools install/update` to install or update the Maestro tool.
-If `uip api-workflow` is missing, use `uip tools search api` and `uip tools install @uipath/api-workflow-tool`.
+- `uipath-maestro-flow`
+- `uipath-agents`
+- `uipath-platform`
 
 ## How To Use
 
-Fastest path:
+Start a Codex conversation and describe the demo you want:
 
 ```text
-/demo-builder:demo-build Acme Bank customer onboarding flow
-/demo-builder:demo-build path/to/use-case-brief.md
-/demo-builder:demo-build
+Plan a UiPath Maestro Flow demo for commercial insurance claims triage.
 ```
 
-The command enters the planner and runs:
+Minimum input:
 
-`preflight -> discovery -> mock API planning -> Flow architecture -> agents -> project-backed API Workflow build -> Flow invocation binding -> Flow build -> validate/tidy -> Studio Web upload -> checklist -> demo script`
+- Customer or account name
+- Use case title
+- Short use-case brief
 
-You can also start a conversation in your project directory and describe the demo. The planner activates on requests like "build a UiPath demo", "design a Maestro Flow demo", or "scope a Flow with agents and connectors".
+Better input:
 
-## Minimum Input
+- Industry or domain
+- Known systems or connectors
+- Must-show UiPath capabilities
+- Demo duration
+- Happy path and one exception path
 
-- Customer/account name, use case title, or brief.
+The planner writes:
 
-If only a customer/account is provided, the planner researches and proposes 2-3 Flow demo options before building.
-
-## Ideal Input
-
-- Use case title and one-paragraph business goal.
-- Industry and domain.
-- Known systems, connectors, tool needs, documents, or agents.
-- Demo duration and must-show capabilities.
-- Happy path and one exception path.
-- Whether agents should be coded, low-code, inline in Flow, or existing tenant resources.
-
-## Example Prompt
-
-```text
-Build a Maestro Flow demo for Commercial Insurance Claims Triage.
-Business goal: reduce time to first decision while keeping exception handling visible.
-Requirements: use a coded claim triage agent, normalize the claim with Flow tool/control nodes, send an adjuster notification through a connector, and return a clear exception result for high-severity claims.
-Known systems: Outlook connection, claim intake payload.
-Constraints: demo-ready in one week, show happy path and one exception path.
-```
-
-## Demo Principles
-
-- Demo-grade, not production. Build the smallest coherent happy path plus one exception path.
-- Default to local-execution Flow nodes: deterministic mock API workflows, connectors, Flow tools, Flow control nodes, and agents as the primary featured component.
-- Always build mock API workflows as project-backed Studio Web `Api` projects when `API-*` is in scope. Use script placeholders in the Flow only as temporary invocation stand-ins until native inline binding is available.
-- Do not plan live external API calls, RPA, Human Task, Case Management, Data Fabric, or frontend builds unless the user explicitly asks to leave the local Flow scope.
-- Prefer working Flow nodes over handoff-only specs.
-- Use real connector connections when available; stop and document the prerequisite when a connection is missing.
-- Prefer connector activities for curated live Integration Service actions when a usable connection exists; otherwise document the connection prerequisite or choose a deterministic mock/API workflow path.
-- Discover published resources first, then in-solution siblings, then scaffold only when no suitable resource exists.
-- One agent project per `AG-*` role unless the user explicitly chooses an inline Flow agent.
-- Validate and tidy every edited Flow before handoff.
-- Upload the solution to Studio Web with `uip solution upload <SolutionDir> --output json` and share the returned Studio Web URL for browser editing.
-- Do not use `uip solution pack`, `publish`, or `deploy` unless the user explicitly asks for Orchestrator deployment.
+- `DEMO-BUILD-PLAN.md`
+- `demo-build-plan/01-demo-vision.md`
+- `demo-build-plan/02-flow-architecture.md`
+- `demo-build-plan/03-agent-and-human-review.md`
+- `demo-build-plan/04-api-workflows.md`
+- `demo-build-plan/05-fixtures-and-validation.md`
 
 ## Repository Layout
 
 ```text
-plugins/demo-builder/ # installable plugin wrapper for marketplace installs
-.agents/plugins/      # Codex marketplace manifest
-.claude-plugin/       # Claude Code plugin manifest and marketplace
-skills/               # canonical skills
-agents/               # Claude plugin sub-agents
-commands/             # Claude plugin slash commands
-builds/               # ignored generated demo builds
-docs/                 # ignored local notes except docs/PLAN.md
+skills/demo-builder-planner/       # Codex skill
+skills/demo-builder-planner/SKILL.md
+skills/demo-builder-planner/references/plan-quality-checklist.md
 ```
-
-The canonical files and `plugins/demo-builder/` wrapper must stay in sync.
-
-## Reference Docs
-
-- UiPath Flow skill: `uipath-maestro-flow`
-- UiPath Python SDK: https://uipath.github.io/uipath-python/
-- UiPath LangChain: https://uipath.github.io/uipath-python/langchain/quick_start/

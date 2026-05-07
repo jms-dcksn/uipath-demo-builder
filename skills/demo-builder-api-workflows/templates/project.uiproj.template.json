@@ -1,6 +1,0 @@
-{
-  "ProjectType": "Api",
-  "Name": "{{ApiProjectDisplayName}}",
-  "Description": "Deterministic mock API workflow for the {{DemoName}} demo.",
-  "MainFile": "Workflow.json"
-}

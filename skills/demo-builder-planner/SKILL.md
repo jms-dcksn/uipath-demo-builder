@@ -24,7 +24,6 @@ Ideal:
 - Use case title and one-paragraph business goal.
 - Industry/domain.
 - Known systems, connectors, tool needs, agents, documents, and tenant/folder constraints.
-- Demo duration.
 - Happy path and one exception path.
 
 Minimum:

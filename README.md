@@ -57,7 +57,6 @@ Better input:
 - Industry or domain
 - Known systems or connectors
 - Must-show UiPath capabilities
-- Demo duration
 - Happy path and one exception path
 
 The planner writes:

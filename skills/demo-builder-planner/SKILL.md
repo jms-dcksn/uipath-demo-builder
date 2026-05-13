@@ -1,14 +1,14 @@
 ---
 name: demo-builder-planner
-description: "Plan demo-grade UiPath Maestro Flow builds. Use when the user asks to design, scope, or propose a UiPath demo; provides a customer/account name for demo ideas; provides a use-case brief; or mentions Maestro Flow, AI agents, connector activities, Flow tool nodes, Flow control nodes, API Workflows, human review, or agentic orchestration. Produces planning artifacts only, not implementation."
+description: "Plan demo-grade UiPath Maestro Flow builds and produce a SPEC.md. Use when the user asks to design, scope, or propose a UiPath demo; provides a customer/account name for demo ideas; provides a use-case brief; or mentions Maestro Flow, AI agents, connector activities, Flow tool nodes, Flow control nodes, API Workflows, human review, or agentic orchestration. Produces planning artifacts only, not implementation."
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion, Agent
 ---
 
 # Demo Builder - Planner
 
-Entry point for demo-grade UiPath Maestro Flow builds. The planner produces a demo plan document that will be passed to a coding agent to build with the UiPath Skills.
+Entry point for demo-grade UiPath Maestro Flow builds. The planner produces a demo SPEC.md document that will be passed to a coding agent to build with the UiPath Skills.
 
-Only plan the demo build. Do not create Flow, agent, API Workflow, fixture, or solution artifacts.
+Only plan the demo build specification. Do not create Flow, agent, API Workflow, fixture, or solution artifacts.
 
 ## Not For
 
@@ -32,30 +32,23 @@ Minimum:
 
 ## Approach
 
-Default plan shape:
+Research the use-case with web searches to sharpen your understanding and knowledge of the industry, business domain and use-case characteristics. Think of the use-case in terms of what can be automated with digital workflows (API flows, AI Agents for cognitive tasks, - and orchestration to centrally coordinate all these components across a process function).
 
+Create a mental model of how you would automate the process. 
+
+Then think about how you would write a SPEC.md based on the UiPath CLI and Skills you have access to. 
+
+Lastly, interview the user to confirm your understanding with the user, and fill any gaps in your understanding. Ask about literally anything related to automating the use-case. Your goal is to craft a tight, clear, precise SPEC.md so another AI can use the UIPath CLI and Skills to build the demo.
+
+The scope of what will be built in the demo is as follows:
 - Local-execution Maestro Flow nodes.
 - AI agents as the featured reasoning component.
 - Project-backed API Workflows for system-of-record interactions - these would be wired as nodes in the Flow.
 - Connector activities, Flow tool nodes, Flow control nodes, and human review only where they support the demo story.
 
-Use public web research when the user provides only an account, industry, or lightly specified use case. If the user provides a complete use case, use research only to ground domain assumptions and avoid expanding the scope.
-
-Research:
-
-- The customer
-- The customer industry
-- The use-case specific to that industry
-
-After the workflow is understood, break it into segments that can be automated with APIs/integration, AI agents, conditional logic, routing, and human review. Use this breakdown to formulate the Maestro Flow demo plan.
-
-Include one happy path and one exception path unless the user explicitly asks for a narrower scope.
-
-Before finalizing the plan, apply `references/plan-quality-checklist.md`.
-
 ## Outputs
 
-- Write a concise root index at `DEMO-BUILD-PLAN.md`.
+- Write `SPEC.md`.
 - Put detailed sections in `demo-build-plan/` as separate Markdown files so the build agent can discover them incrementally.
 - The root index must include assumptions, file map, build order, and non-negotiable build constraints.
 - Split detail files logically, using this default structure unless the use case requires a better split:

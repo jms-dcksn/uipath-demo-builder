@@ -1,6 +1,6 @@
 # Plan Quality Checklist
 
-Use this checklist before finalizing `DEMO-BUILD-PLAN.md` and the `demo-build-plan/` detail files.
+Use this checklist before finalizing `SPEC.md` and the `demo-build-plan/` detail files.
 
 - The plan stays demo-grade and does not introduce production hardening unless required for the demo to run.
 - The root index includes assumptions, file map, build order, and non-negotiable constraints.

@@ -38,7 +38,19 @@ Create a mental model of how you would automate the process.
 
 Then think about how you would write a SPEC.md based on the UiPath CLI and Skills you have access to. 
 
-Lastly, interview the user to confirm your understanding with the user, and fill any gaps in your understanding. Ask about literally anything related to automating the use-case. Your goal is to craft a tight, clear, precise SPEC.md so another AI can use the UIPath CLI and Skills to build the demo.
+Before writing SPEC.md, always interview the user unless they explicitly say to skip the interview.
+
+  Ask targeted clarification questions even when the use case seems clear. Do not finalize SPEC.md until the user
+  answers or explicitly authorizes proceeding with assumptions.
+
+  The interview must confirm:
+  - demo scope and industry context
+  - input/output contract
+  - happy path and exception path
+  - systems or mock systems
+  - agent mode
+  - human review behavior
+  - validation and upload expectations
 
 The scope of what will be built in the demo is as follows:
 - Local-execution Maestro Flow nodes.

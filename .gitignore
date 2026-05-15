@@ -1,6 +1,5 @@
 /builds/*
 
 /docs/*
-!/docs/
-!/docs/planner-workflow.excalidraw
-!/docs/planner-workflow.svg
+!/docs/agents/
+!/docs/agents/**

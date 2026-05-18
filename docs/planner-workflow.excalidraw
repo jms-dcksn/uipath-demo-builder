@@ -479,13 +479,13 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "text": "Planner output stays Markdown-only. Core UiPath skills and Codex handle the actual Flow, agent, API Workflow, validation, and optional Studio Web upload work.",
+      "text": "Planner output stays Markdown-only. Core UiPath skills and Codex handle the actual Flow, agent, mock script payload, validation, and optional Studio Web upload work.",
       "fontSize": 17,
       "fontFamily": 1,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": null,
-      "originalText": "Planner output stays Markdown-only. Core UiPath skills and Codex handle the actual Flow, agent, API Workflow, validation, and optional Studio Web upload work.",
+      "originalText": "Planner output stays Markdown-only. Core UiPath skills and Codex handle the actual Flow, agent, mock script payload, validation, and optional Studio Web upload work.",
       "lineHeight": 1.25,
       "baseline": 39
     }

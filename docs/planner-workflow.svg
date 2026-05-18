@@ -61,6 +61,6 @@
   <g>
     <rect x="295" y="475" width="905" height="105" rx="14" fill="#fff9db" stroke="#495057" stroke-width="2" stroke-dasharray="8 6"/>
     <text x="747" y="514" fill="#343a40" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">Planner output stays Markdown-only.</text>
-    <text x="747" y="548" fill="#343a40" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17">Core UiPath skills and Codex handle Flow, agent, API Workflow, validation, and optional Studio Web upload work.</text>
+    <text x="747" y="548" fill="#343a40" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17">Core UiPath skills and Codex handle Flow, agent, mock script payload, validation, and optional Studio Web upload work.</text>
   </g>
 </svg>

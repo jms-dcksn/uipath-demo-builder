@@ -66,7 +66,7 @@ If human review is in scope and the task type is not specified, ask the user to 
 - Native Maestro Flow quick form review. Recommend this for simple approve/reject, missing-field capture, or lightweight data correction inside the Flow.
 - Coded action app review. Recommend this only when the review needs a richer UI, document preview, complex correction controls, or reusable Action Center experience.
 
-If coded action app review is selected, the spec must require it as a separate UiPath coded action app project that is built, published, and deployed to an Orchestrator folder before the Flow references it. Do not plan to add the coded action app as a project inside the same Studio Web solution as the Maestro Flow.
+If coded action app review is selected, the spec must require it as a separate UiPath coded action app project that is built, published, and deployed to an Orchestrator folder before the Flow references it. Do not plan to add the coded action app as a project inside the same Studio Web solution as the Maestro Flow. Additionally, ensure you detail the preferred styling in the plan - ask the user about this. Default styling to light themes and clean, professional, delightful user experiences.
 
 ## Demo Scope
 

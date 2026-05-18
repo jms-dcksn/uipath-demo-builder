@@ -1,14 +1,40 @@
 # UiPath Demo Builder Planner
 
-`demo-builder-planner` is a Codex skill for planning demo-grade UiPath Maestro Flow builds. It turns a customer name, use case, or short brief into a precise `SPEC.md`, a short spec-tightening prompt, and a structured Codex `/goal` prompt for long-running demo builds.
+`demo-builder-planner` is a skill for planning demo-grade UiPath Maestro Flow builds. It turns a customer name, use case, or short brief into a precise `SPEC.md`, a short spec-tightening prompt, and a structured `/goal` prompt for long-running demo builds.
 
-The skill plans the demo. It does not build or upload UiPath artifacts by itself. The resulting artifacts are meant to be handed to Codex with the core UiPath skills installed.
+The skill plans the demo. It does not build or upload UiPath artifacts by itself. The resulting artifacts are meant to be handed to a coding agent with the core UiPath skills installed.
 
-## Install
+## Install as a Claude Code Plugin
 
-Choose one option.
+### Option 1: Install from GitHub (recommended)
 
-### Option 1: Ask Codex To Install It
+```bash
+claude plugin install https://github.com/jms-dcksn/uipath-demo-builder
+```
+
+Restart Claude Code after the install finishes.
+
+### Option 2: Install manually
+
+Clone or download the repo, then copy the skill directory into Claude Code's skills folder:
+
+```bash
+cp -r skills/demo-builder-planner ~/.claude/skills/
+```
+
+Restart Claude Code after copying.
+
+### Option 3: Install from local clone
+
+From the root of this repo:
+
+```bash
+claude plugin install .
+```
+
+## Install as a Codex Skill
+
+### Option A: Ask Codex to install it
 
 Open Codex and paste:
 
@@ -18,9 +44,7 @@ Install the Codex skill at https://github.com/jms-dcksn/uipath-demo-builder/tree
 
 Restart Codex after the install finishes.
 
-### Option 2: Install From Terminal
-
-Run:
+### Option B: Install from terminal
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --repo jms-dcksn/uipath-demo-builder --path skills/demo-builder-planner
@@ -28,11 +52,11 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 
 Restart Codex after the install finishes.
 
-To update later, delete the old installed skill folder and run the same install option again.
+To update later, delete the old installed skill folder and re-run the same install option.
 
 ## Companion Skills
 
-Install the core UiPath skills too. This planner depends on them for product-specific build guidance:
+Install the core UiPath skills too. The planner depends on them for product-specific build guidance:
 
 - `uipath-maestro-flow`
 - `uipath-agents`
@@ -40,7 +64,7 @@ Install the core UiPath skills too. This planner depends on them for product-spe
 
 ## How To Use
 
-Start a Codex conversation and describe the demo you want:
+Start a conversation and describe the demo you want:
 
 ```text
 Plan a UiPath Maestro Flow demo for commercial insurance claims triage.
@@ -72,7 +96,7 @@ The planner writes:
 
 ![Demo Builder Planner workflow](docs/planner-workflow.svg)
 
-After the interview, the planner creates a first draft `SPEC.md`. Then ask Codex to tighten the spec by mentioning the files:
+After the interview, the planner creates a first draft `SPEC.md`. Then ask the agent to tighten the spec:
 
 ```text
 @SPEC.md
@@ -90,7 +114,8 @@ When the spec is ready, start the implementation handoff:
 ## Repository Layout
 
 ```text
-skills/demo-builder-planner/       # Codex skill
+package.json                                   # Claude Code plugin manifest
+skills/demo-builder-planner/                   # Skill definition
 skills/demo-builder-planner/SKILL.md
 skills/demo-builder-planner/references/spec-quality-checklist.md
 skills/demo-builder-planner/references/goal-prompt-template.md

@@ -1,0 +1,6 @@
+{
+  "name": "demo-builder-planner",
+  "description": "Plan demo-grade UiPath Maestro Flow builds — ideation, SPEC.md, spec-tightening prompt, and /goal prompt",
+  "version": "1.0.0",
+  "skills": "./skills"
+}

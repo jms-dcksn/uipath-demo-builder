@@ -1,35 +1,72 @@
 # UiPath Demo Builder Planner
 
-`demo-builder-planner` is a skill for planning demo-grade UiPath Maestro Flow builds. It turns a customer name, use case, or short brief into a precise `SPEC.md`, a short spec-tightening prompt, and a structured `/goal` prompt for long-running demo builds.
+`demo-builder-planner` is a Claude Code plugin for planning demo-grade UiPath Maestro Flow builds. It turns a customer name, use case, or short brief into a precise `SPEC.md`, a short spec-tightening prompt, and a structured `/goal` prompt for long-running demo builds.
 
 The skill plans the demo. It does not build or upload UiPath artifacts by itself. The resulting artifacts are meant to be handed to a coding agent with the core UiPath skills installed.
 
-## Install as a Claude Code Plugin
+## Install
 
-### Option 1: Install from GitHub (recommended)
+### Step 1 — Add the marketplace
 
-```bash
-claude plugin install https://github.com/jms-dcksn/uipath-demo-builder
+Run this inside Claude Code (or in a Claude Code terminal session):
+
+```
+/plugin marketplace add jms-dcksn/uipath-demo-builder
 ```
 
-Restart Claude Code after the install finishes.
-
-### Option 2: Install manually
-
-Clone or download the repo, then copy the skill directory into Claude Code's skills folder:
+Or from the CLI:
 
 ```bash
-cp -r skills/demo-builder-planner ~/.claude/skills/
+claude plugin marketplace add jms-dcksn/uipath-demo-builder
 ```
 
-Restart Claude Code after copying.
+### Step 2 — Install the plugin
 
-### Option 3: Install from local clone
+```
+/plugin install demo-builder-planner@uipath-demo-builder
+```
 
-From the root of this repo:
+Or from the CLI:
 
 ```bash
-claude plugin install .
+claude plugin install demo-builder-planner@uipath-demo-builder
+```
+
+### Step 3 — Use the skill
+
+```
+/demo-builder-planner:demo-builder-planner
+```
+
+Or just describe a demo in natural language — Claude Code will pick up the skill automatically when the context matches.
+
+### Update
+
+To get the latest version:
+
+```
+/plugin marketplace update uipath-demo-builder
+/plugin update demo-builder-planner@uipath-demo-builder
+```
+
+### Auto-install for your team
+
+Add to your project's `.claude/settings.json` to have teammates prompted to install automatically:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "uipath-demo-builder": {
+      "source": {
+        "source": "github",
+        "repo": "jms-dcksn/uipath-demo-builder"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "demo-builder-planner@uipath-demo-builder": true
+  }
+}
 ```
 
 ## Install as a Codex Skill
@@ -49,10 +86,6 @@ Restart Codex after the install finishes.
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --repo jms-dcksn/uipath-demo-builder --path skills/demo-builder-planner
 ```
-
-Restart Codex after the install finishes.
-
-To update later, delete the old installed skill folder and re-run the same install option.
 
 ## Companion Skills
 
@@ -114,9 +147,9 @@ When the spec is ready, start the implementation handoff:
 ## Repository Layout
 
 ```text
-package.json                                   # Claude Code plugin manifest
-skills/demo-builder-planner/                   # Skill definition
-skills/demo-builder-planner/SKILL.md
+.claude-plugin/marketplace.json                              # Marketplace catalog
+.claude-plugin/plugin.json                                   # Plugin manifest
+skills/demo-builder-planner/SKILL.md                         # Skill definition
 skills/demo-builder-planner/references/spec-quality-checklist.md
 skills/demo-builder-planner/references/goal-prompt-template.md
 docs/planner-workflow.excalidraw

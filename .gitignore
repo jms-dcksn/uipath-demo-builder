@@ -1,5 +1,6 @@
 /builds/*
 
 /docs/*
-
-/docs
+!/docs/
+!/docs/planner-workflow.excalidraw
+!/docs/planner-workflow.svg

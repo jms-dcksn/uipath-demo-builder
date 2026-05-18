@@ -68,6 +68,25 @@ The planner writes:
 - `CODEX-GOAL-PROMPT.md`
 - Optional supporting files under `demo-build-plan/` for larger demos
 
+## Workflow
+
+![Demo Builder Planner workflow](docs/planner-workflow.svg)
+
+After the interview, the planner creates a first draft `SPEC.md`. Then ask Codex to tighten the spec by mentioning the files:
+
+```text
+@SPEC.md
+@TIGHTEN-SPEC-PROMPT.md
+```
+
+When the spec is ready, start the implementation handoff:
+
+```text
+/goal
+@SPEC.md
+@CODEX-GOAL-PROMPT.md
+```
+
 ## Repository Layout
 
 ```text
@@ -75,4 +94,6 @@ skills/demo-builder-planner/       # Codex skill
 skills/demo-builder-planner/SKILL.md
 skills/demo-builder-planner/references/spec-quality-checklist.md
 skills/demo-builder-planner/references/goal-prompt-template.md
+docs/planner-workflow.excalidraw
+docs/planner-workflow.svg
 ```

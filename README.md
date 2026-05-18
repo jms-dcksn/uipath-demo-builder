@@ -76,7 +76,7 @@ Add to your project's `.claude/settings.json` to have teammates prompted to inst
 Open Codex and paste:
 
 ```text
-Install the Codex skill at https://github.com/jms-dcksn/uipath-demo-builder/tree/main/skills/demo-builder-planner
+Install the Codex skill at https://github.com/jms-dcksn/uipath-demo-builder/tree/main/plugins/demo-builder-planner/skills/demo-builder-planner
 ```
 
 Restart Codex after the install finishes.
@@ -84,7 +84,7 @@ Restart Codex after the install finishes.
 ### Option B: Install from terminal
 
 ```bash
-python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --repo jms-dcksn/uipath-demo-builder --path skills/demo-builder-planner
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --repo jms-dcksn/uipath-demo-builder --path plugins/demo-builder-planner/skills/demo-builder-planner
 ```
 
 ## Companion Skills
@@ -147,11 +147,10 @@ When the spec is ready, start the implementation handoff:
 ## Repository Layout
 
 ```text
-.claude-plugin/marketplace.json                              # Marketplace catalog
-.claude-plugin/plugin.json                                   # Plugin manifest
-skills/demo-builder-planner/SKILL.md                         # Skill definition
-skills/demo-builder-planner/references/spec-quality-checklist.md
-skills/demo-builder-planner/references/goal-prompt-template.md
+.claude-plugin/marketplace.json                                          # Marketplace catalog
+plugins/demo-builder-planner/.claude-plugin/plugin.json                  # Plugin manifest
+plugins/demo-builder-planner/skills/demo-builder-planner/SKILL.md        # Skill definition
+plugins/demo-builder-planner/skills/demo-builder-planner/references/
 docs/planner-workflow.excalidraw
 docs/planner-workflow.svg
 ```

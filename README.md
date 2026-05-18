@@ -1,8 +1,8 @@
 # UiPath Demo Builder Planner
 
-`demo-builder-planner` is a Codex skill for planning demo-grade UiPath Maestro Flow builds. It turns a customer name, use case, or short brief into a build-ready demo plan with a happy path, an exception path, Flow architecture, agent guidance, API Workflow guidance, fixtures, and validation checks.
+`demo-builder-planner` is a Codex skill for planning demo-grade UiPath Maestro Flow builds. It turns a customer name, use case, or short brief into a precise `SPEC.md`, a short spec-tightening prompt, and a structured Codex `/goal` prompt for long-running demo builds.
 
-The skill plans the demo. It does not build or upload UiPath artifacts by itself. The resulting plan is meant to be handed to Codex with the core UiPath skills installed.
+The skill plans the demo. It does not build or upload UiPath artifacts by itself. The resulting artifacts are meant to be handed to Codex with the core UiPath skills installed.
 
 ## Install
 
@@ -58,20 +58,21 @@ Better input:
 - Known systems or connectors
 - Must-show UiPath capabilities
 - Happy path and one exception path
+- Preferred agent mode, if known
+- Studio Web upload expectation, if known
 
 The planner writes:
 
-- `DEMO-BUILD-PLAN.md`
-- `demo-build-plan/01-demo-vision.md`
-- `demo-build-plan/02-flow-architecture.md`
-- `demo-build-plan/03-agent-and-human-review.md`
-- `demo-build-plan/04-api-workflows.md`
-- `demo-build-plan/05-fixtures-and-validation.md`
+- `SPEC.md`
+- `TIGHTEN-SPEC-PROMPT.md`
+- `CODEX-GOAL-PROMPT.md`
+- Optional supporting files under `demo-build-plan/` for larger demos
 
 ## Repository Layout
 
 ```text
 skills/demo-builder-planner/       # Codex skill
 skills/demo-builder-planner/SKILL.md
-skills/demo-builder-planner/references/plan-quality-checklist.md
+skills/demo-builder-planner/references/spec-quality-checklist.md
+skills/demo-builder-planner/references/goal-prompt-template.md
 ```
